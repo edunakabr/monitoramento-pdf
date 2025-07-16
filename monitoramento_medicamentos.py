@@ -133,15 +133,19 @@ class PDFMonitor:
                 "O PDF foi atualizado.\n\n"
                 f"Medicamentos em falta: {', '.join(encontradas)}"
             )
+            # Texto resumido para o subject
+            info_subject = f"Medicamentos em falta: {', '.join(encontradas)}"
         else:
             corpo = (
                 f"Execução realizada em: {data_hora_formatada}\n\n"
                 "O PDF foi atualizado.\n\n"
                 f"Todos os medicamentos estão disponíveis: {', '.join(PALAVRAS_CHAVE)}"
             )
+            # Texto resumido para o subject
+            info_subject = f"Todos os medicamentos estão disponíveis: {', '.join(PALAVRAS_CHAVE)}"
         
         msg = MIMEText(corpo, "plain", "utf-8")
-        msg["Subject"] = f"🚨 Atualização PDF de Medicamentos - {data_hora_subject}"
+        msg["Subject"] = f"🚨 Atualização PDF de Medicamentos - {data_hora_subject} ({info_subject})"
         msg["From"] = remetente
         msg["To"] = destinatario
     
