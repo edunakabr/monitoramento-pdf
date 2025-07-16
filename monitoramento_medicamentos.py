@@ -104,7 +104,7 @@ class PDFMonitor:
 
     def verificar_palavras_chave(self, texto):
         encontradas = [p for p in PALAVRAS_CHAVE if p.lower() in texto.lower()]
-        logging.info(f"Palavras encontradas: {encontradas}")
+        logging.info(f"Medicamentos em falta atualmente: {encontradas}")
         return encontradas
 
     def enviar_email(self, encontradas):
