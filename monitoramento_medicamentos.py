@@ -115,18 +115,13 @@ class PDFMonitor:
         if encontradas:
             corpo = (
                 "O PDF foi atualizado.\n\n"
-                f"Medicamentos indisponíveis: {', '.join(encontradas)}"
+                f"Medicamentos em falta: {', '.join(encontradas)}"
             )
         else:
             corpo = (
                 "O PDF foi atualizado.\n\n"
-                f"Todos os medicamentos estão disponíveis:" {', '.join(PALAVRAS_CHAVE)}"
+                f"Todos os medicamentos estão disponíveis: {', '.join(PALAVRAS_CHAVE)}"
             )
-
-        corpo = (
-            "O PDF foi atualizado.\n\n"
-            f"Todos os medicamentos estão disponíveis:" {', '.join(PALAVRAS_CHAVE)}"
-        )
         
         msg = MIMEText(corpo, "plain", "utf-8")
         msg["Subject"] = "🚨 Atualização PDF de Medicamentos"
