@@ -29,14 +29,12 @@ jobs:
           if git fetch origin estado:estado 2>/dev/null; then
             echo "Branch 'estado' encontrado, restaurando arquivos..."
             # Verifica se os arquivos existem no branch estado
-            if git ls-tree estado -- estado_monitor.json >/dev/null 2>&1; then
-              git show estado:estado_monitor.json > dados_monitoramento/estado_monitor.json
+            if git show estado:estado_monitor.json > dados_monitoramento/estado_monitor.json 2>/dev/null; then
               echo "Estado anterior restaurado"
             else
               echo "Arquivo estado_monitor.json não encontrado no branch estado"
             fi
-            if git ls-tree estado -- log_monitor.log >/dev/null 2>&1; then
-              git show estado:log_monitor.log > dados_monitoramento/log_monitor.log
+            if git show estado:log_monitor.log > dados_monitoramento/log_monitor.log 2>/dev/null; then
               echo "Log anterior restaurado"
             else
               echo "Arquivo log_monitor.log não encontrado no branch estado"
