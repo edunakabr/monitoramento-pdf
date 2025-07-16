@@ -54,4 +54,5 @@ jobs:
           git checkout -B estado
           git add dados_monitoramento/estado_monitor.json dados_monitoramento/log_monitor.log
           git commit -m "Atualiza estado e log [skip ci]" || echo "Nada novo para comitar"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git push origin estado --force
