@@ -121,20 +121,27 @@ class PDFMonitor:
         remetente = os.environ["EMAIL_USUARIO"]
         senha = os.environ["EMAIL_SENHA"]
         destinatario = "edunaka@live.com"
+        
+        # Obter data e hora atual
+        agora = datetime.now()
+        data_hora_formatada = agora.strftime("%d/%m/%Y às %H:%M:%S")
+        data_hora_subject = agora.strftime("%d/%m/%Y %H:%M")
     
         if encontradas:
             corpo = (
+                f"Execução realizada em: {data_hora_formatada}\n\n"
                 "O PDF foi atualizado.\n\n"
                 f"Medicamentos em falta: {', '.join(encontradas)}"
             )
         else:
             corpo = (
+                f"Execução realizada em: {data_hora_formatada}\n\n"
                 "O PDF foi atualizado.\n\n"
                 f"Todos os medicamentos estão disponíveis: {', '.join(PALAVRAS_CHAVE)}"
             )
         
         msg = MIMEText(corpo, "plain", "utf-8")
-        msg["Subject"] = "🚨 Atualização PDF de Medicamentos"
+        msg["Subject"] = f"🚨 Atualização PDF de Medicamentos - {data_hora_subject}"
         msg["From"] = remetente
         msg["To"] = destinatario
     
@@ -148,7 +155,7 @@ class PDFMonitor:
             server.login(remetente, senha)
             server.sendmail(remetente, [destinatario], msg.as_string())
             server.quit()
-            logging.info("E-mail enviado com prioridade alta")
+            logging.info(f"E-mail enviado com prioridade alta em {data_hora_formatada}")
         except Exception as e:
             logging.error(f"Erro ao enviar e-mail: {str(e)}")
 
