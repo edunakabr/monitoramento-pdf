@@ -51,10 +51,14 @@ class PDFMonitor:
     def carregar_estado(self):
         if os.path.exists(self.arquivo_estado):
             if os.path.getsize(self.arquivo_estado) == 0:
-                logging.warning("Arquivo estado_monitor.json vazio, criando estado inicial.")
+                logging.warning("Arquivo estado_monitor.json está vazio. Criando estado inicial.")
                 return self.estado_inicial()
-            with open(self.arquivo_estado, 'r', encoding='utf-8') as f:
-                return json.load(f)
+            try:
+                with open(self.arquivo_estado, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as e:
+                logging.error(f"Erro ao carregar estado: {e}. Criando estado inicial.")
+                return self.estado_inicial()
         else:
             return self.estado_inicial()
     
