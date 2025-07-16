@@ -14,13 +14,15 @@ jobs:
       EMAIL_SENHA: ${{ secrets.EMAIL_SENHA }}
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Clonar repositório
+        uses: actions/checkout@v4
 
-      - name: Baixar artifacts anteriores (estado)
+      - name: Baixar estado anterior (se existir)
         uses: actions/download-artifact@v4
         with:
           name: dados-monitoramento
-        continue-on-error: true
+          path: dados_monitoramento
+        continue-on-error: true  # Isso impede falha se for a primeira execução
 
       - name: Configurar Python
         uses: actions/setup-python@v5
@@ -31,13 +33,12 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Executar script
+      - name: Executar monitoramento
         run: |
           python monitoramento_medicamentos.py
 
-      - name: Salvar estado e log
+      - name: Salvar estado e log atual
         uses: actions/upload-artifact@v4
         with:
           name: dados-monitoramento
-          path: |
-            dados_monitoramento/**
+          path: dados_monitoramento
