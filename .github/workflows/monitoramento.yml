@@ -14,15 +14,17 @@ jobs:
       EMAIL_SENHA: ${{ secrets.EMAIL_SENHA }}
 
     steps:
-      - name: Clonar repositório
+      - name: Clonar repositório principal
         uses: actions/checkout@v4
-
-      - name: Baixar estado anterior (se existir)
-        uses: actions/download-artifact@v4
         with:
-          name: dados-monitoramento
-          path: dados_monitoramento
-        continue-on-error: true  # Isso impede falha se for a primeira execução
+          fetch-depth: 0  # Importante para acessar outros branches
+
+      - name: Clonar branch estado (se existir)
+        run: |
+          git fetch origin estado:estado || echo "Branch 'estado' ainda não existe"
+          mkdir -p dados_monitoramento
+          git show estado:estado_monitor.json > dados_monitoramento/estado_monitor.json || echo "Sem estado anterior"
+          git show estado:log_monitor.log > dados_monitoramento/log_monitor.log || echo "Sem log anterior"
 
       - name: Configurar Python
         uses: actions/setup-python@v5
@@ -33,12 +35,15 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Executar monitoramento
+      - name: Executar script
         run: |
           python monitoramento_medicamentos.py
 
-      - name: Salvar estado e log atual
-        uses: actions/upload-artifact@v4
-        with:
-          name: dados-monitoramento
-          path: dados_monitoramento
+      - name: Comitar novo estado no branch 'estado'
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git checkout -B estado
+          git add dados_monitoramento/estado_monitor.json dados_monitoramento/log_monitor.log
+          git commit -m "Atualiza estado e log [skip ci]" || echo "Nada novo para comitar"
+          git push origin estado --force
