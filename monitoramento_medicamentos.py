@@ -50,18 +50,24 @@ class PDFMonitor:
 
     def carregar_estado(self):
         if os.path.exists(self.arquivo_estado):
+            if os.path.getsize(self.arquivo_estado) == 0:
+                logging.warning("Arquivo estado_monitor.json vazio, criando estado inicial.")
+                return self.estado_inicial()
             with open(self.arquivo_estado, 'r', encoding='utf-8') as f:
                 return json.load(f)
         else:
-            estado_inicial = {
-                "texto_ultimo": "",
-                "hash_ultimo": "",
-                "data_ultimo": "",
-                "execucoes": 0,
-                "mudancas": 0
-            }
-            self.salvar_estado(estado_inicial)
-            return estado_inicial
+            return self.estado_inicial()
+    
+    def estado_inicial(self):
+        estado = {
+            "texto_ultimo": "",
+            "hash_ultimo": "",
+            "data_ultimo": "",
+            "execucoes": 0,
+            "mudancas": 0
+        }
+        self.salvar_estado(estado)
+        return estado
 
     def salvar_estado(self, estado):
         estado['data_atualizacao'] = datetime.now().isoformat()
