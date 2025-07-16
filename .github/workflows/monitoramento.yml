@@ -23,8 +23,16 @@ jobs:
         run: |
           git fetch origin estado:estado || echo "Branch 'estado' ainda não existe"
           mkdir -p dados_monitoramento
-          git show estado:estado_monitor.json > dados_monitoramento/estado_monitor.json || echo "Sem estado anterior"
-          git show estado:log_monitor.log > dados_monitoramento/log_monitor.log || echo "Sem log anterior"
+          if git cat-file -e estado:estado_monitor.json; then
+            git show estado:estado_monitor.json > dados_monitoramento/estado_monitor.json
+          else
+            echo "Sem estado anterior"
+          fi
+          if git cat-file -e estado:log_monitor.log; then
+            git show estado:log_monitor.log > dados_monitoramento/log_monitor.log
+          else
+            echo "Sem log anterior"
+          fi
 
       - name: Configurar Python
         uses: actions/setup-python@v5
