@@ -23,7 +23,7 @@ PASTA_DADOS = 'dados_monitoramento'
 ARQUIVO_ESTADO = 'estado_monitor.json'
 ARQUIVO_LOG = 'log_monitor.log'
 ARQUIVO_TEMP = 'temp.pdf'
-PALAVRAS_CHAVE = ["donepezil", "memantina", "galantamina"]
+PALAVRAS_CHAVE = ["Donepezil", "Memantina", "Galantamina"]
 
 class PDFMonitor:
     def __init__(self, file_id):
@@ -111,23 +111,39 @@ class PDFMonitor:
         remetente = os.environ["EMAIL_USUARIO"]
         senha = os.environ["EMAIL_SENHA"]
         destinatario = "edunaka@live.com"
+    
+        if encontradas:
+            corpo = (
+                "O PDF foi atualizado.\n\n"
+                f"Medicamentos indisponíveis: {', '.join(encontradas)}"
+            )
+        else:
+            corpo = (
+                "O PDF foi atualizado.\n\n"
+                f"Todos os medicamentos estão disponíveis:" {', '.join(PALAVRAS_CHAVE)}"
+            )
 
         corpo = (
             "O PDF foi atualizado.\n\n"
-            f"Palavras encontradas: {', '.join(encontradas) if encontradas else 'Nenhuma'}"
+            f"Todos os medicamentos estão disponíveis:" {', '.join(PALAVRAS_CHAVE)}"
         )
+        
         msg = MIMEText(corpo, "plain", "utf-8")
-        msg["Subject"] = "Atualização PDF de Medicamentos"
+        msg["Subject"] = "🚨 Atualização PDF de Medicamentos"
         msg["From"] = remetente
         msg["To"] = destinatario
-
+    
+        # Aqui adiciona prioridade alta
+        msg["X-Priority"] = "1"
+        msg["Importance"] = "High"
+    
         try:
             server = smtplib.SMTP("smtp.gmail.com", 587)
             server.starttls()
             server.login(remetente, senha)
             server.sendmail(remetente, [destinatario], msg.as_string())
             server.quit()
-            logging.info("E-mail enviado")
+            logging.info("E-mail enviado com prioridade alta")
         except Exception as e:
             logging.error(f"Erro ao enviar e-mail: {str(e)}")
 
