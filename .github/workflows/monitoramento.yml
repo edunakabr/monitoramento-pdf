@@ -2,12 +2,14 @@ name: Monitoramento PDF
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Corrigido: faltava os dois últimos asteriscos
-  workflow_dispatch:
+    - cron: '0 * * * *'  # A cada hora
+  workflow_dispatch:  # Permite execução manual
 
+# CRÍTICO: Essas permissões são essenciais
 permissions:
-  contents: write  # Esta linha é essencial para permitir push
+  contents: write
   actions: read
+  metadata: read
 
 jobs:
   executar:
@@ -15,52 +17,112 @@ jobs:
     env:
       EMAIL_USUARIO: ${{ secrets.EMAIL_USUARIO }}
       EMAIL_SENHA: ${{ secrets.EMAIL_SENHA }}
+    
     steps:
-      - name: Clonar repositório principal
+      - name: Checkout repositório
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}  # Adicionado para garantir acesso
-          fetch-depth: 0  # Importante para acessar outros branches
-      
-      - name: Clonar branch estado (se existir)
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Configurar Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Preparar diretório de dados
         run: |
           mkdir -p dados_monitoramento
-          # Tenta fazer fetch do branch estado
-          if git fetch origin estado:estado 2>/dev/null; then
-            echo "Branch 'estado' encontrado, restaurando arquivos..."
-            # Verifica se os arquivos existem no branch estado
-            if git show estado:estado_monitor.json > dados_monitoramento/estado_monitor.json 2>/dev/null; then
-              echo "Estado anterior restaurado"
+          
+      - name: Restaurar estado anterior (se existir)
+        run: |
+          echo "Verificando se branch 'estado' existe..."
+          if git ls-remote --exit-code --heads origin estado >/dev/null 2>&1; then
+            echo "Branch 'estado' encontrado, fazendo checkout..."
+            git fetch origin estado
+            git checkout -b estado origin/estado
+            
+            # Copia arquivos para o diretório de trabalho
+            if [ -f "estado_monitor.json" ]; then
+              cp estado_monitor.json dados_monitoramento/
+              echo "✅ Estado anterior restaurado"
             else
-              echo "Arquivo estado_monitor.json não encontrado no branch estado"
+              echo "ℹ️  Arquivo estado_monitor.json não encontrado"
             fi
-            if git show estado:log_monitor.log > dados_monitoramento/log_monitor.log 2>/dev/null; then
-              echo "Log anterior restaurado"
+            
+            if [ -f "log_monitor.log" ]; then
+              cp log_monitor.log dados_monitoramento/
+              echo "✅ Log anterior restaurado"
             else
-              echo "Arquivo log_monitor.log não encontrado no branch estado"
+              echo "ℹ️  Arquivo log_monitor.log não encontrado"
             fi
+            
+            # Volta para o branch principal
+            git checkout main
           else
-            echo "Branch 'estado' ainda não existe - primeira execução"
+            echo "ℹ️  Branch 'estado' não existe ainda - primeira execução"
           fi
-      
+
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      
+
       - name: Instalar dependências
         run: |
           pip install -r requirements.txt
-      
-      - name: Executar script
+
+      - name: Executar script de monitoramento
         run: |
           python monitoramento_medicamentos.py
-      
-      - name: Comitar novo estado no branch 'estado'
+
+      - name: Verificar se há mudanças
+        id: check_changes
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -B estado
-          git add dados_monitoramento/estado_monitor.json dados_monitoramento/log_monitor.log
-          git commit -m "Atualiza estado e log [skip ci]" || echo "Nada novo para comitar"
-          git push origin estado --force
+          if [ -f "dados_monitoramento/estado_monitor.json" ] || [ -f "dados_monitoramento/log_monitor.log" ]; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "✅ Arquivos de estado encontrados"
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "⚠️  Nenhum arquivo de estado foi gerado"
+          fi
+
+      - name: Salvar estado no branch 'estado'
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          # Cria um branch órfão (sem histórico/arquivos do main)
+          git checkout --orphan estado-temp
+          
+          # Remove TODOS os arquivos do working directory
+          git rm -rf . 2>/dev/null || true
+          rm -rf * .github 2>/dev/null || true
+          
+          # Copia APENAS os arquivos de dados
+          if [ -f "dados_monitoramento/estado_monitor.json" ]; then
+            cp dados_monitoramento/estado_monitor.json estado_monitor.json
+            git add estado_monitor.json
+          fi
+          
+          if [ -f "dados_monitoramento/log_monitor.log" ]; then
+            cp dados_monitoramento/log_monitor.log log_monitor.log
+            git add log_monitor.log
+          fi
+          
+          # Commit apenas se houver mudanças
+          if ! git diff --staged --quiet; then
+            git commit -m "Atualiza estado e log [skip ci] - $(date)"
+            # Substitui o branch estado existente
+            git branch -D estado 2>/dev/null || true
+            git branch -m estado-temp estado
+            git push origin estado --force
+            echo "✅ Estado salvo no branch 'estado' (apenas dados)"
+          else
+            echo "ℹ️  Nenhuma mudança para commitar"
+            git checkout main
+            git branch -D estado-temp 2>/dev/null || true
+          fi
+
+      - name: Voltar para branch principal
+        if: always()
+        run: |
+          git checkout main || true
