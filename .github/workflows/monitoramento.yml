@@ -78,12 +78,12 @@ jobs:
 
       - name: 📥 Restore previous state
         uses: actions/cache@v3
-        id: cache-state
+        id: cache-restore
         with:
           path: dados_monitoramento/
-          key: ${{ runner.os }}-state-v1 # Use a static key for state persistence
+          key: ${{ runner.os }}-state-v3 # Changed key to invalidate previous cache
           restore-keys: |
-            ${{ runner.os }}-state-v1
+            ${{ runner.os }}-state-v3
 
       - name: 🐍 Setup Python
         uses: actions/setup-python@v4
@@ -256,9 +256,9 @@ jobs:
         if: always()
         with:
           path: dados_monitoramento/
-          key: ${{ runner.os }}-state-v1 # Use a static key for state persistence
+          key: ${{ runner.os }}-state-v3 # Updated key for better persistence
           restore-keys: |
-            ${{ runner.os }}-state-v1
+            ${{ runner.os }}-state-v3
 
       - name: 📧 Send notification on failure
         if: failure() || steps.execute_script.outputs.script_failed == 'true'
@@ -360,4 +360,3 @@ jobs:
               print('Could not read final stats\n')
           "
           fi
-
