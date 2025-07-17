@@ -48,26 +48,6 @@ SCHEDULE_CONFIG = {
     'dias_semana': [0, 1, 2, 3, 4],
 }
 
-SCHEDULE_CONFIG = {
-    # Modo de execução: 'periodico', 'horarios_especificos' ou 'ambos'
-    'modo': 'horarios_especificos',
-
-    # Configurações para modo periódico
-    'periodicidade_minutos': 60,  # A cada hora
-    'horario_inicio': '05:00',
-    'horario_fim': '14:00',
-
-    # Configurações para horários específicos
-    'horarios_especificos': [
-        '23:00',  # Execução extra no final da noite
-    ],
-    
-    # Configurações gerais
-    'executar_fins_semana': False,
-    'dias_semana': [0, 1, 2, 3, 4],
-}
-
-
 class PDFMonitor:
     def __init__(self, file_id):
         self.file_id = file_id
