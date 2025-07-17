@@ -305,20 +305,17 @@ jobs:
           # Stash current changes
           git stash -u || echo "Nothing to stash"
           
-          # Handle state branch
-          if [ "${{ steps.check_state.outputs.state_exists }}" = "true" ]; then
-            echo "Updating existing state branch..."
-            git fetch origin estado
-            git checkout -b estado origin/estado
-          else
-            echo "Creating new state branch..."
-            git checkout --orphan estado
-            git rm -rf . 2>/dev/null || true
-          fi
+          # Fetch and checkout 'estado' branch
+          git fetch origin estado || true # Fetch 'estado' branch, ignore error if it doesn't exist yet
+          git checkout estado || git checkout -b estado # Checkout 'estado' branch, create if it doesn't exist
           
-          # Copy state files
+          # Remove all files from the 'estado' branch to ensure a clean state for new files
+          # This is crucial to avoid copying the entire main branch content
+          git rm -rf . || true # Use || true to ignore errors if no files are present
+          
+          # Copy state files from dados_monitoramento/ to the current directory (which is now 'estado' branch's root)
           if [ -f "dados_monitoramento/estado_monitor.json" ]; then
-            cp dados_monitoramento/estado_monitor.json estado_monitor.json
+            cp dados_monitoramento/estado_monitor.json .
             git add estado_monitor.json
             echo "✅ State file added"
           fi
@@ -337,12 +334,9 @@ jobs:
             echo "✅ Execution report added"
           fi
           
-          # Commit and push
+          # Commit and push - always create a commit to force update
           commit_message="🔄 Update state - $(date '+%Y-%m-%d %H:%M:%S') [skip ci]"
-          git commit -m "$commit_message" || {
-            echo "No changes to commit"
-            exit 0
-          }
+          git commit --allow-empty -m "$commit_message"
           
           git push origin estado --force
           echo "✅ State saved successfully"
@@ -420,7 +414,7 @@ jobs:
           rm -f send_failure_notification.py
           
           # Return to main branch
-          git checkout main 2>/dev/null || git checkout master 2>/dev/null || echo "Could not return to main branch"
+          git checkout main 2>/dev/null || git checkout master 2>/dev_null || echo "Could not return to main branch"
           
           echo "✅ Cleanup completed"
 
