@@ -122,7 +122,7 @@ class PDFMonitor:
 
     def carregar_estado(self) -> Dict:
         """Carrega o estado anterior ou cria um novo"""
-        if os.path.exists(self.arquivo_estado):
+        if os.path.exists(self.arquivo_estado) and os.path.getsize(self.arquivo_estado) > 0:
             try:
                 with open(self.arquivo_estado, 'r', encoding='utf-8') as f:
                     content = f.read().strip()
@@ -134,7 +134,7 @@ class PDFMonitor:
                 logging.error(f"Erro ao carregar estado: {e}. Criando estado inicial.")
                 return self.estado_inicial()
         else:
-            logging.info("Primeiro uso. Criando estado inicial.")
+            logging.info("Primeiro uso ou arquivo de estado vazio/inexistente. Criando estado inicial.")
             return self.estado_inicial()
     
     def estado_inicial(self) -> Dict:
@@ -606,4 +606,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
