@@ -31,25 +31,23 @@ PALAVRAS_CHAVE = ["Donepezil", "Memantina", "Galantamina"]
 # CONFIGURAÇÕES DE AGENDAMENTO
 SCHEDULE_CONFIG = {
     # Modo de execução: 'periodico', 'horarios_especificos' ou 'ambos'
-    'modo': 'periodico',
-    
+    'modo': 'ambos',
+
     # Configurações para modo periódico
-    'periodicidade_minutos': 30,  # Executar a cada X minutos
-    'horario_inicio': '08:00',    # Horário para começar (formato HH:MM)
-    'horario_fim': '18:00',       # Horário para parar (formato HH:MM)
-    
+    'periodicidade_minutos': 60,  # A cada hora
+    'horario_inicio': '05:00',
+    'horario_fim': '14:00',
+
     # Configurações para horários específicos
     'horarios_especificos': [
-        '09:00',
-        '12:00', 
-        '15:00',
-        '17:00'
+        '23:00',  # Execução extra no final da noite
     ],
     
     # Configurações gerais
-    'executar_fins_semana': True,  # Se deve executar aos sábados e domingos
-    'dias_semana': [0, 1, 2, 3, 4, 5, 6],  # 0=Segunda, 1=Terça... 6=Domingo
+    'executar_fins_semana': False,
+    'dias_semana': [0, 1, 2, 3, 4],
 }
+
 
 class PDFMonitor:
     def __init__(self, file_id):
