@@ -79,12 +79,13 @@ SCHEDULE_CONFIG = {
 }
 
 class PDFMonitor:
-    def __init__(self, file_id: str):
+    def __init__(self, file_id: str, force_email: bool = False):
         self.file_id = file_id
         self.pasta_dados = PASTA_DADOS
         self.arquivo_estado = os.path.join(self.pasta_dados, ARQUIVO_ESTADO)
         self.arquivo_log = os.path.join(self.pasta_dados, ARQUIVO_LOG)
         self.arquivo_temp = os.path.join(self.pasta_dados, ARQUIVO_TEMP)
+        self.force_email = force_email
         self.setup()
 
     def setup(self):
@@ -117,6 +118,7 @@ class PDFMonitor:
         logging.info(f"Python: {sys.version}")
         logging.info(f"Arquivo ID: {self.file_id}")
         logging.info(f"Medicamentos monitorados: {', '.join(PALAVRAS_CHAVE)}")
+        logging.info(f"Forçar envio de e-mail: {self.force_email}")
 
     def carregar_estado(self) -> Dict:
         """Carrega o estado anterior ou cria um novo"""
@@ -465,12 +467,13 @@ Execução #{self.estado['execucoes']} | Total de mudanças: {self.estado['mudan
             hash_atual = self.calcular_hash(texto)
             mudou = hash_atual != self.estado["hash_ultimo"]
             
-            if mudou:
-                self.estado["mudancas"] += 1
-                self.estado["texto_ultimo"] = texto
-                self.estado["hash_ultimo"] = hash_atual
-                self.estado["data_ultimo"] = datetime.now().isoformat()
-                self.estado["ultima_mudanca"] = datetime.now().isoformat()
+            if mudou or self.force_email: # Adiciona a condição force_email aqui
+                if mudou:
+                    self.estado["mudancas"] += 1
+                    self.estado["texto_ultimo"] = texto
+                    self.estado["hash_ultimo"] = hash_atual
+                    self.estado["data_ultimo"] = datetime.now().isoformat()
+                    self.estado["ultima_mudanca"] = datetime.now().isoformat()
                 
                 # Verifica medicamentos
                 encontradas, nao_encontradas = self.verificar_palavras_chave(texto)
@@ -481,7 +484,10 @@ Execução #{self.estado['execucoes']} | Total de mudanças: {self.estado['mudan
                 # Envia email
                 self.enviar_email_melhorado(encontradas, nao_encontradas)
                 
-                logging.info(f"✅ Mudança detectada e processada")
+                if mudou:
+                    logging.info(f"✅ Mudança detectada e processada")
+                else:
+                    logging.info(f"📧 E-mail forçado enviado (nenhuma mudança detectada)")
             else:
                 logging.info("ℹ️  Nenhuma mudança detectada")
             
@@ -573,11 +579,19 @@ def executar_schedule():
 
 def main():
     """Função principal"""
+    force_email_arg = False
     if len(sys.argv) > 1:
-        if sys.argv[1] == '--single':
+        if '--single' in sys.argv:
             # Execução única
             logging.info("=== EXECUÇÃO ÚNICA (TESTE) ===")
-            monitor = PDFMonitor(ARQUIVO_ID)
+            if '--force-email' in sys.argv:
+                try:
+                    force_email_index = sys.argv.index('--force-email')
+                    if force_email_index + 1 < len(sys.argv):
+                        force_email_arg = sys.argv[force_email_index + 1].lower() == 'true'
+                except ValueError:
+                    pass # Should not happen if '--force-email' is in sys.argv
+            monitor = PDFMonitor(ARQUIVO_ID, force_email=force_email_arg)
             monitor.executar()
         elif sys.argv[1] == '--status':
             # Status do sistema
@@ -585,10 +599,11 @@ def main():
             status = monitor.status_sistema()
             print(json.dumps(status, indent=2, ensure_ascii=False))
         else:
-            print("Uso: python script.py [--single|--status]")
+            print("Uso: python script.py [--single [--force-email <true|false>]|--status]")
     else:
         # Execução com schedule
         executar_schedule()
 
 if __name__ == "__main__":
     main()
+
