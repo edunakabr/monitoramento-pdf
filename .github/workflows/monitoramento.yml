@@ -81,9 +81,9 @@ jobs:
         id: cache-state
         with:
           path: dados_monitoramento/
-          key: ${{ runner.os }}-state-${{ github.run_id }}
+          key: ${{ runner.os }}-state-v1 # Use a static key for state persistence
           restore-keys: |
-            ${{ runner.os }}-state-
+            ${{ runner.os }}-state-v1
 
       - name: 🐍 Setup Python
         uses: actions/setup-python@v4
@@ -171,8 +171,8 @@ jobs:
             echo "Debug mode enabled"
           fi
           
-          # Execute with timeout and error handling
-          timeout 300 python3 monitoramento_medicamentos.py --single || {
+          # Execute with timeout and error handling, passing force_email as an argument
+          timeout 300 python3 monitoramento_medicamentos.py --single --force-email "$FORCE_EMAIL" || {
             exit_code=$?
             echo "Script execution failed with exit code: $exit_code"
             
@@ -232,12 +232,12 @@ jobs:
           try:
               with open('dados_monitoramento/estado_monitor.json', 'r') as f:
                   data = json.load(f)
-              print(f'- Total executions: {data.get(\"execucoes\", 0)}')
-              print(f'- Total changes: {data.get(\"mudancas\", 0)}')
-              print(f'- Consecutive errors: {data.get(\"erros_consecutivos\", 0)}')
-              print(f'- Last change: {data.get(\"ultima_mudanca\", \"Never\")}')
+              print(f'- Total executions: {data.get(\"execucoes\", 0)}\n')
+              print(f'- Total changes: {data.get(\"mudancas\", 0)}\n')
+              print(f'- Consecutive errors: {data.get(\"erros_consecutivos\", 0)}\n')
+              print(f'- Last change: {data.get(\"ultima_mudanca\", \"Never\")}\n')
           except:
-              print('- State file parsing failed')
+              print('- State file parsing failed\n')
           " >> execution_report.txt
           fi
           
@@ -256,9 +256,9 @@ jobs:
         if: always()
         with:
           path: dados_monitoramento/
-          key: ${{ runner.os }}-state-${{ github.run_id }}
+          key: ${{ runner.os }}-state-v1 # Use a static key for state persistence
           restore-keys: |
-            ${{ runner.os }}-state-
+            ${{ runner.os }}-state-v1
 
       - name: 📧 Send notification on failure
         if: failure() || steps.execute_script.outputs.script_failed == 'true'
@@ -355,9 +355,9 @@ jobs:
           try:
               with open('dados_monitoramento/estado_monitor.json', 'r') as f:
                   data = json.load(f)
-              print(f'Total executions: {data.get(\"execucoes\", 0)}')
+              print(f'Total executions: {data.get(\"execucoes\", 0)}\n')
           except:
-              print('Could not read final stats')
+              print('Could not read final stats\n')
           "
           fi
 
