@@ -309,9 +309,11 @@ jobs:
           git fetch origin estado || true # Fetch 'estado' branch, ignore error if it doesn't exist yet
           git checkout estado || git checkout -b estado # Checkout 'estado' branch, create if it doesn't exist
           
-          # Remove all files from the 'estado' branch to ensure a clean state for new files
-          # This is crucial to avoid copying the entire main branch content
-          git rm -rf . || true # Use || true to ignore errors if no files are present
+          # IMPORTANT: Ensure the working directory is clean before copying files
+          # Remove all files and directories except .git
+          # This is a more robust way to clean the working directory
+          git ls-files -z | xargs -0 git rm --cached --ignore-unmatch || true # Remove tracked files
+          git clean -fdx || true # Remove untracked files and directories
           
           # Copy state files from dados_monitoramento/ to the current directory (which is now 'estado' branch's root)
           if [ -f "dados_monitoramento/estado_monitor.json" ]; then
@@ -362,7 +364,7 @@ jobs:
                   
                   now = datetime.now()
                   
-                  msg = MIMEMultipart()
+                  msg = MIMultipart()
                   msg["Subject"] = f"⚠️ PDF Monitor Failed - {now.strftime('%d/%m/%Y %H:%M')}"
                   msg["From"] = sender
                   msg["To"] = recipient
@@ -441,3 +443,7 @@ jobs:
               print('Could not read final stats\n')
           "
           fi
+
+
+
+
