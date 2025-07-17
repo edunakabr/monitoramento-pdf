@@ -2,7 +2,7 @@ name: Monitoramento PDF (Debug)
 
 on:
   schedule:
-    - cron: '0 * * * *'  # A cada hora
+    - cron: '0 5,6,7,8,9,10,11,12,13,14,23 * * 1-5'  # Horários específicos em dias úteis
   workflow_dispatch:  # Permite execução manual
 
 # CRÍTICO: Essas permissões são essenciais
@@ -114,11 +114,11 @@ jobs:
             echo "❌ Pulando instalação - requirements.txt não encontrado"
           fi
 
-      - name: Executar script de monitoramento
+      - name: Executar script de monitoramento (MODO ÚNICO)
         run: |
           if [ -f "monitoramento_medicamentos.py" ]; then
-            echo "🚀 Executando script..."
-            python monitoramento_medicamentos.py
+            echo "🚀 Executando script em modo único..."
+            python monitoramento_medicamentos.py --single
             echo "✅ Script executado"
           else
             echo "❌ Script não encontrado"
