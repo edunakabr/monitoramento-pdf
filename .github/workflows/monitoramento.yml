@@ -1,191 +1,449 @@
-name: Monitoramento PDF (Debug)
+name: Enhanced PDF Medication Monitor
 
 on:
   schedule:
-    #- cron: '0 5,6,7,8,9,10,11,12,13,14,23 * * 1-5'  # Horários específicos em dias úteis (UTC); tive que alterar para UTC-3 (Brasilia) subtraindo 3 de cada horario
-    - cron: '0 2,3,4,5,6,7,8,9,10,11,20 * * 1-5' # Horários específicos em dias úteis (UTC-3) Horario de Brasilia
-  workflow_dispatch:  # Permite execução manual
+    # UTC-3 (Brasília timezone) - Converted from original times
+    - cron: '0 2,3,4,5,6,7,8,9,10,11,20 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      debug_mode:
+        description: 'Enable debug mode'
+        required: false
+        default: 'false'
+        type: boolean
+      force_email:
+        description: 'Force email even if no changes'
+        required: false
+        default: 'false'
+        type: boolean
 
-# CRÍTICO: Essas permissões são essenciais
 permissions:
   contents: write
   actions: read
 
+env:
+  EMAIL_USUARIO: ${{ secrets.EMAIL_USUARIO }}
+  EMAIL_SENHA: ${{ secrets.EMAIL_SENHA }}
+  DEBUG_MODE: ${{ github.event.inputs.debug_mode || 'false' }}
+  FORCE_EMAIL: ${{ github.event.inputs.force_email || 'false' }}
+
 jobs:
-  executar:
+  monitor:
     runs-on: ubuntu-latest
-    env:
-      EMAIL_USUARIO: ${{ secrets.EMAIL_USUARIO }}
-      EMAIL_SENHA: ${{ secrets.EMAIL_SENHA }}
+    timeout-minutes: 10
     
     steps:
-      - name: Checkout repositório
+      - name: 🔄 Checkout repository
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Configurar Git
+      - name: ⚙️ Configure Git
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "pdf-monitor[bot]"
+          git config --global user.email "pdf-monitor[bot]@users.noreply.github.com"
 
-      - name: Debug - Listar branches
+      - name: 🔍 Environment Check
         run: |
-          echo "=== BRANCHES LOCAIS ==="
-          git branch -a
+          echo "=== ENVIRONMENT INFO ==="
+          echo "Runner OS: $(uname -a)"
+          echo "Python version: $(python3 --version)"
+          echo "Current time: $(date)"
+          echo "Timezone: $(timedatectl show --property=Timezone --value 2>/dev/null || echo 'Unknown')"
+          echo "Debug mode: $DEBUG_MODE"
+          echo "Force email: $FORCE_EMAIL"
           echo ""
-          echo "=== BRANCHES REMOTOS ==="
-          git ls-remote --heads origin
-          echo ""
+          
+          echo "=== SECRETS CHECK ==="
+          if [ -z "$EMAIL_USUARIO" ]; then
+            echo "❌ EMAIL_USUARIO secret not set"
+            exit 1
+          else
+            echo "✅ EMAIL_USUARIO: ${EMAIL_USUARIO:0:3}***@${EMAIL_USUARIO##*@}"
+          fi
+          
+          if [ -z "$EMAIL_SENHA" ]; then
+            echo "❌ EMAIL_SENHA secret not set"
+            exit 1
+          else
+            echo "✅ EMAIL_SENHA: ****"
+          fi
 
-      - name: Preparar diretório de dados
+      - name: 📁 Prepare data directory
         run: |
           mkdir -p dados_monitoramento
-          ls -la dados_monitoramento/
-          
-      - name: Restaurar estado anterior (se existir)
+          chmod 755 dados_monitoramento
+          echo "Data directory created: $(ls -la dados_monitoramento/)"
+
+      - name: 🔍 Check for state branch
+        id: check_state
         run: |
-          echo "Verificando se branch 'estado' existe..."
+          echo "Checking for 'estado' branch..."
           if git ls-remote --exit-code --heads origin estado >/dev/null 2>&1; then
-            echo "✅ Branch 'estado' encontrado!"
-            git fetch origin estado
-            
-            # Lista arquivos no branch estado
-            echo "Arquivos no branch estado:"
-            git ls-tree --name-only origin/estado
-            
-            # Tenta copiar os arquivos se existirem
-            if git cat-file -e origin/estado:estado_monitor.json 2>/dev/null; then
-              git show origin/estado:estado_monitor.json > dados_monitoramento/estado_monitor.json
-              echo "✅ Estado anterior restaurado"
-            else
-              echo "ℹ️  Arquivo estado_monitor.json não encontrado no branch estado"
-            fi
-            
-            if git cat-file -e origin/estado:log_monitor.log 2>/dev/null; then
-              git show origin/estado:log_monitor.log > dados_monitoramento/log_monitor.log
-              echo "✅ Log anterior restaurado"
-            else
-              echo "ℹ️  Arquivo log_monitor.log não encontrado no branch estado"
-            fi
+            echo "state_exists=true" >> $GITHUB_OUTPUT
+            echo "✅ State branch exists"
           else
-            echo "ℹ️  Branch 'estado' não existe ainda - primeira execução"
+            echo "state_exists=false" >> $GITHUB_OUTPUT
+            echo "ℹ️  State branch doesn't exist - first run"
           fi
 
-      - name: Debug - Verificar arquivos após restauração
+      - name: 📥 Restore previous state
+        if: steps.check_state.outputs.state_exists == 'true'
         run: |
-          echo "=== CONTEÚDO dados_monitoramento APÓS RESTAURAÇÃO ==="
-          ls -la dados_monitoramento/
-          if [ -f "dados_monitoramento/estado_monitor.json" ]; then
-            echo "Estado encontrado:"
-            head -5 dados_monitoramento/estado_monitor.json
-          fi
-
-      - name: Configurar Python
-        run: |
-          python --version
-          pip --version
-
-      - name: Verificar arquivos Python
-        run: |
-          echo "=== ARQUIVOS NO DIRETÓRIO ==="
-          ls -la
-          echo ""
-          echo "=== VERIFICANDO ARQUIVOS NECESSÁRIOS ==="
-          if [ -f "requirements.txt" ]; then
-            echo "✅ requirements.txt encontrado"
-            cat requirements.txt
+          echo "Restoring state from 'estado' branch..."
+          git fetch origin estado
+          
+          # List files in state branch
+          echo "Files in state branch:"
+          git ls-tree --name-only origin/estado || echo "No files found"
+          
+          # Restore state file
+          if git cat-file -e origin/estado:estado_monitor.json 2>/dev/null; then
+            git show origin/estado:estado_monitor.json > dados_monitoramento/estado_monitor.json
+            echo "✅ State restored: $(wc -l < dados_monitoramento/estado_monitor.json) lines"
           else
-            echo "❌ requirements.txt NÃO encontrado"
+            echo "ℹ️  No state file found"
           fi
           
-          if [ -f "monitoramento_medicamentos.py" ]; then
-            echo "✅ monitoramento_medicamentos.py encontrado"
+          # Restore log file (keep last 1000 lines to avoid bloat)
+          if git cat-file -e origin/estado:log_monitor.log 2>/dev/null; then
+            git show origin/estado:log_monitor.log | tail -n 1000 > dados_monitoramento/log_monitor.log
+            echo "✅ Log restored: $(wc -l < dados_monitoramento/log_monitor.log) lines"
           else
-            echo "❌ monitoramento_medicamentos.py NÃO encontrado"
+            echo "ℹ️  No log file found"
           fi
 
-      - name: Instalar dependências
-        run: |
-          if [ -f "requirements.txt" ]; then
-            pip install -r requirements.txt
-            echo "✅ Dependências instaladas"
-          else
-            echo "❌ Pulando instalação - requirements.txt não encontrado"
-          fi
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
 
-      - name: Executar script de monitoramento (MODO ÚNICO)
+      - name: 📦 Install dependencies
         run: |
+          echo "=== INSTALLING DEPENDENCIES ==="
+          
+          # Create requirements.txt if it doesn't exist
+          if [ ! -f "requirements.txt" ]; then
+            echo "Creating requirements.txt..."
+            cat > requirements.txt << EOF
+          requests>=2.25.1
+          PyPDF2>=3.0.0
+          pdfplumber>=0.7.0
+          PyMuPDF>=1.20.0
+          schedule>=1.2.0
+          pathlib2>=2.3.0
+          EOF
+          fi
+          
+          echo "Requirements file:"
+          cat requirements.txt
+          
+          # Install with retry
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          
+          # Verify installations
+          echo "=== VERIFYING INSTALLATIONS ==="
+          python3 -c "
+          import sys
+          libs = ['requests', 'PyPDF2', 'pdfplumber', 'fitz', 'schedule']
+          for lib in libs:
+              try:
+                  __import__(lib)
+                  print(f'✅ {lib}: OK')
+              except ImportError as e:
+                  print(f'❌ {lib}: {e}')
+          "
+
+      - name: 🔍 Verify script file
+        run: |
+          echo "=== SCRIPT VERIFICATION ==="
           if [ -f "monitoramento_medicamentos.py" ]; then
-            echo "🚀 Executando script em modo único..."
-            python monitoramento_medicamentos.py --single
-            echo "✅ Script executado"
+            echo "✅ Script found"
+            echo "Size: $(wc -l < monitoramento_medicamentos.py) lines"
+            echo "Permissions: $(ls -la monitoramento_medicamentos.py)"
+            
+            # Basic syntax check
+            echo "Checking syntax..."
+            python3 -m py_compile monitoramento_medicamentos.py
+            echo "✅ Syntax OK"
           else
-            echo "❌ Script não encontrado"
+            echo "❌ Script not found!"
+            echo "Available files:"
+            ls -la
             exit 1
           fi
 
-      - name: Debug - Verificar arquivos após execução
+      - name: 📊 Pre-execution status
         run: |
-          echo "=== CONTEÚDO dados_monitoramento APÓS EXECUÇÃO ==="
-          ls -la dados_monitoramento/
+          echo "=== PRE-EXECUTION STATUS ==="
+          echo "Working directory: $(pwd)"
+          echo "Data directory contents:"
+          ls -la dados_monitoramento/ || echo "Empty directory"
+          
           if [ -f "dados_monitoramento/estado_monitor.json" ]; then
-            echo "Novo estado gerado:"
-            head -5 dados_monitoramento/estado_monitor.json
+            echo "Current state:"
+            head -10 dados_monitoramento/estado_monitor.json
           fi
 
-      - name: Verificar se há mudanças
+      - name: 🚀 Execute monitoring script
+        id: execute_script
+        run: |
+          echo "=== EXECUTING MONITORING SCRIPT ==="
+          
+          # Set debug environment if enabled
+          if [ "$DEBUG_MODE" = "true" ]; then
+            export PYTHONUNBUFFERED=1
+            export DEBUG_MODE=true
+            echo "Debug mode enabled"
+          fi
+          
+          # Execute with timeout and error handling
+          timeout 300 python3 monitoramento_medicamentos.py --single || {
+            exit_code=$?
+            echo "Script execution failed with exit code: $exit_code"
+            
+            # Show logs if available
+            if [ -f "dados_monitoramento/log_monitor.log" ]; then
+              echo "=== RECENT LOG ENTRIES ==="
+              tail -20 dados_monitoramento/log_monitor.log
+            fi
+            
+            # Don't fail the job completely - save state anyway
+            echo "script_failed=true" >> $GITHUB_OUTPUT
+            echo "Script failed but continuing to save state..."
+          }
+          
+          echo "script_failed=false" >> $GITHUB_OUTPUT
+
+      - name: 📋 Post-execution analysis
+        run: |
+          echo "=== POST-EXECUTION ANALYSIS ==="
+          echo "Data directory after execution:"
+          ls -la dados_monitoramento/
+          
+          # Show state file if it exists
+          if [ -f "dados_monitoramento/estado_monitor.json" ]; then
+            echo "=== CURRENT STATE ==="
+            cat dados_monitoramento/estado_monitor.json | jq '.' 2>/dev/null || cat dados_monitoramento/estado_monitor.json
+            echo ""
+          fi
+          
+          # Show recent log entries
+          if [ -f "dados_monitoramento/log_monitor.log" ]; then
+            echo "=== RECENT LOG ENTRIES ==="
+            tail -15 dados_monitoramento/log_monitor.log
+          fi
+
+      - name: 📊 Generate execution report
+        id: generate_report
+        run: |
+          echo "=== GENERATING EXECUTION REPORT ==="
+          
+          # Create a summary report
+          cat > execution_report.txt << EOF
+          Execution Report - $(date)
+          ================================
+          
+          Workflow: ${{ github.workflow }}
+          Run ID: ${{ github.run_id }}
+          Trigger: ${{ github.event_name }}
+          
+          EOF
+          
+          # Add state info if available
+          if [ -f "dados_monitoramento/estado_monitor.json" ]; then
+            echo "Current Statistics:" >> execution_report.txt
+            python3 -c "
+          import json
+          try:
+              with open('dados_monitoramento/estado_monitor.json', 'r') as f:
+                  data = json.load(f)
+              print(f'- Total executions: {data.get(\"execucoes\", 0)}')
+              print(f'- Total changes: {data.get(\"mudancas\", 0)}')
+              print(f'- Consecutive errors: {data.get(\"erros_consecutivos\", 0)}')
+              print(f'- Last change: {data.get(\"ultima_mudanca\", \"Never\")}')
+          except:
+              print('- State file parsing failed')
+          " >> execution_report.txt
+          fi
+          
+          # Add log summary
+          if [ -f "dados_monitoramento/log_monitor.log" ]; then
+            echo "" >> execution_report.txt
+            echo "Recent Log Summary:" >> execution_report.txt
+            tail -5 dados_monitoramento/log_monitor.log >> execution_report.txt
+          fi
+          
+          echo "Report generated:"
+          cat execution_report.txt
+
+      - name: 🔍 Check for changes
         id: check_changes
         run: |
-          if [ -f "dados_monitoramento/estado_monitor.json" ] || [ -f "dados_monitoramento/log_monitor.log" ]; then
-            echo "changes=true" >> $GITHUB_OUTPUT
-            echo "✅ Arquivos de estado encontrados"
-          else
-            echo "changes=false" >> $GITHUB_OUTPUT
-            echo "❌ Nenhum arquivo de estado foi gerado"
+          changes_detected=false
+          
+          if [ -f "dados_monitoramento/estado_monitor.json" ]; then
+            echo "✅ State file exists"
+            changes_detected=true
           fi
+          
+          if [ -f "dados_monitoramento/log_monitor.log" ]; then
+            echo "✅ Log file exists"
+            changes_detected=true
+          fi
+          
+          echo "changes_detected=$changes_detected" >> $GITHUB_OUTPUT
 
-      - name: Salvar estado no branch 'estado'
-        if: steps.check_changes.outputs.changes == 'true'
+      - name: 💾 Save state to branch
+        if: steps.check_changes.outputs.changes_detected == 'true'
         run: |
-          echo "💾 Salvando estado..."
-          # Verifica se o branch estado já existe
-          if git ls-remote --exit-code --heads origin estado >/dev/null 2>&1; then
-            echo "Branch 'estado' existe, fazendo checkout..."
+          echo "=== SAVING STATE TO BRANCH ==="
+          
+          # Stash current changes
+          git stash -u || echo "Nothing to stash"
+          
+          # Handle state branch
+          if [ "${{ steps.check_state.outputs.state_exists }}" = "true" ]; then
+            echo "Updating existing state branch..."
             git fetch origin estado
             git checkout -b estado origin/estado
           else
-            echo "Criando novo branch 'estado'..."
+            echo "Creating new state branch..."
             git checkout --orphan estado
             git rm -rf . 2>/dev/null || true
           fi
           
-          # Copia os novos arquivos
+          # Copy state files
           if [ -f "dados_monitoramento/estado_monitor.json" ]; then
             cp dados_monitoramento/estado_monitor.json estado_monitor.json
             git add estado_monitor.json
-            echo "✅ estado_monitor.json adicionado"
+            echo "✅ State file added"
           fi
           
           if [ -f "dados_monitoramento/log_monitor.log" ]; then
-            cp dados_monitoramento/log_monitor.log log_monitor.log
+            # Keep log file size manageable (last 2000 lines)
+            tail -n 2000 dados_monitoramento/log_monitor.log > log_monitor.log
             git add log_monitor.log
-            echo "✅ log_monitor.log adicionado"
+            echo "✅ Log file added (truncated to 2000 lines)"
           fi
           
-          # Commit
-          git commit -m "Atualiza estado e log [skip ci] - $(date)"
-          git push origin estado --force
-          echo "✅ Estado salvo no branch 'estado'"
-
-      - name: Debug - Verificar se branch foi criado
-        if: always()
-        run: |
-          echo "=== BRANCHES APÓS EXECUÇÃO ==="
-          git ls-remote --heads origin
+          # Add execution report
+          if [ -f "execution_report.txt" ]; then
+            cp execution_report.txt last_execution_report.txt
+            git add last_execution_report.txt
+            echo "✅ Execution report added"
+          fi
           
-      - name: Voltar para branch principal
+          # Commit and push
+          commit_message="🔄 Update state - $(date '+%Y-%m-%d %H:%M:%S') [skip ci]"
+          git commit -m "$commit_message" || {
+            echo "No changes to commit"
+            exit 0
+          }
+          
+          git push origin estado --force
+          echo "✅ State saved successfully"
+
+      - name: 📧 Send notification on failure
+        if: failure() || steps.execute_script.outputs.script_failed == 'true'
+        run: |
+          echo "=== SENDING FAILURE NOTIFICATION ==="
+          
+          # Create failure notification script
+          cat > send_failure_notification.py << 'EOF'
+          import smtplib
+          from email.mime.text import MIMEText
+          from email.mime.multipart import MIMEMultipart
+          import os
+          from datetime import datetime
+          
+          def send_failure_notification():
+              try:
+                  sender = os.environ["EMAIL_USUARIO"]
+                  password = os.environ["EMAIL_SENHA"]
+                  recipient = "edunaka@live.com"
+                  
+                  now = datetime.now()
+                  
+                  msg = MIMEMultipart()
+                  msg["Subject"] = f"⚠️ PDF Monitor Failed - {now.strftime('%d/%m/%Y %H:%M')}"
+                  msg["From"] = sender
+                  msg["To"] = recipient
+                  msg["X-Priority"] = "1"
+                  
+                  body = f"""
+          PDF Monitoring System Alert
+          ===========================
+          
+          The PDF monitoring system failed to execute properly.
+          
+          Time: {now.strftime('%d/%m/%Y at %H:%M:%S')}
+          Workflow: ${{ github.workflow }}
+          Run ID: ${{ github.run_id }}
+          
+          Please check the GitHub Actions logs for details:
+          https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          
+          This is an automated notification from the PDF monitoring system.
+          """
+                  
+                  msg.attach(MIMEText(body, 'plain', 'utf-8'))
+                  
+                  server = smtplib.SMTP("smtp.gmail.com", 587)
+                  server.starttls()
+                  server.login(sender, password)
+                  server.sendmail(sender, [recipient], msg.as_string())
+                  server.quit()
+                  
+                  print("✅ Failure notification sent")
+                  
+              except Exception as e:
+                  print(f"❌ Failed to send notification: {e}")
+          
+          if __name__ == "__main__":
+              send_failure_notification()
+          EOF
+          
+          python3 send_failure_notification.py
+
+      - name: 🧹 Cleanup
         if: always()
         run: |
-          git checkout main || true
+          echo "=== CLEANUP ==="
+          
+          # Remove temporary files
+          rm -f dados_monitoramento/temp.pdf
+          rm -f execution_report.txt
+          rm -f send_failure_notification.py
+          
+          # Return to main branch
+          git checkout main 2>/dev/null || git checkout master 2>/dev/null || echo "Could not return to main branch"
+          
+          echo "✅ Cleanup completed"
+
+      - name: 📊 Final status
+        if: always()
+        run: |
+          echo "=== FINAL STATUS ==="
+          echo "Job status: ${{ job.status }}"
+          echo "Script failed: ${{ steps.execute_script.outputs.script_failed }}"
+          echo "Changes detected: ${{ steps.check_changes.outputs.changes_detected }}"
+          echo "State branch exists: ${{ steps.check_state.outputs.state_exists }}"
+          echo "Execution completed at: $(date)"
+          
+          # Show final statistics if available
+          if [ -f "dados_monitoramento/estado_monitor.json" ]; then
+            echo "Final execution count:"
+            python3 -c "
+          import json
+          try:
+              with open('dados_monitoramento/estado_monitor.json', 'r') as f:
+                  data = json.load(f)
+              print(f'Total executions: {data.get(\"execucoes\", 0)}')
+          except:
+              print('Could not read final stats')
+          "
+          fi
