@@ -30,8 +30,27 @@ PALAVRAS_CHAVE = ["Donepezil", "Memantina", "Galantamina"]
 
 # CONFIGURAÇÕES DE AGENDAMENTO
 SCHEDULE_CONFIG = {
+    'modo': 'horarios_especificos',
+    'horarios_especificos': [
+        '05:00',  # Antes do inicio do atendimento
+        '06:00',  # Inicio do atendimento
+        '07:00',  # Durante atendimento
+        '08:00',  # Durante atendimento
+        '09:00',  # Durante atendimento
+        '10:00',  # Durante atendimento
+        '11:00',  # Durante atendimento
+        '12:00',  # Durante atendimento
+        '13:00',  # Durante atendimento
+        '14:00',  # Fim do atendimento
+        '23:00',  # Final do dia
+    ],
+    'executar_fins_semana': False,
+    'dias_semana': [0, 1, 2, 3, 4],
+}
+
+SCHEDULE_CONFIG = {
     # Modo de execução: 'periodico', 'horarios_especificos' ou 'ambos'
-    'modo': 'ambos',
+    'modo': 'horarios_especificos',
 
     # Configurações para modo periódico
     'periodicidade_minutos': 60,  # A cada hora
