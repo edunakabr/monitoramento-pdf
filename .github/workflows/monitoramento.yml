@@ -2,7 +2,8 @@ name: Monitoramento PDF (Debug)
 
 on:
   schedule:
-    - cron: '0 5,6,7,8,9,10,11,12,13,14,23 * * 1-5'  # Horários específicos em dias úteis
+    #- cron: '0 5,6,7,8,9,10,11,12,13,14,23 * * 1-5'  # Horários específicos em dias úteis (UTC); tive que alterar para UTC-3 (Brasilia) subtraindo 3 de cada horario
+    - cron: '0 2,3,4,5,6,7,8,9,10,11,20 * * 1-5' # Horários específicos em dias úteis (UTC-3) Horario de Brasilia
   workflow_dispatch:  # Permite execução manual
 
 # CRÍTICO: Essas permissões são essenciais
