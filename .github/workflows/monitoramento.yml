@@ -76,43 +76,14 @@ jobs:
           chmod 755 dados_monitoramento
           echo "Data directory created: $(ls -la dados_monitoramento/)"
 
-      - name: 🔍 Check for state branch
-        id: check_state
-        run: |
-          echo "Checking for 'estado' branch..."
-          if git ls-remote --exit-code --heads origin estado >/dev/null 2>&1; then
-            echo "state_exists=true" >> $GITHUB_OUTPUT
-            echo "✅ State branch exists"
-          else
-            echo "state_exists=false" >> $GITHUB_OUTPUT
-            echo "ℹ️  State branch doesn't exist - first run"
-          fi
-
       - name: 📥 Restore previous state
-        if: steps.check_state.outputs.state_exists == 'true'
-        run: |
-          echo "Restoring state from 'estado' branch..."
-          git fetch origin estado
-          
-          # List files in state branch
-          echo "Files in state branch:"
-          git ls-tree --name-only origin/estado || echo "No files found"
-          
-          # Restore state file
-          if git cat-file -e origin/estado:estado_monitor.json 2>/dev/null; then
-            git show origin/estado:estado_monitor.json > dados_monitoramento/estado_monitor.json
-            echo "✅ State restored: $(wc -l < dados_monitoramento/estado_monitor.json) lines"
-          else
-            echo "ℹ️  No state file found"
-          fi
-          
-          # Restore log file (keep last 1000 lines to avoid bloat)
-          if git cat-file -e origin/estado:log_monitor.log 2>/dev/null; then
-            git show origin/estado:log_monitor.log | tail -n 1000 > dados_monitoramento/log_monitor.log
-            echo "✅ Log restored: $(wc -l < dados_monitoramento/log_monitor.log) lines"
-          else
-            echo "ℹ️  No log file found"
-          fi
+        uses: actions/cache@v3
+        id: cache-state
+        with:
+          path: dados_monitoramento/
+          key: ${{ runner.os }}-state-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-state-
 
       - name: 🐍 Setup Python
         uses: actions/setup-python@v4
@@ -280,72 +251,14 @@ jobs:
           echo "Report generated:"
           cat execution_report.txt
 
-      - name: 🔍 Check for changes
-        id: check_changes
-        run: |
-          changes_detected=false
-          
-          if [ -f "dados_monitoramento/estado_monitor.json" ]; then
-            echo "✅ State file exists"
-            changes_detected=true
-          fi
-          
-          if [ -f "dados_monitoramento/log_monitor.log" ]; then
-            echo "✅ Log file exists"
-            changes_detected=true
-          fi
-          
-          echo "changes_detected=$changes_detected" >> $GITHUB_OUTPUT
-
-      - name: 💾 Save state to branch
-        if: steps.check_changes.outputs.changes_detected == 'true'
-        run: |
-          echo "=== SAVING STATE TO BRANCH ==="
-          
-          # Stash current changes
-          git stash -u || echo "Nothing to stash"
-          
-          # Handle state branch
-          if [ "${{ steps.check_state.outputs.state_exists }}" = "true" ]; then
-            echo "Updating existing state branch..."
-            git fetch origin estado
-            git checkout -b estado origin/estado
-          else
-            echo "Creating new state branch..."
-            git checkout --orphan estado
-            git rm -rf . 2>/dev/null || true
-          fi
-          
-          # Copy state files
-          if [ -f "dados_monitoramento/estado_monitor.json" ]; then
-            cp dados_monitoramento/estado_monitor.json estado_monitor.json
-            git add estado_monitor.json
-            echo "✅ State file added"
-          fi
-          
-          if [ -f "dados_monitoramento/log_monitor.log" ]; then
-            # Keep log file size manageable (last 2000 lines)
-            tail -n 2000 dados_monitoramento/log_monitor.log > log_monitor.log
-            git add log_monitor.log
-            echo "✅ Log file added (truncated to 2000 lines)"
-          fi
-          
-          # Add execution report
-          if [ -f "execution_report.txt" ]; then
-            cp execution_report.txt last_execution_report.txt
-            git add last_execution_report.txt
-            echo "✅ Execution report added"
-          fi
-          
-          # Commit and push
-          commit_message="🔄 Update state - $(date '+%Y-%m-%d %H:%M:%S') [skip ci]"
-          git commit -m "$commit_message" || {
-            echo "No changes to commit"
-            exit 0
-          }
-          
-          git push origin estado --force
-          echo "✅ State saved successfully"
+      - name: 💾 Save state to cache
+        uses: actions/cache@v3
+        if: always()
+        with:
+          path: dados_monitoramento/
+          key: ${{ runner.os }}-state-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-state-
 
       - name: 📧 Send notification on failure
         if: failure() || steps.execute_script.outputs.script_failed == 'true'
@@ -447,3 +360,4 @@ jobs:
               print('Could not read final stats')
           "
           fi
+
