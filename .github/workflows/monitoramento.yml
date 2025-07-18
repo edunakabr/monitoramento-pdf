@@ -388,7 +388,7 @@ jobs:
           This is an automated notification from the PDF monitoring system.
           """
                   
-                  msg.attach(MIMEText(body, 'plain', 'utf-8'))
+                  msg.attach(MIMEText(body, 'plain', 'utf-8' ))
                   
                   server = smtplib.SMTP("smtp.gmail.com", 587)
                   server.starttls()
@@ -445,6 +445,3 @@ jobs:
               print('Could not read final stats\n')
           "
           fi
-
-
-
