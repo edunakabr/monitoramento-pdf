@@ -46,32 +46,6 @@ jobs:
           git config --global user.name "pdf-monitor[bot]"
           git config --global user.email "pdf-monitor[bot]@users.noreply.github.com"
 
-      - name: 🔍 Environment Check
-        run: |
-          echo "=== ENVIRONMENT INFO ==="
-          echo "Runner OS: $(uname -a)"
-          echo "Python version: $(python3 --version)"
-          echo "Current time: $(date)"
-          echo "Timezone: $(timedatectl show --property=Timezone --value 2>/dev/null || echo 'Unknown')"
-          echo "Debug mode: $DEBUG_MODE"
-          echo "Force email: $FORCE_EMAIL"
-          echo ""
-          
-          echo "=== SECRETS CHECK ==="
-          if [ -z "$EMAIL_USUARIO" ]; then
-            echo "❌ EMAIL_USUARIO secret not set"
-            exit 1
-          else
-            echo "✅ EMAIL_USUARIO: ${EMAIL_USUARIO:0:3}***@${EMAIL_USUARIO##*@}"
-          fi
-          
-          if [ -z "$EMAIL_SENHA" ]; then
-            echo "❌ EMAIL_SENHA secret not set"
-            exit 1
-          else
-            echo "✅ EMAIL_SENHA: ****"
-          fi
-
       - name: 📁 Prepare data directory
         run: |
           mkdir -p ${{ env.DATA_DIR }}
@@ -95,10 +69,6 @@ jobs:
         run: |
           echo "Restoring state from 'estado' branch..."
           git fetch origin estado
-          
-          # List files in state branch
-          echo "Files in state branch:"
-          git ls-tree --name-only origin/estado || echo "No files found"
           
           # Restore state file
           if git cat-file -e origin/estado:estado_monitor.json 2>/dev/null; then
@@ -133,28 +103,9 @@ jobs:
       - name: 📦 Install dependencies
         run: |
           echo "=== INSTALLING DEPENDENCIES ==="
-          
-          # Create requirements.txt if it doesn't exist
-          if [ ! -f "requirements.txt" ]; then
-            echo "Creating requirements.txt..."
-            cat > requirements.txt << EOF
-          requests>=2.25.1
-          PyPDF2>=3.0.0
-          pdfplumber>=0.7.0
-          PyMuPDF>=1.20.0
-          schedule>=1.2.0
-          pathlib2>=2.3.0
-          EOF
-          fi
-          
-          echo "Requirements file:"
-          cat requirements.txt
-          
-          # Install with retry
           pip install --upgrade pip
           pip install -r requirements.txt
           
-          # Verify installations
           echo "=== VERIFYING INSTALLATIONS ==="
           python3 -c "
           import sys
@@ -175,7 +126,6 @@ jobs:
             echo "Size: $(wc -l < monitoramento_medicamentos.py) lines"
             echo "Permissions: $(ls -la monitoramento_medicamentos.py)"
             
-            # Basic syntax check
             echo "Checking syntax..."
             python3 -m py_compile monitoramento_medicamentos.py
             echo "✅ Syntax OK"
@@ -203,25 +153,21 @@ jobs:
         run: |
           echo "=== EXECUTING MONITORING SCRIPT ==="
           
-          # Set debug environment if enabled
           if [ "$DEBUG_MODE" = "true" ]; then
             export PYTHONUNBUFFERED=1
             export DEBUG_MODE=true
             echo "Debug mode enabled"
           fi
           
-          # Execute with timeout and error handling
           timeout 300 python3 monitoramento_medicamentos.py --single || {
             exit_code=$?
             echo "Script execution failed with exit code: $exit_code"
             
-            # Show logs if available
             if [ -f "${{ env.DATA_DIR }}/log_monitor.log" ]; then
               echo "=== RECENT LOG ENTRIES ==="
               tail -20 ${{ env.DATA_DIR }}/log_monitor.log
             fi
             
-            # Don't fail the job completely - save state anyway
             echo "script_failed=true" >> $GITHUB_OUTPUT
             echo "Script failed but continuing to save state..."
           }
@@ -234,14 +180,12 @@ jobs:
           echo "Data directory after execution:"
           ls -la ${{ env.DATA_DIR }}/
           
-          # Show state file if it exists
           if [ -f "${{ env.DATA_DIR }}/estado_monitor.json" ]; then
             echo "=== CURRENT STATE ==="
             cat ${{ env.DATA_DIR }}/estado_monitor.json | jq '.' 2>/dev/null || cat ${{ env.DATA_DIR }}/estado_monitor.json
             echo ""
           fi
           
-          # Show recent log entries
           if [ -f "${{ env.DATA_DIR }}/log_monitor.log" ]; then
             echo "=== RECENT LOG ENTRIES ==="
             tail -15 ${{ env.DATA_DIR }}/log_monitor.log
@@ -252,7 +196,6 @@ jobs:
         run: |
           echo "=== GENERATING EXECUTION REPORT ==="
           
-          # Create a summary report
           cat > execution_report.txt << EOF
           Execution Report - $(date)
           ================================
@@ -263,7 +206,6 @@ jobs:
           
           EOF
           
-          # Add state info if available
           if [ -f "${{ env.DATA_DIR }}/estado_monitor.json" ]; then
             echo "Current Statistics:" >> execution_report.txt
             python3 -c "
@@ -280,7 +222,6 @@ jobs:
           " >> execution_report.txt
           fi
           
-          # Add log summary
           if [ -f "${{ env.DATA_DIR }}/log_monitor.log" ]; then
             echo "" >> execution_report.txt
             echo "Recent Log Summary:" >> execution_report.txt
@@ -317,17 +258,12 @@ jobs:
         run: |
           echo "=== SAVING STATE TO BRANCH ==="
           
-          # Stash current changes (from main branch checkout)
-          git stash -u || echo "Nothing to stash"
+          # Checkout the 'estado' branch, creating it if it doesn't exist
+          git checkout estado || git checkout -b estado
           
-          # Fetch and checkout 'estado' branch
-          git fetch origin estado || true # Fetch 'estado' branch, ignore error if it doesn't exist yet
-          git checkout estado || git checkout -b estado # Checkout 'estado' branch, create if it doesn't exist
-          
-          # IMPORTANT: Ensure the working directory is clean before copying files
-          # Remove all files and directories except .git
-          git ls-files -z | xargs -0 git rm --cached --ignore-unmatch || true # Remove tracked files
-          git clean -fdx || true # Remove untracked files and directories
+          # Remove all files from the 'estado' branch to ensure a clean state
+          # This prevents old files from lingering if they are no longer needed
+          git rm -rf . || true
           
           # Copy state files from dados_monitoramento/ to the current directory (which is now 'estado' branch's root)
           # Use 'cp -f' to force overwrite if files exist
@@ -353,7 +289,10 @@ jobs:
           
           # Commit and push - always create a commit to force update
           commit_message="🔄 Update state - $(date '+%Y-%m-%d %H:%M:%S') [skip ci]"
-          git commit --allow-empty -m "$commit_message"
+          git commit --allow-empty -m "$commit_message" || {
+            echo "No changes to commit"
+            exit 0
+          }
           
           git push origin estado --force
           echo "✅ State saved successfully"
@@ -401,7 +340,7 @@ jobs:
           This is an automated notification from the PDF monitoring system.
           """
                   
-                  msg.attach(MIMEText(body, 'plain', 'utf-8' ))
+                  msg.attach(MIMEText(body, 'plain', 'utf-8'))
                   
                   server = smtplib.SMTP("smtp.gmail.com", 587)
                   server.starttls()
