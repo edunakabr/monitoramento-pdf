@@ -44,12 +44,12 @@ except ImportError:
             PDF_LIBRARY = None
 
 # CONFIGURAÇÕES
-ARQUIVO_ID = os.environ.get("GOOGLE_DRIVE_FILE_ID", "1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l") # Usar variável de ambiente
-PASTA_DADOS = os.environ.get("DATA_DIR", "dados_monitoramento") # Usar variável de ambiente
+ARQUIVO_ID = os.environ.get("GOOGLE_DRIVE_FILE_ID", "1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l")
+PASTA_DADOS = os.environ.get("DATA_DIR", "dados_monitoramento")
 ARQUIVO_ESTADO = os.path.join(PASTA_DADOS, os.environ.get("STATE_FILE", "estado_monitor.json"))
 ARQUIVO_LOG = os.path.join(PASTA_DADOS, os.environ.get("LOG_FILE", "log_monitor.log"))
 ARQUIVO_TEMP = os.path.join(PASTA_DADOS, os.environ.get("TEMP_PDF_FILE", "temp.pdf"))
-PALAVRAS_CHAVE = ["Donepezil", "Memantina", "Galantamina"]
+PALAVRAS_CHAVE = ["Donepezil", "Galantamina"] # Removido 'Memantina' para simular mudança
 
 # CONFIGURAÇÕES DE RETRY
 RETRY_CONFIG = {
@@ -115,7 +115,7 @@ class PDFMonitor:
         """Registra informações do sistema"""
         logging.info("=== SISTEMA DE MONITORAMENTO INICIADO ===")
         logging.info(f"Biblioteca PDF: {PDF_LIBRARY}")
-        logging.info(f"Python: {sys.version.splitlines()[0]}") # Apenas a primeira linha da versão
+        logging.info(f"Python: {sys.version.splitlines()[0]}")
         logging.info(f"Arquivo ID: {self.file_id}")
         logging.info(f"Medicamentos monitorados: {', '.join(PALAVRAS_CHAVE)}")
         logging.info(f"Forçar envio de e-mail: {self.force_email}")
@@ -130,13 +130,13 @@ class PDFMonitor:
                         logging.warning("Arquivo de estado vazio. Criando estado inicial.")
                         return self.estado_inicial()
                     estado_carregado = json.loads(content)
-                    logging.info("Estado carregado com sucesso.")
+                    logging.info(f"Estado carregado com sucesso. Execução #{estado_carregado.get('execucoes', 0)}")
                     return estado_carregado
             except (json.JSONDecodeError, Exception) as e:
-                logging.error(f"Erro ao carregar estado: {e}. O arquivo pode estar corrompido ou mal formatado. Criando estado inicial.")
+                logging.error(f"Erro ao carregar estado: {e}. O arquivo pode estar corrompido. Criando estado inicial.")
                 return self.estado_inicial()
         else:
-            logging.info("Primeiro uso ou arquivo de estado vazio/inexistente. Criando estado inicial.")
+            logging.info("Primeiro uso ou arquivo de estado inexistente. Criando estado inicial.")
             return self.estado_inicial()
     
     def estado_inicial(self) -> Dict:
@@ -150,21 +150,19 @@ class PDFMonitor:
             "ultima_mudanca": "",
             "historico_status": [],
             "erros_consecutivos": 0,
-            "ultima_execucao_sucesso": ""
+            "ultima_execucao_sucesso": "",
+            "medicamentos_em_falta_ultimo": []
         }
-        # Não salvar estado inicial aqui para evitar loop ou escrita desnecessária
-        # Será salvo no final da primeira execução
         return estado
 
     def salvar_estado(self, estado: Dict):
         """Salva o estado atual"""
         estado['data_atualizacao'] = datetime.now().isoformat()
         try:
-            # Salvar em um arquivo temporário e depois renomear para garantir atomicidade
             temp_arquivo_estado = self.arquivo_estado + ".tmp"
             with open(temp_arquivo_estado, 'w', encoding='utf-8') as f:
                 json.dump(estado, f, ensure_ascii=False, indent=2)
-            os.replace(temp_arquivo_estado, self.arquivo_estado) # Renomeia o arquivo temporário para o arquivo final
+            os.replace(temp_arquivo_estado, self.arquivo_estado)
             logging.info("Estado salvo com sucesso")
         except Exception as e:
             logging.error(f"Erro ao salvar estado: {e}")
@@ -210,11 +208,10 @@ class PDFMonitor:
                             
                     except requests.exceptions.RequestException as e:
                         logging.warning(f"Erro na URL {url}: {e}")
-                        continue # Tenta a próxima URL
+                        continue
                 
-                # Se chegou aqui, todas as URLs falharam para esta tentativa
                 if tentativa < RETRY_CONFIG['max_retries'] - 1:
-                    logging.info(f"Aguardando {RETRY_CONFIG['retry_delay']} segundos antes da próxima tentativa de download...")
+                    logging.info(f"Aguardando {RETRY_CONFIG['retry_delay']} segundos antes da próxima tentativa...")
                     time.sleep(RETRY_CONFIG['retry_delay'])
                 
             except Exception as e:
@@ -229,8 +226,7 @@ class PDFMonitor:
         """Extrai texto usando múltiplas bibliotecas como fallback"""
         texto = ""
         
-        # Tentativa 1: PyPDF2
-        if PDF_LIBRARY == "PyPDF2": # Prioriza a biblioteca detectada no setup
+        if PDF_LIBRARY == "PyPDF2":
             try:
                 with open(self.arquivo_temp, 'rb') as f:
                     reader = PyPDF2.PdfReader(f)
@@ -244,9 +240,8 @@ class PDFMonitor:
             except Exception as e:
                 logging.warning(f"Erro com PyPDF2: {e}. Tentando outra biblioteca.")
         
-        # Tentativa 2: pdfplumber
         try:
-            import pdfplumber # Importa aqui para garantir que está disponível
+            import pdfplumber
             with pdfplumber.open(self.arquivo_temp) as pdf:
                 for page in pdf.pages:
                     page_text = page.extract_text()
@@ -258,9 +253,8 @@ class PDFMonitor:
         except (ImportError, Exception) as e:
             logging.warning(f"pdfplumber não disponível ou erro: {e}. Tentando outra biblioteca.")
         
-        # Tentativa 3: PyMuPDF
         try:
-            import fitz # Importa aqui para garantir que está disponível
+            import fitz
             pdf_document = fitz.open(self.arquivo_temp)
             for page_num in range(len(pdf_document)):
                 page = pdf_document.load_page(page_num)
@@ -282,11 +276,8 @@ class PDFMonitor:
         if not texto:
             return ""
         
-        # Remove caracteres de controle e normaliza espaços
         texto = re.sub(r'\s+', ' ', texto.strip())
         
-        # Remove caracteres especiais problemáticos que podem vir da extração de PDF
-        # Mantém letras, números, espaços e pontuações básicas
         texto = re.sub(r'[^\w\s\.,;!?-]', '', texto, flags=re.UNICODE)
         
         return texto
@@ -296,29 +287,32 @@ class PDFMonitor:
         return hashlib.md5(texto.encode('utf-8')).hexdigest() if texto else ""
 
     def verificar_palavras_chave(self, texto: str) -> Tuple[List[str], List[str]]:
-        """Verifica medicamentos em falta e disponíveis"""
+        """
+        Verifica medicamentos em falta e disponíveis.
+        - Medicamentos EM FALTA: NÃO encontrados no texto do PDF
+        - Medicamentos DISPONÍVEIS: encontrados no texto do PDF
+        """
         texto_lower = texto.lower()
-        encontradas = []
-        nao_encontradas = []
+        medicamentos_disponiveis = []
+        medicamentos_em_falta = []
         
         for medicamento in PALAVRAS_CHAVE:
             if medicamento.lower() in texto_lower:
-                encontradas.append(medicamento)
+                medicamentos_disponiveis.append(medicamento)
             else:
-                nao_encontradas.append(medicamento)
+                medicamentos_em_falta.append(medicamento)
         
-        logging.info(f"Medicamentos encontrados: {', '.join(encontradas) if encontradas else 'Nenhum'}")
-        logging.info(f"Medicamentos não encontrados: {', '.join(nao_encontradas) if nao_encontradas else 'Nenhum'}")
+        logging.info(f"Medicamentos DISPONÍVEIS (encontrados no PDF): {', '.join(medicamentos_disponiveis) if medicamentos_disponiveis else 'Nenhum'}")
+        logging.info(f"Medicamentos EM FALTA (NÃO encontrados no PDF): {', '.join(medicamentos_em_falta) if medicamentos_em_falta else 'Nenhum'}")
         
-        return encontradas, nao_encontradas
+        return medicamentos_em_falta, medicamentos_disponiveis
 
-    def criar_email_html(self, encontradas: List[str], nao_encontradas: List[str]) -> str:
+    def criar_email_html(self, medicamentos_em_falta: List[str], medicamentos_disponiveis: List[str]) -> str:
         """Cria conteúdo HTML para o email"""
         agora = datetime.now()
         data_hora = agora.strftime("%d/%m/%Y às %H:%M:%S")
         
-        # Cor baseada no status
-        cor_status = "#dc3545" if nao_encontradas else "#28a745"  # vermelho se falta, verde se ok
+        cor_status = "#dc3545" if medicamentos_em_falta else "#28a745"
         
         html = f"""
         <!DOCTYPE html>
@@ -343,7 +337,7 @@ class PDFMonitor:
         <body>
             <div class="container">
                 <div class="header">
-                    <h2>{ '🚨' if nao_encontradas else '✅' } Atualização de Medicamentos - {data_hora}</h2>
+                    <h2>{ '🚨' if medicamentos_em_falta else '✅' } Atualização de Medicamentos - {data_hora}</h2>
                 </div>
                 
                 <div class="content">
@@ -351,13 +345,13 @@ class PDFMonitor:
                     
                     {f'''
                     <h4 style="color: #dc3545;"><span class="icon">❌</span> Medicamentos em Falta:</h4>
-                    {''.join(f'<div class="medicamento falta"><span class="icon">•</span> {med}</div>' for med in nao_encontradas)}
-                    ''' if nao_encontradas else ''}
+                    {''.join(f'<div class="medicamento falta"><span class="icon">•</span> {med}</div>' for med in medicamentos_em_falta)}
+                    ''' if medicamentos_em_falta else ''}
                     
                     {f'''
                     <h4 style="color: #28a745;"><span class="icon">✔️</span> Medicamentos Disponíveis:</h4>
-                    {''.join(f'<div class="medicamento disponivel"><span class="icon">•</span> {med}</div>' for med in encontradas)}
-                    ''' if encontradas else ''}
+                    {''.join(f'<div class="medicamento disponivel"><span class="icon">•</span> {med}</div>' for med in medicamentos_disponiveis)}
+                    ''' if medicamentos_disponiveis else ''}
                     
                     <div class="info">
                         <h4>Informações da Execução:</h4>
@@ -380,12 +374,12 @@ class PDFMonitor:
         
         return html
 
-    def enviar_email_melhorado(self, encontradas: List[str], nao_encontradas: List[str]):
+    def enviar_email_melhorado(self, medicamentos_em_falta: List[str], medicamentos_disponiveis: List[str]):
         """Envia email com formatação HTML melhorada"""
         try:
             remetente = os.environ.get("EMAIL_USUARIO")
             senha = os.environ.get("EMAIL_SENHA")
-            destinatario = os.environ.get("EMAIL_DESTINATARIO", "edunaka@live.com") # Destinatário configurável
+            destinatario = os.environ.get("EMAIL_DESTINATARIO", "edunaka@live.com")
             
             if not remetente or not senha:
                 logging.error("Variáveis de ambiente EMAIL_USUARIO ou EMAIL_SENHA não configuradas. Não é possível enviar e-mail.")
@@ -396,9 +390,9 @@ class PDFMonitor:
             
             msg = MIMEMultipart('alternative')
             
-            if nao_encontradas:
+            if medicamentos_em_falta:
                 status_emoji = "🚨"
-                status_text = f"FALTA: {', '.join(nao_encontradas)}"
+                status_text = f"FALTA: {', '.join(medicamentos_em_falta)}"
             else:
                 status_emoji = "✅"
                 status_text = "TODOS DISPONÍVEIS"
@@ -415,13 +409,13 @@ Execução realizada em: {agora.strftime("%d/%m/%Y às %H:%M:%S")}
 
 Status do PDF:
 
-Medicamentos em falta: {', '.join(nao_encontradas) if nao_encontradas else 'Nenhum'}
-Medicamentos disponíveis: {', '.join(encontradas) if encontradas else 'Nenhum'}
+Medicamentos em falta: {', '.join(medicamentos_em_falta) if medicamentos_em_falta else 'Nenhum'}
+Medicamentos disponíveis: {', '.join(medicamentos_disponiveis) if medicamentos_disponiveis else 'Nenhum'}
 
 Execução #{self.estado.get('execucoes', 0)} | Total de mudanças: {self.estado.get('mudancas', 0)}
             """
             
-            html_content = self.criar_email_html(encontradas, nao_encontradas)
+            html_content = self.criar_email_html(medicamentos_em_falta, medicamentos_disponiveis)
             
             msg.attach(MIMEText(texto_simples, 'plain', 'utf-8'))
             msg.attach(MIMEText(html_content, 'html', 'utf-8'))
@@ -437,19 +431,19 @@ Execução #{self.estado.get('execucoes', 0)} | Total de mudanças: {self.estado
         except Exception as e:
             logging.error(f"Erro ao enviar email: {e}")
 
-    def atualizar_historico_status(self, nao_encontradas: List[str]):
+    def atualizar_historico_status(self, medicamentos_em_falta: List[str]):
         """Atualiza histórico de status dos medicamentos"""
         status_atual = {
             'timestamp': datetime.now().isoformat(),
-            'medicamentos_nao_encontrados': nao_encontradas,
-            'total_nao_encontrados': len(nao_encontradas)
+            'medicamentos_em_falta': medicamentos_em_falta,
+            'total_em_falta': len(medicamentos_em_falta)
         }
         
         if 'historico_status' not in self.estado:
             self.estado['historico_status'] = []
         
         self.estado['historico_status'].append(status_atual)
-        self.estado['historico_status'] = self.estado['historico_status'][-50:] # Mantém os últimos 50 registros
+        self.estado['historico_status'] = self.estado['historico_status'][-50:]
 
     def executar(self):
         """Executa o monitoramento principal"""
@@ -471,13 +465,17 @@ Execução #{self.estado.get('execucoes', 0)} | Total de mudanças: {self.estado
                 return
             
             hash_atual = self.calcular_hash(texto)
-            mudou = hash_atual != self.estado.get("hash_ultimo", "")
+            mudou_conteudo = hash_atual != self.estado.get("hash_ultimo", "")
             
-            encontradas, nao_encontradas = self.verificar_palavras_chave(texto)
-
-            # Condição para enviar e-mail: mudança no PDF OU mudança nos medicamentos OU force_email
-            if mudou or nao_encontradas != self.estado.get('medicamentos_nao_encontrados_ultimo', []) or self.force_email:
-                if mudou:
+            medicamentos_em_falta, medicamentos_disponiveis = self.verificar_palavras_chave(texto)
+            
+            medicamentos_em_falta_anterior = self.estado.get('medicamentos_em_falta_ultimo', [])
+            mudou_status_medicamentos = set(medicamentos_em_falta) != set(medicamentos_em_falta_anterior)
+            
+            deve_enviar_email = mudou_conteudo or mudou_status_medicamentos or self.force_email
+            
+            if deve_enviar_email:
+                if mudou_conteudo:
                     self.estado["mudancas"] = self.estado.get("mudancas", 0) + 1
                     self.estado["texto_ultimo"] = texto
                     self.estado["hash_ultimo"] = hash_atual
@@ -485,16 +483,17 @@ Execução #{self.estado.get('execucoes', 0)} | Total de mudanças: {self.estado
                     self.estado["ultima_mudanca"] = datetime.now().isoformat()
                     logging.info(f"✅ Mudança no conteúdo do PDF detectada. Novo hash: {hash_atual[:10]}...")
                 
-                # Atualiza o estado dos medicamentos não encontrados para a próxima comparação
-                self.estado['medicamentos_nao_encontrados_ultimo'] = nao_encontradas
+                self.estado['medicamentos_em_falta_ultimo'] = medicamentos_em_falta
 
-                self.atualizar_historico_status(nao_encontradas)
-                self.enviar_email_melhorado(encontradas, nao_encontradas)
+                self.atualizar_historico_status(medicamentos_em_falta)
+                self.enviar_email_melhorado(medicamentos_em_falta, medicamentos_disponiveis)
                 
-                if not mudou and self.force_email:
-                    logging.info(f"📧 E-mail forçado enviado (nenhuma mudança no PDF, mas e-mail forçado).")
-                elif not mudou and nao_encontradas != self.estado.get('medicamentos_nao_encontrados_ultimo', []):
-                     logging.info(f"✅ Mudança no status dos medicamentos detectada (mesmo PDF). Enviando e-mail.")
+                if not mudou_conteudo and not mudou_status_medicamentos and self.force_email:
+                    logging.info(f"📧 E-mail forçado enviado (nenhuma mudança detectada).")
+                elif not mudou_conteudo and mudou_status_medicamentos:
+                    logging.info(f"✅ Mudança no status dos medicamentos detectada (mesmo conteúdo do PDF). Enviando e-mail.")
+                elif mudou_conteudo:
+                    logging.info(f"✅ Mudança no conteúdo do PDF detectada. Enviando e-mail.")
 
             else:
                 logging.info("ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.")
@@ -507,7 +506,7 @@ Execução #{self.estado.get('execucoes', 0)} | Total de mudanças: {self.estado
             
         except Exception as e:
             self.estado["erros_consecutivos"] = self.estado.get("erros_consecutivos", 0) + 1
-            logging.error(f"Erro na execução: {e}", exc_info=True) # Adiciona exc_info para logar o traceback
+            logging.error(f"Erro na execução: {e}", exc_info=True)
             
         finally:
             self.salvar_estado(self.estado)
@@ -523,12 +522,10 @@ Execução #{self.estado.get('execucoes', 0)} | Total de mudanças: {self.estado
         """Verifica se deve executar baseado nas configurações"""
         agora = datetime.now()
         
-        # Verifica dia da semana (0=Segunda, 6=Domingo)
         if agora.weekday() not in SCHEDULE_CONFIG['dias_semana']:
             logging.debug(f"Não executa hoje ({agora.strftime('%A')}) - fora dos dias permitidos.")
             return False
             
-        # Verifica fins de semana (redundante se dias_semana for configurado corretamente, mas mantém para clareza)
         if not SCHEDULE_CONFIG['executar_fins_semana'] and agora.weekday() >= 5:
             logging.debug(f"Não executa hoje ({agora.strftime('%A')}) - fins de semana desativados.")
             return False
@@ -546,19 +543,17 @@ Execução #{self.estado.get('execucoes', 0)} | Total de mudanças: {self.estado
             'biblioteca_pdf_usada': PDF_LIBRARY,
             'arquivo_id_monitorado': self.file_id,
             'estado_atual_hash': self.estado.get('hash_ultimo', '')[:10] + '...' if self.estado.get('hash_ultimo') else 'N/A',
-            'medicamentos_nao_encontrados_ultimo': self.estado.get('medicamentos_nao_encontrados_ultimo', 'N/A')
+            'medicamentos_em_falta_ultimo': self.estado.get('medicamentos_em_falta_ultimo', [])
         }
 
 def configurar_schedule():
     """Configura o agendamento baseado nas configurações"""
     monitor = PDFMonitor(ARQUIVO_ID)
     
-    # Limpa agendamentos anteriores para evitar duplicação em caso de reconfiguração
     schedule.clear()
     
     if SCHEDULE_CONFIG['modo'] == 'horarios_especificos':
         for horario in SCHEDULE_CONFIG['horarios_especificos']:
-            # A função `do` deve receber uma função sem argumentos, então usamos lambda
             schedule.every().day.at(horario).do(lambda: monitor.executar() if monitor.deve_executar_agora() else logging.info(f"Execução pulada às {horario} - fora dos dias permitidos."))
             logging.info(f"Agendamento configurado para: {horario}")
     
@@ -588,7 +583,6 @@ def executar_schedule():
 def main():
     """Função principal"""
     force_email_arg = False
-    # Verifica se --force-email está presente e seu valor
     if '--force-email' in sys.argv:
         try:
             force_email_index = sys.argv.index('--force-email')
@@ -596,7 +590,7 @@ def main():
                 force_email_str = sys.argv[force_email_index + 1].lower()
                 force_email_arg = force_email_str == 'true' or force_email_str == '1'
         except ValueError:
-            pass # Não deveria acontecer se já verificou 'in sys.argv'
+            pass
 
     if '--single' in sys.argv:
         logging.info("=== MODO DE EXECUÇÃO ÚNICA (TESTE) ===")
@@ -604,7 +598,7 @@ def main():
         monitor.executar()
     elif '--status' in sys.argv:
         logging.info("=== MODO DE VERIFICAÇÃO DE STATUS ===")
-        monitor = PDFMonitor(ARQUIVO_ID) # Carrega o estado para exibir o status
+        monitor = PDFMonitor(ARQUIVO_ID)
         status = monitor.status_sistema()
         print(json.dumps(status, indent=2, ensure_ascii=False))
     else:
