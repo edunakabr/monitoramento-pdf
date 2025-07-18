@@ -26,6 +26,8 @@ env:
   EMAIL_SENHA: ${{ secrets.EMAIL_SENHA }}
   DEBUG_MODE: ${{ github.event.inputs.debug_mode || 'false' }}
   FORCE_EMAIL: ${{ github.event.inputs.force_email || 'false' }}
+  GOOGLE_DRIVE_FILE_ID: ${{ secrets.GOOGLE_DRIVE_FILE_ID }}
+  DATA_DIR: dados_monitoramento
 
 jobs:
   monitor:
@@ -72,9 +74,9 @@ jobs:
 
       - name: 📁 Prepare data directory
         run: |
-          mkdir -p dados_monitoramento
-          chmod 755 dados_monitoramento
-          echo "Data directory created: $(ls -la dados_monitoramento/)"
+          mkdir -p ${{ env.DATA_DIR }}
+          chmod 755 ${{ env.DATA_DIR }}
+          echo "Data directory created: $(ls -la ${{ env.DATA_DIR }}/)"
 
       - name: 🔍 Check for state branch
         id: check_state
@@ -100,18 +102,26 @@ jobs:
           
           # Restore state file
           if git cat-file -e origin/estado:estado_monitor.json 2>/dev/null; then
-            git show origin/estado:estado_monitor.json > dados_monitoramento/estado_monitor.json
-            echo "✅ State restored: $(wc -l < dados_monitoramento/estado_monitor.json) lines"
+            git show origin/estado:estado_monitor.json > ${{ env.DATA_DIR }}/estado_monitor.json
+            echo "✅ State restored: $(wc -l < ${{ env.DATA_DIR }}/estado_monitor.json) lines"
           else
             echo "ℹ️  No state file found"
           fi
           
           # Restore log file (keep last 1000 lines to avoid bloat)
           if git cat-file -e origin/estado:log_monitor.log 2>/dev/null; then
-            git show origin/estado:log_monitor.log | tail -n 1000 > dados_monitoramento/log_monitor.log
-            echo "✅ Log restored: $(wc -l < dados_monitoramento/log_monitor.log) lines"
+            git show origin/estado:log_monitor.log | tail -n 1000 > ${{ env.DATA_DIR }}/log_monitor.log
+            echo "✅ Log restored: $(wc -l < ${{ env.DATA_DIR }}/log_monitor.log) lines"
           else
             echo "ℹ️  No log file found"
+          fi
+
+          # Restore last execution report
+          if git cat-file -e origin/estado:last_execution_report.txt 2>/dev/null; then
+            git show origin/estado:last_execution_report.txt > ${{ env.DATA_DIR }}/last_execution_report.txt
+            echo "✅ Last execution report restored: $(wc -l < ${{ env.DATA_DIR }}/last_execution_report.txt) lines"
+          else
+            echo "ℹ️  No last execution report found"
           fi
 
       - name: 🐍 Setup Python
@@ -181,11 +191,11 @@ jobs:
           echo "=== PRE-EXECUTION STATUS ==="
           echo "Working directory: $(pwd)"
           echo "Data directory contents:"
-          ls -la dados_monitoramento/ || echo "Empty directory"
+          ls -la ${{ env.DATA_DIR }}/ || echo "Empty directory"
           
-          if [ -f "dados_monitoramento/estado_monitor.json" ]; then
+          if [ -f "${{ env.DATA_DIR }}/estado_monitor.json" ]; then
             echo "Current state:"
-            head -10 dados_monitoramento/estado_monitor.json
+            head -10 ${{ env.DATA_DIR }}/estado_monitor.json
           fi
 
       - name: 🚀 Execute monitoring script
@@ -206,9 +216,9 @@ jobs:
             echo "Script execution failed with exit code: $exit_code"
             
             # Show logs if available
-            if [ -f "dados_monitoramento/log_monitor.log" ]; then
+            if [ -f "${{ env.DATA_DIR }}/log_monitor.log" ]; then
               echo "=== RECENT LOG ENTRIES ==="
-              tail -20 dados_monitoramento/log_monitor.log
+              tail -20 ${{ env.DATA_DIR }}/log_monitor.log
             fi
             
             # Don't fail the job completely - save state anyway
@@ -222,19 +232,19 @@ jobs:
         run: |
           echo "=== POST-EXECUTION ANALYSIS ==="
           echo "Data directory after execution:"
-          ls -la dados_monitoramento/
+          ls -la ${{ env.DATA_DIR }}/
           
           # Show state file if it exists
-          if [ -f "dados_monitoramento/estado_monitor.json" ]; then
+          if [ -f "${{ env.DATA_DIR }}/estado_monitor.json" ]; then
             echo "=== CURRENT STATE ==="
-            cat dados_monitoramento/estado_monitor.json | jq '.' 2>/dev/null || cat dados_monitoramento/estado_monitor.json
+            cat ${{ env.DATA_DIR }}/estado_monitor.json | jq '.' 2>/dev/null || cat ${{ env.DATA_DIR }}/estado_monitor.json
             echo ""
           fi
           
           # Show recent log entries
-          if [ -f "dados_monitoramento/log_monitor.log" ]; then
+          if [ -f "${{ env.DATA_DIR }}/log_monitor.log" ]; then
             echo "=== RECENT LOG ENTRIES ==="
-            tail -15 dados_monitoramento/log_monitor.log
+            tail -15 ${{ env.DATA_DIR }}/log_monitor.log
           fi
 
       - name: 📊 Generate execution report
@@ -254,12 +264,12 @@ jobs:
           EOF
           
           # Add state info if available
-          if [ -f "dados_monitoramento/estado_monitor.json" ]; then
+          if [ -f "${{ env.DATA_DIR }}/estado_monitor.json" ]; then
             echo "Current Statistics:" >> execution_report.txt
             python3 -c "
           import json
           try:
-              with open('dados_monitoramento/estado_monitor.json', 'r') as f:
+              with open('${{ env.DATA_DIR }}/estado_monitor.json', 'r') as f:
                   data = json.load(f)
               print(f'- Total executions: {data.get(\"execucoes\", 0)}')
               print(f'- Total changes: {data.get(\"mudancas\", 0)}')
@@ -271,10 +281,10 @@ jobs:
           fi
           
           # Add log summary
-          if [ -f "dados_monitoramento/log_monitor.log" ]; then
+          if [ -f "${{ env.DATA_DIR }}/log_monitor.log" ]; then
             echo "" >> execution_report.txt
             echo "Recent Log Summary:" >> execution_report.txt
-            tail -5 dados_monitoramento/log_monitor.log >> execution_report.txt
+            tail -5 ${{ env.DATA_DIR }}/log_monitor.log >> execution_report.txt
           fi
           
           echo "Report generated:"
@@ -285,13 +295,18 @@ jobs:
         run: |
           changes_detected=false
           
-          if [ -f "dados_monitoramento/estado_monitor.json" ]; then
+          if [ -f "${{ env.DATA_DIR }}/estado_monitor.json" ]; then
             echo "✅ State file exists"
             changes_detected=true
           fi
           
-          if [ -f "dados_monitoramento/log_monitor.log" ]; then
+          if [ -f "${{ env.DATA_DIR }}/log_monitor.log" ]; then
             echo "✅ Log file exists"
+            changes_detected=true
+          fi
+
+          if [ -f "execution_report.txt" ]; then
+            echo "✅ Execution report exists"
             changes_detected=true
           fi
           
@@ -302,47 +317,43 @@ jobs:
         run: |
           echo "=== SAVING STATE TO BRANCH ==="
           
-          # Stash current changes
+          # Stash current changes (from main branch checkout)
           git stash -u || echo "Nothing to stash"
           
-          # Handle state branch
-          if [ "${{ steps.check_state.outputs.state_exists }}" = "true" ]; then
-            echo "Updating existing state branch..."
-            git fetch origin estado
-            git checkout -b estado origin/estado
-          else
-            echo "Creating new state branch..."
-            git checkout --orphan estado
-            git rm -rf . 2>/dev/null || true
-          fi
+          # Fetch and checkout 'estado' branch
+          git fetch origin estado || true # Fetch 'estado' branch, ignore error if it doesn't exist yet
+          git checkout estado || git checkout -b estado # Checkout 'estado' branch, create if it doesn't exist
           
-          # Copy state files
-          if [ -f "dados_monitoramento/estado_monitor.json" ]; then
-            cp dados_monitoramento/estado_monitor.json estado_monitor.json
+          # IMPORTANT: Ensure the working directory is clean before copying files
+          # Remove all files and directories except .git
+          git ls-files -z | xargs -0 git rm --cached --ignore-unmatch || true # Remove tracked files
+          git clean -fdx || true # Remove untracked files and directories
+          
+          # Copy state files from dados_monitoramento/ to the current directory (which is now 'estado' branch's root)
+          # Use 'cp -f' to force overwrite if files exist
+          if [ -f "${{ env.DATA_DIR }}/estado_monitor.json" ]; then
+            cp -f ${{ env.DATA_DIR }}/estado_monitor.json .
             git add estado_monitor.json
             echo "✅ State file added"
           fi
           
-          if [ -f "dados_monitoramento/log_monitor.log" ]; then
+          if [ -f "${{ env.DATA_DIR }}/log_monitor.log" ]; then
             # Keep log file size manageable (last 2000 lines)
-            tail -n 2000 dados_monitoramento/log_monitor.log > log_monitor.log
+            tail -n 2000 ${{ env.DATA_DIR }}/log_monitor.log > log_monitor.log
             git add log_monitor.log
             echo "✅ Log file added (truncated to 2000 lines)"
           fi
           
           # Add execution report
           if [ -f "execution_report.txt" ]; then
-            cp execution_report.txt last_execution_report.txt
+            cp -f execution_report.txt last_execution_report.txt
             git add last_execution_report.txt
             echo "✅ Execution report added"
           fi
           
-          # Commit and push
+          # Commit and push - always create a commit to force update
           commit_message="🔄 Update state - $(date '+%Y-%m-%d %H:%M:%S') [skip ci]"
-          git commit -m "$commit_message" || {
-            echo "No changes to commit"
-            exit 0
-          }
+          git commit --allow-empty -m "$commit_message"
           
           git push origin estado --force
           echo "✅ State saved successfully"
@@ -364,7 +375,7 @@ jobs:
               try:
                   sender = os.environ["EMAIL_USUARIO"]
                   password = os.environ["EMAIL_SENHA"]
-                  recipient = "edunaka@live.com"
+                  recipient = os.environ.get("EMAIL_DESTINATARIO", "edunaka@live.com")
                   
                   now = datetime.now()
                   
@@ -390,7 +401,7 @@ jobs:
           This is an automated notification from the PDF monitoring system.
           """
                   
-                  msg.attach(MIMEText(body, 'plain', 'utf-8'))
+                  msg.attach(MIMEText(body, 'plain', 'utf-8' ))
                   
                   server = smtplib.SMTP("smtp.gmail.com", 587)
                   server.starttls()
@@ -415,7 +426,7 @@ jobs:
           echo "=== CLEANUP ==="
           
           # Remove temporary files
-          rm -f dados_monitoramento/temp.pdf
+          rm -f ${{ env.DATA_DIR }}/temp.pdf
           rm -f execution_report.txt
           rm -f send_failure_notification.py
           
@@ -435,12 +446,12 @@ jobs:
           echo "Execution completed at: $(date)"
           
           # Show final statistics if available
-          if [ -f "dados_monitoramento/estado_monitor.json" ]; then
+          if [ -f "${{ env.DATA_DIR }}/estado_monitor.json" ]; then
             echo "Final execution count:"
             python3 -c "
           import json
           try:
-              with open('dados_monitoramento/estado_monitor.json', 'r') as f:
+              with open('${{ env.DATA_DIR }}/estado_monitor.json', 'r') as f:
                   data = json.load(f)
               print(f'Total executions: {data.get(\"execucoes\", 0)}')
           except:
