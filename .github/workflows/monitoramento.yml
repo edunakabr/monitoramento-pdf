@@ -28,6 +28,7 @@ env:
   FORCE_EMAIL: ${{ github.event.inputs.force_email || 'false' }}
   GOOGLE_DRIVE_FILE_ID: ${{ secrets.GOOGLE_DRIVE_FILE_ID }}
   DATA_DIR: dados_monitoramento
+  TIMEZONE: America/Sao_Paulo
 
 jobs:
   monitor:
