@@ -100,7 +100,9 @@ class PDFMonitor:
             logging.root.removeHandler(handler)
         
         logging.basicConfig(
-            level=logging.INFO,            format=\'{asctime} | {levelname:8s} | {message}\', style=\'{\',            handlers=[
+            level=logging.INFO,
+            format=\'{asctime} | {levelname:8s} | {message}\', style=\'{\',
+            handlers=[
                 logging.FileHandler(self.arquivo_log, encoding='utf-8'),
                 logging.StreamHandler(sys.stdout)
             ]
