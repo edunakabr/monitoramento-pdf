@@ -3,6 +3,7 @@
 requests>=2.25.1
 schedule>=1.2.0
 pathlib2>=2.3.0
+pytz>=2024.1
 
 # PDF processing libraries (multiple options for better compatibility)
 PyPDF2>=3.0.0
