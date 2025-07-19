@@ -45,13 +45,11 @@ jobs:
         run: |
           git config --global user.name "pdf-monitor[bot]"
           git config --global user.email "pdf-monitor[bot]@users.noreply.github.com"
-
       - name: 📁 Prepare data directory
         run: |
           mkdir -p ${{ env.DATA_DIR }}
           chmod 755 ${{ env.DATA_DIR }}
           echo "Data directory created: $(ls -la ${{ env.DATA_DIR }}/)"
-
       - name: 🔍 Check for state branch
         id: check_state
         run: |
@@ -63,7 +61,6 @@ jobs:
             echo "state_exists=false" >> $GITHUB_OUTPUT
             echo "ℹ️  State branch doesn't exist - first run"
           fi
-
       - name: 📥 Restore previous state
         if: steps.check_state.outputs.state_exists == 'true'
         run: |
@@ -85,7 +82,6 @@ jobs:
           else
             echo "ℹ️  No log file found"
           fi
-
           # Restore last execution report
           if git cat-file -e origin/estado:last_execution_report.txt 2>/dev/null; then
             git show origin/estado:last_execution_report.txt > ${{ env.DATA_DIR }}/last_execution_report.txt
@@ -93,7 +89,6 @@ jobs:
           else
             echo "ℹ️  No last execution report found"
           fi
-
       - name: 🐍 Setup Python
         uses: actions/setup-python@v4
         with:
@@ -117,7 +112,6 @@ jobs:
               except ImportError as e:
                   print(f'❌ {lib}: {e}')
           "
-
       - name: 🔍 Verify script file
         run: |
           echo "=== SCRIPT VERIFICATION ==="
@@ -135,7 +129,6 @@ jobs:
             ls -la
             exit 1
           fi
-
       - name: 📊 Pre-execution status
         run: |
           echo "=== PRE-EXECUTION STATUS ==="
@@ -147,7 +140,6 @@ jobs:
             echo "Current state:"
             head -10 ${{ env.DATA_DIR }}/estado_monitor.json
           fi
-
       - name: 🚀 Execute monitoring script
         id: execute_script
         run: |
@@ -173,7 +165,6 @@ jobs:
           }
           
           echo "script_failed=false" >> $GITHUB_OUTPUT
-
       - name: 📋 Post-execution analysis
         run: |
           echo "=== POST-EXECUTION ANALYSIS ==="
@@ -190,7 +181,6 @@ jobs:
             echo "=== RECENT LOG ENTRIES ==="
             tail -15 ${{ env.DATA_DIR }}/log_monitor.log
           fi
-
       - name: 📊 Generate execution report
         id: generate_report
         run: |
@@ -230,7 +220,6 @@ jobs:
           
           echo "Report generated:"
           cat execution_report.txt
-
       - name: 🔍 Check for changes
         id: check_changes
         run: |
@@ -245,14 +234,12 @@ jobs:
             echo "✅ Log file exists"
             changes_detected=true
           fi
-
           if [ -f "execution_report.txt" ]; then
             echo "✅ Execution report exists"
             changes_detected=true
           fi
           
           echo "changes_detected=$changes_detected" >> $GITHUB_OUTPUT
-
       - name: 💾 Save state to branch
         if: steps.check_changes.outputs.changes_detected == 'true'
         run: |
@@ -293,7 +280,6 @@ jobs:
           
           git push origin estado --force
           echo "✅ State saved successfully"
-
       - name: 📧 Send notification on failure
         if: failure() || steps.execute_script.outputs.script_failed == 'true'
         run: |
@@ -355,7 +341,6 @@ jobs:
           EOF
           
           python3 send_failure_notification.py
-
       - name: 🧹 Cleanup
         if: always()
         run: |
@@ -370,7 +355,6 @@ jobs:
           git checkout main 2>/dev/null || git checkout master 2>/dev/null || echo "Could not return to main branch"
           
           echo "✅ Cleanup completed"
-
       - name: 📊 Final status
         if: always()
         run: |
