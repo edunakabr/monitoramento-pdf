@@ -44,11 +44,11 @@ except ImportError:
             PDF_LIBRARY = None
 
 # CONFIGURAÇÕES
-ARQUIVO_ID = '1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l'
-PASTA_DADOS = 'dados_monitoramento'
-ARQUIVO_ESTADO = 'estado_monitor.json'
-ARQUIVO_LOG = 'log_monitor.log'
-ARQUIVO_TEMP = 'temp.pdf'
+ARQUIVO_ID = os.environ.get("GOOGLE_DRIVE_FILE_ID", "1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l")
+PASTA_DADOS = os.environ.get("DATA_DIR", "dados_monitoramento")
+ARQUIVO_ESTADO = os.path.join(PASTA_DADOS, os.environ.get("STATE_FILE", "estado_monitor.json"))
+ARQUIVO_LOG = os.path.join(PASTA_DADOS, os.environ.get("LOG_FILE", "log_monitor.log"))
+ARQUIVO_TEMP = os.path.join(PASTA_DADOS, os.environ.get("TEMP_PDF_FILE", "temp.pdf"))
 PALAVRAS_CHAVE = ["Donepezil", "Memantina", "Galantamina"]
 
 # CONFIGURAÇÕES DE RETRY
@@ -62,29 +62,29 @@ RETRY_CONFIG = {
 SCHEDULE_CONFIG = {
     'modo': 'horarios_especificos',
     'horarios_especificos': [
-        '05:00',  # Antes do inicio do atendimento
-        '06:00',  # Inicio do atendimento
-        '07:00',  # Durante atendimento
-        '08:00',  # Durante atendimento
-        '09:00',  # Durante atendimento
-        '10:00',  # Durante atendimento
-        '11:00',  # Durante atendimento
-        '12:00',  # Durante atendimento
-        '13:00',  # Durante atendimento
-        '14:00',  # Fim do atendimento
-        '23:00',  # Final do dia
+        '05:00',
+        '06:00',
+        '07:00',
+        '08:00',
+        '09:00',
+        '10:00',
+        '11:00',
+        '12:00',
+        '13:00',
+        '14:00',
+        '23:00',
     ],
     'executar_fins_semana': False,
-    'dias_semana': [0, 1, 2, 3, 4],  # Segunda a sexta
+    'dias_semana': [0, 1, 2, 3, 4],  # Segunda a sexta (0=Segunda, 6=Domingo)
 }
 
 class PDFMonitor:
     def __init__(self, file_id: str):
         self.file_id = file_id
         self.pasta_dados = PASTA_DADOS
-        self.arquivo_estado = os.path.join(self.pasta_dados, ARQUIVO_ESTADO)
-        self.arquivo_log = os.path.join(self.pasta_dados, ARQUIVO_LOG)
-        self.arquivo_temp = os.path.join(self.pasta_dados, ARQUIVO_TEMP)
+        self.arquivo_estado = ARQUIVO_ESTADO
+        self.arquivo_log = ARQUIVO_LOG
+        self.arquivo_temp = ARQUIVO_TEMP
         self.setup()
 
     def setup(self):
@@ -96,11 +96,9 @@ class PDFMonitor:
 
     def setup_logging(self):
         """Configura o sistema de logging"""
-        # Remove handlers existentes
         for handler in logging.root.handlers[:]:
             logging.root.removeHandler(handler)
         
-        # Configuração do logging
         logging.basicConfig(
             level=logging.INFO,
             format='%(asctime)s | %(levelname)8s | %(message)s',
@@ -114,25 +112,27 @@ class PDFMonitor:
         """Registra informações do sistema"""
         logging.info("=== SISTEMA DE MONITORAMENTO INICIADO ===")
         logging.info(f"Biblioteca PDF: {PDF_LIBRARY}")
-        logging.info(f"Python: {sys.version}")
+        logging.info(f"Python: {sys.version.splitlines()[0]}")
         logging.info(f"Arquivo ID: {self.file_id}")
         logging.info(f"Medicamentos monitorados: {', '.join(PALAVRAS_CHAVE)}")
 
     def carregar_estado(self) -> Dict:
         """Carrega o estado anterior ou cria um novo"""
-        if os.path.exists(self.arquivo_estado):
+        if os.path.exists(self.arquivo_estado) and os.path.getsize(self.arquivo_estado) > 0:
             try:
                 with open(self.arquivo_estado, 'r', encoding='utf-8') as f:
                     content = f.read().strip()
                     if not content:
                         logging.warning("Arquivo de estado vazio. Criando estado inicial.")
                         return self.estado_inicial()
-                    return json.loads(content)
+                    estado_carregado = json.loads(content)
+                    logging.info(f"Estado carregado com sucesso. Execução #{estado_carregado.get('execucoes', 0)}")
+                    return estado_carregado
             except (json.JSONDecodeError, Exception) as e:
-                logging.error(f"Erro ao carregar estado: {e}. Criando estado inicial.")
+                logging.error(f"Erro ao carregar estado: {e}. O arquivo pode estar corrompido. Criando estado inicial.")
                 return self.estado_inicial()
         else:
-            logging.info("Primeiro uso. Criando estado inicial.")
+            logging.info("Primeiro uso ou arquivo de estado inexistente. Criando estado inicial.")
             return self.estado_inicial()
     
     def estado_inicial(self) -> Dict:
@@ -148,15 +148,16 @@ class PDFMonitor:
             "erros_consecutivos": 0,
             "ultima_execucao_sucesso": ""
         }
-        self.salvar_estado(estado)
         return estado
 
     def salvar_estado(self, estado: Dict):
         """Salva o estado atual"""
         estado['data_atualizacao'] = datetime.now().isoformat()
         try:
-            with open(self.arquivo_estado, 'w', encoding='utf-8') as f:
+            temp_arquivo_estado = self.arquivo_estado + ".tmp"
+            with open(temp_arquivo_estado, 'w', encoding='utf-8') as f:
                 json.dump(estado, f, ensure_ascii=False, indent=2)
+            os.replace(temp_arquivo_estado, self.arquivo_estado)
             logging.info("Estado salvo com sucesso")
         except Exception as e:
             logging.error(f"Erro ao salvar estado: {e}")
@@ -167,7 +168,6 @@ class PDFMonitor:
             try:
                 logging.info(f"Tentativa {tentativa + 1} de download...")
                 
-                # Diferentes estratégias de download
                 urls_tentativa = [
                     f"https://drive.google.com/uc?export=download&id={self.file_id}",
                     f"https://docs.google.com/document/d/{self.file_id}/export?format=pdf"
@@ -187,28 +187,24 @@ class PDFMonitor:
                         )
                         response.raise_for_status()
                         
-                        # Verifica se é realmente um PDF
                         content_type = response.headers.get('content-type', '')
                         if 'pdf' not in content_type.lower():
-                            logging.warning(f"Conteúdo pode não ser PDF: {content_type}")
+                            logging.warning(f"Conteúdo pode não ser PDF: {content_type} da URL {url}")
                         
-                        # Salva o arquivo
                         with open(self.arquivo_temp, 'wb') as f:
                             for chunk in response.iter_content(chunk_size=8192):
                                 f.write(chunk)
                         
-                        # Verifica se o arquivo foi salvo corretamente
                         if os.path.getsize(self.arquivo_temp) > 0:
-                            logging.info(f"Download concluído ({os.path.getsize(self.arquivo_temp)} bytes)")
+                            logging.info(f"Download concluído ({os.path.getsize(self.arquivo_temp)} bytes) da URL {url}")
                             return True
                         else:
-                            logging.error("Arquivo PDF está vazio")
+                            logging.error(f"Arquivo PDF está vazio após download da URL {url}")
                             
                     except requests.exceptions.RequestException as e:
                         logging.warning(f"Erro na URL {url}: {e}")
                         continue
                 
-                # Se chegou aqui, todas as URLs falharam
                 if tentativa < RETRY_CONFIG['max_retries'] - 1:
                     logging.info(f"Aguardando {RETRY_CONFIG['retry_delay']} segundos antes da próxima tentativa...")
                     time.sleep(RETRY_CONFIG['retry_delay'])
@@ -238,7 +234,7 @@ class PDFMonitor:
                     logging.info(f"Texto extraído com PyPDF2 ({len(texto)} caracteres)")
                     return self.limpar_texto(texto)
             except Exception as e:
-                logging.warning(f"Erro com PyPDF2: {e}")
+                logging.warning(f"Erro com PyPDF2: {e}. Tentando outra biblioteca.")
         
         # Tentativa 2: pdfplumber
         try:
@@ -252,7 +248,7 @@ class PDFMonitor:
                 logging.info(f"Texto extraído com pdfplumber ({len(texto)} caracteres)")
                 return self.limpar_texto(texto)
         except (ImportError, Exception) as e:
-            logging.warning(f"pdfplumber não disponível ou erro: {e}")
+            logging.warning(f"pdfplumber não disponível ou erro: {e}. Tentando outra biblioteca.")
         
         # Tentativa 3: PyMuPDF
         try:
@@ -268,7 +264,7 @@ class PDFMonitor:
                 logging.info(f"Texto extraído com PyMuPDF ({len(texto)} caracteres)")
                 return self.limpar_texto(texto)
         except (ImportError, Exception) as e:
-            logging.warning(f"PyMuPDF não disponível ou erro: {e}")
+            logging.warning(f"PyMuPDF não disponível ou erro: {e}. Nenhuma outra biblioteca para tentar.")
         
         logging.error("Falha na extração de texto com todas as bibliotecas")
         return ""
@@ -281,8 +277,9 @@ class PDFMonitor:
         # Remove caracteres de controle e normaliza espaços
         texto = re.sub(r'\s+', ' ', texto.strip())
         
-        # Remove caracteres especiais problemáticos
-        texto = re.sub(r'[^\w\s\-\.,;:!?()]', '', texto)
+        # Remove caracteres especiais problemáticos que podem vir da extração de PDF
+        # Mantém letras, números, espaços e pontuações básicas
+        texto = re.sub(r'[^\w\s\.,;!?-]', '', texto, flags=re.UNICODE)
         
         return texto
 
@@ -291,29 +288,34 @@ class PDFMonitor:
         return hashlib.md5(texto.encode('utf-8')).hexdigest() if texto else ""
 
     def verificar_palavras_chave(self, texto: str) -> Tuple[List[str], List[str]]:
-        """Verifica medicamentos em falta e disponíveis"""
+        """
+        Verifica medicamentos em falta e disponíveis.
+        LÓGICA CORRETA:
+        - Medicamentos EM FALTA: NÃO encontrados no texto do PDF
+        - Medicamentos DISPONÍVEIS: encontrados no texto do PDF
+        """
         texto_lower = texto.lower()
-        encontradas = []
-        nao_encontradas = []
+        medicamentos_disponiveis = []  # Encontrados no PDF (não estão em falta)
+        medicamentos_em_falta = []     # NÃO encontrados no PDF (estão em falta)
         
         for medicamento in PALAVRAS_CHAVE:
             if medicamento.lower() in texto_lower:
-                encontradas.append(medicamento)
+                medicamentos_disponiveis.append(medicamento)
             else:
-                nao_encontradas.append(medicamento)
+                medicamentos_em_falta.append(medicamento)
         
-        logging.info(f"Medicamentos em falta: {encontradas}")
-        logging.info(f"Medicamentos disponíveis: {nao_encontradas}")
+        logging.info(f"Medicamentos DISPONÍVEIS (encontrados no PDF): {', '.join(medicamentos_disponiveis) if medicamentos_disponiveis else 'Nenhum'}")
+        logging.info(f"Medicamentos EM FALTA (NÃO encontrados no PDF): {', '.join(medicamentos_em_falta) if medicamentos_em_falta else 'Nenhum'}")
         
-        return encontradas, nao_encontradas
+        return medicamentos_em_falta, medicamentos_disponiveis
 
-    def criar_email_html(self, encontradas: List[str], nao_encontradas: List[str]) -> str:
+    def criar_email_html(self, medicamentos_em_falta: List[str], medicamentos_disponiveis: List[str]) -> str:
         """Cria conteúdo HTML para o email"""
         agora = datetime.now()
         data_hora = agora.strftime("%d/%m/%Y às %H:%M:%S")
         
         # Cor baseada no status
-        cor_status = "#dc3545" if encontradas else "#28a745"  # vermelho se falta, verde se ok
+        cor_status = "#dc3545" if medicamentos_em_falta else "#28a745"  # vermelho se há falta, verde se todos disponíveis
         
         html = f"""
         <!DOCTYPE html>
@@ -321,42 +323,52 @@ class PDFMonitor:
         <head>
             <meta charset="UTF-8">
             <style>
-                body {{ font-family: Arial, sans-serif; margin: 20px; }}
-                .header {{ background-color: {cor_status}; color: white; padding: 15px; border-radius: 5px; }}
-                .content {{ padding: 20px; border: 1px solid #ddd; border-radius: 5px; margin-top: 10px; }}
-                .medicamento {{ padding: 5px; margin: 5px 0; border-radius: 3px; }}
-                .falta {{ background-color: #f8d7da; color: #721c24; }}
-                .disponivel {{ background-color: #d4edda; color: #155724; }}
-                .info {{ background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 10px 0; }}
-                .stats {{ font-size: 0.9em; color: #666; }}
+                body {{ font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }}
+                .container {{ max-width: 600px; margin: 0 auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }}
+                .header {{ background-color: {cor_status}; color: white; padding: 15px; border-radius: 5px 5px 0 0; text-align: center; }}
+                .content {{ padding: 20px; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px; margin-top: 0; }}
+                h3 {{ color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 0; }}
+                .medicamento {{ padding: 8px 12px; margin: 8px 0; border-radius: 5px; font-size: 0.95em; display: flex; align-items: center; }}
+                .falta {{ background-color: #fcecec; color: #c0392b; border: 1px solid #f5b7b1; }}
+                .disponivel {{ background-color: #e6f7ed; color: #27ae60; border: 1px solid #a9dfbf; }}
+                .info {{ background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0; border: 1px solid #e9ecef; }}
+                .stats {{ font-size: 0.85em; color: #555; line-height: 1.6; }}
+                .footer {{ text-align: center; margin-top: 20px; font-size: 0.8em; color: #888; }}
+                .icon {{ margin-right: 10px; font-size: 1.2em; }}
             </style>
         </head>
         <body>
-            <div class="header">
-                <h2>🚨 Atualização de Medicamentos - {data_hora}</h2>
-            </div>
-            
-            <div class="content">
-                <h3>Status dos Medicamentos:</h3>
+            <div class="container">
+                <div class="header">
+                    <h2>{ '🚨' if medicamentos_em_falta else '✅' } Atualização de Medicamentos - {data_hora}</h2>
+                </div>
                 
-                {f'''
-                <h4 style="color: #dc3545;">⚠️ Medicamentos em Falta:</h4>
-                {''.join(f'<div class="medicamento falta">• {med}</div>' for med in encontradas)}
-                ''' if encontradas else ''}
-                
-                {f'''
-                <h4 style="color: #28a745;">✅ Medicamentos Disponíveis:</h4>
-                {''.join(f'<div class="medicamento disponivel">• {med}</div>' for med in nao_encontradas)}
-                ''' if nao_encontradas else ''}
-                
-                <div class="info">
-                    <h4>Informações da Execução:</h4>
-                    <div class="stats">
-                        <p><strong>Data/Hora:</strong> {data_hora}</p>
-                        <p><strong>Execução #:</strong> {self.estado['execucoes']}</p>
-                        <p><strong>Total de mudanças:</strong> {self.estado['mudancas']}</p>
-                        <p><strong>Hash do conteúdo:</strong> {self.estado['hash_ultimo'][:8]}...</p>
+                <div class="content">
+                    <h3>Status dos Medicamentos:</h3>
+                    
+                    {f'''
+                    <h4 style="color: #dc3545;"><span class="icon">❌</span> Medicamentos em Falta:</h4>
+                    {''.join(f'<div class="medicamento falta"><span class="icon">•</span> {med}</div>' for med in medicamentos_em_falta)}
+                    ''' if medicamentos_em_falta else ''}
+                    
+                    {f'''
+                    <h4 style="color: #28a745;"><span class="icon">✔️</span> Medicamentos Disponíveis:</h4>
+                    {''.join(f'<div class="medicamento disponivel"><span class="icon">•</span> {med}</div>' for med in medicamentos_disponiveis)}
+                    ''' if medicamentos_disponiveis else ''}
+                    
+                    <div class="info">
+                        <h4>Informações da Execução:</h4>
+                        <div class="stats">
+                            <p><strong>Data/Hora da Verificação:</strong> {data_hora}</p>
+                            <p><strong>Execução #:</strong> {self.estado.get('execucoes', 0)}</p>
+                            <p><strong>Total de mudanças detectadas:</strong> {self.estado.get('mudancas', 0)}</p>
+                            <p><strong>Hash do conteúdo atual:</strong> {self.estado.get('hash_ultimo', '')[:10]}...</p>
+                            <p><strong>Última mudança registrada:</strong> {self.estado.get('ultima_mudanca', 'N/A')}</p>
+                        </div>
                     </div>
+                </div>
+                <div class="footer">
+                    Este é um e-mail automático do sistema de monitoramento de PDF.
                 </div>
             </div>
         </body>
@@ -365,23 +377,25 @@ class PDFMonitor:
         
         return html
 
-    def enviar_email_melhorado(self, encontradas: List[str], nao_encontradas: List[str]):
+    def enviar_email_melhorado(self, medicamentos_em_falta: List[str], medicamentos_disponiveis: List[str]):
         """Envia email com formatação HTML melhorada"""
         try:
-            remetente = os.environ["EMAIL_USUARIO"]
-            senha = os.environ["EMAIL_SENHA"]
-            destinatario = "edunaka@live.com"
+            remetente = os.environ.get("EMAIL_USUARIO")
+            senha = os.environ.get("EMAIL_SENHA")
+            destinatario = os.environ.get("EMAIL_DESTINATARIO", "edunaka@live.com")
             
+            if not remetente or not senha:
+                logging.error("Variáveis de ambiente EMAIL_USUARIO ou EMAIL_SENHA não configuradas. Não é possível enviar e-mail.")
+                return
+
             agora = datetime.now()
             data_hora_subject = agora.strftime("%d/%m/%Y %H:%M")
             
-            # Cria mensagem multipart
             msg = MIMEMultipart('alternative')
             
-            # Subject baseado no status
-            if encontradas:
+            if medicamentos_em_falta:
                 status_emoji = "🚨"
-                status_text = f"FALTA: {', '.join(encontradas)}"
+                status_text = f"FALTA: {', '.join(medicamentos_em_falta)}"
             else:
                 status_emoji = "✅"
                 status_text = "TODOS DISPONÍVEIS"
@@ -390,30 +404,25 @@ class PDFMonitor:
             msg["From"] = remetente
             msg["To"] = destinatario
             
-            # Prioridade alta
             msg["X-Priority"] = "1"
             msg["Importance"] = "High"
             
-            # Versão texto simples
             texto_simples = f"""
 Execução realizada em: {agora.strftime("%d/%m/%Y às %H:%M:%S")}
 
-O PDF foi atualizado.
+Status do PDF:
 
-Medicamentos em falta: {', '.join(encontradas) if encontradas else 'Nenhum'}
-Medicamentos disponíveis: {', '.join(nao_encontradas) if nao_encontradas else 'Nenhum'}
+Medicamentos em falta: {', '.join(medicamentos_em_falta) if medicamentos_em_falta else 'Nenhum'}
+Medicamentos disponíveis: {', '.join(medicamentos_disponiveis) if medicamentos_disponiveis else 'Nenhum'}
 
-Execução #{self.estado['execucoes']} | Total de mudanças: {self.estado['mudancas']}
+Execução #{self.estado.get('execucoes', 0)} | Total de mudanças: {self.estado.get('mudancas', 0)}
             """
             
-            # Versão HTML
-            html_content = self.criar_email_html(encontradas, nao_encontradas)
+            html_content = self.criar_email_html(medicamentos_em_falta, medicamentos_disponiveis)
             
-            # Anexa ambas as versões
             msg.attach(MIMEText(texto_simples, 'plain', 'utf-8'))
             msg.attach(MIMEText(html_content, 'html', 'utf-8'))
             
-            # Envia email
             server = smtplib.SMTP("smtp.gmail.com", 587)
             server.starttls()
             server.login(remetente, senha)
@@ -425,95 +434,109 @@ Execução #{self.estado['execucoes']} | Total de mudanças: {self.estado['mudan
         except Exception as e:
             logging.error(f"Erro ao enviar email: {e}")
 
-    def atualizar_historico_status(self, encontradas: List[str]):
+    def atualizar_historico_status(self, medicamentos_em_falta: List[str]):
         """Atualiza histórico de status dos medicamentos"""
         status_atual = {
             'timestamp': datetime.now().isoformat(),
-            'medicamentos_falta': encontradas,
-            'total_falta': len(encontradas)
+            'medicamentos_em_falta': medicamentos_em_falta,
+            'total_em_falta': len(medicamentos_em_falta)
         }
         
-        # Mantém apenas os últimos 50 registros
         if 'historico_status' not in self.estado:
             self.estado['historico_status'] = []
         
         self.estado['historico_status'].append(status_atual)
-        self.estado['historico_status'] = self.estado['historico_status'][-50:]
+        self.estado['historico_status'] = self.estado['historico_status'][-50:]  # Mantém os últimos 50 registros
 
     def executar(self):
         """Executa o monitoramento principal"""
-        self.estado["execucoes"] += 1
+        # IMPORTANTE: Incrementar o contador ANTES de qualquer operação
+        self.estado["execucoes"] = self.estado.get("execucoes", 0) + 1
         inicio = datetime.now()
         
         logging.info(f"=== EXECUÇÃO #{self.estado['execucoes']} INICIADA ===")
         
         try:
-            # Download do PDF
             if not self.baixar_pdf_com_retry():
-                self.estado["erros_consecutivos"] += 1
-                logging.error(f"Erro consecutivo #{self.estado['erros_consecutivos']}")
+                self.estado["erros_consecutivos"] = self.estado.get("erros_consecutivos", 0) + 1
+                logging.error(f"Erro consecutivo #{self.estado['erros_consecutivos']}: Falha no download do PDF.")
                 return
             
-            # Extração de texto
             texto = self.extrair_texto_multiplas_bibliotecas()
             if not texto:
-                self.estado["erros_consecutivos"] += 1
-                logging.error("Falha na extração de texto")
+                self.estado["erros_consecutivos"] = self.estado.get("erros_consecutivos", 0) + 1
+                logging.error(f"Erro consecutivo #{self.estado['erros_consecutivos']}: Falha na extração de texto do PDF.")
                 return
             
-            # Verifica mudanças
             hash_atual = self.calcular_hash(texto)
-            mudou = hash_atual != self.estado["hash_ultimo"]
+            mudou_conteudo = hash_atual != self.estado.get("hash_ultimo", "")
             
-            if mudou:
-                self.estado["mudancas"] += 1
-                self.estado["texto_ultimo"] = texto
-                self.estado["hash_ultimo"] = hash_atual
-                self.estado["data_ultimo"] = datetime.now().isoformat()
-                self.estado["ultima_mudanca"] = datetime.now().isoformat()
+            medicamentos_em_falta, medicamentos_disponiveis = self.verificar_palavras_chave(texto)
+            
+            # Verifica se houve mudança no status dos medicamentos
+            medicamentos_em_falta_anterior = self.estado.get('medicamentos_em_falta_ultimo', [])
+            mudou_status_medicamentos = set(medicamentos_em_falta) != set(medicamentos_em_falta_anterior)
+            
+            # Condição para enviar e-mail: mudança no conteúdo do PDF OU mudança no status dos medicamentos OU force_email
+            deve_enviar_email = mudou_conteudo or mudou_status_medicamentos or os.environ.get("FORCE_EMAIL", "false").lower() == "true"
+            
+            if deve_enviar_email:
+                if mudou_conteudo:
+                    self.estado["mudancas"] = self.estado.get("mudancas", 0) + 1
+                    self.estado["texto_ultimo"] = texto
+                    self.estado["hash_ultimo"] = hash_atual
+                    self.estado["data_ultimo"] = datetime.now().isoformat()
+                    self.estado["ultima_mudanca"] = datetime.now().isoformat()
+                    logging.info(f"✅ Mudança no conteúdo do PDF detectada. Novo hash: {hash_atual[:10]}...")
                 
-                # Verifica medicamentos
-                encontradas, nao_encontradas = self.verificar_palavras_chave(texto)
+                # Atualiza o estado dos medicamentos em falta para a próxima comparação
+                self.estado['medicamentos_em_falta_ultimo'] = medicamentos_em_falta
+
+                self.atualizar_historico_status(medicamentos_em_falta)
+                self.enviar_email_melhorado(medicamentos_em_falta, medicamentos_disponiveis)
                 
-                # Atualiza histórico
-                self.atualizar_historico_status(encontradas)
-                
-                # Envia email
-                self.enviar_email_melhorado(encontradas, nao_encontradas)
-                
-                logging.info(f"✅ Mudança detectada e processada")
+                if not mudou_conteudo and not mudou_status_medicamentos and os.environ.get("FORCE_EMAIL", "false").lower() == "true":
+                    logging.info(f"📧 E-mail forçado enviado (nenhuma mudança detectada).")
+                elif not mudou_conteudo and mudou_status_medicamentos:
+                    logging.info(f"✅ Mudança no status dos medicamentos detectada (mesmo conteúdo do PDF). Enviando e-mail.")
+                elif mudou_conteudo:
+                    logging.info(f"✅ Mudança no conteúdo do PDF detectada. Enviando e-mail.")
+
             else:
-                logging.info("ℹ️  Nenhuma mudança detectada")
+                logging.info("ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.")
             
-            # Reset contador de erros em caso de sucesso
             self.estado["erros_consecutivos"] = 0
             self.estado["ultima_execucao_sucesso"] = datetime.now().isoformat()
             
-            # Estatísticas
             duracao = (datetime.now() - inicio).total_seconds()
             logging.info(f"Execução concluída em {duracao:.2f}s")
             
         except Exception as e:
-            self.estado["erros_consecutivos"] += 1
-            logging.error(f"Erro na execução: {e}")
+            self.estado["erros_consecutivos"] = self.estado.get("erros_consecutivos", 0) + 1
+            logging.error(f"Erro na execução: {e}", exc_info=True)
             
         finally:
             self.salvar_estado(self.estado)
             
-            # Limpa arquivo temporário
             if os.path.exists(self.arquivo_temp):
-                os.remove(self.arquivo_temp)
+                try:
+                    os.remove(self.arquivo_temp)
+                    logging.info(f"Arquivo temporário {self.arquivo_temp} removido.")
+                except Exception as e:
+                    logging.warning(f"Não foi possível remover o arquivo temporário {self.arquivo_temp}: {e}")
 
     def deve_executar_agora(self) -> bool:
         """Verifica se deve executar baseado nas configurações"""
         agora = datetime.now()
         
-        # Verifica dia da semana
+        # Verifica dia da semana (0=Segunda, 6=Domingo)
         if agora.weekday() not in SCHEDULE_CONFIG['dias_semana']:
+            logging.debug(f"Não executa hoje ({agora.strftime('%A')}) - fora dos dias permitidos.")
             return False
             
-        # Verifica fins de semana
+        # Verifica fins de semana (redundante se dias_semana for configurado corretamente, mas mantém para clareza)
         if not SCHEDULE_CONFIG['executar_fins_semana'] and agora.weekday() >= 5:
+            logging.debug(f"Não executa hoje ({agora.strftime('%A')}) - fins de semana desativados.")
             return False
             
         return True
@@ -521,37 +544,34 @@ Execução #{self.estado['execucoes']} | Total de mudanças: {self.estado['mudan
     def status_sistema(self) -> Dict:
         """Retorna status do sistema"""
         return {
-            'execucoes': self.estado['execucoes'],
-            'mudancas': self.estado['mudancas'],
-            'erros_consecutivos': self.estado['erros_consecutivos'],
+            'execucoes': self.estado.get('execucoes', 0),
+            'mudancas': self.estado.get('mudancas', 0),
+            'erros_consecutivos': self.estado.get('erros_consecutivos', 0),
             'ultima_execucao_sucesso': self.estado.get('ultima_execucao_sucesso', 'N/A'),
             'ultima_mudanca': self.estado.get('ultima_mudanca', 'N/A'),
-            'biblioteca_pdf': PDF_LIBRARY,
-            'arquivo_id': self.file_id
+            'biblioteca_pdf_usada': PDF_LIBRARY,
+            'arquivo_id_monitorado': self.file_id,
+            'estado_atual_hash': self.estado.get('hash_ultimo', '')[:10] + '...' if self.estado.get('hash_ultimo') else 'N/A',
+            'medicamentos_em_falta_ultimo': self.estado.get('medicamentos_em_falta_ultimo', [])
         }
 
 def configurar_schedule():
     """Configura o agendamento baseado nas configurações"""
     monitor = PDFMonitor(ARQUIVO_ID)
     
-    def executar_com_verificacao():
-        if monitor.deve_executar_agora():
-            monitor.executar()
-        else:
-            logging.info("Execução pulada - fora do horário permitido")
-    
-    # Limpa agendamentos anteriores
+    # Limpa agendamentos anteriores para evitar duplicação em caso de reconfiguração
     schedule.clear()
     
     if SCHEDULE_CONFIG['modo'] == 'horarios_especificos':
         for horario in SCHEDULE_CONFIG['horarios_especificos']:
-            schedule.every().day.at(horario).do(monitor.executar)
+            # A função `do` deve receber uma função sem argumentos, então usamos lambda
+            schedule.every().day.at(horario).do(lambda: monitor.executar() if monitor.deve_executar_agora() else logging.info(f"Execução pulada às {horario} - fora dos dias permitidos."))
             logging.info(f"Agendamento configurado para: {horario}")
     
-    # Informações sobre configuração
     dias_nomes = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo']
     dias_permitidos = [dias_nomes[i] for i in SCHEDULE_CONFIG['dias_semana']]
-    logging.info(f"Dias permitidos: {', '.join(dias_permitidos)}")
+    logging.info(f"Dias da semana permitidos para execução: {', '.join(dias_permitidos)}")
+    logging.info(f"Executar nos fins de semana: {SCHEDULE_CONFIG['executar_fins_semana']}")
     
     return monitor
 
@@ -559,36 +579,43 @@ def executar_schedule():
     """Executa o loop principal do schedule"""
     monitor = configurar_schedule()
     
-    logging.info("=== MONITOR DE PDF INICIADO ===")
-    logging.info("Pressione Ctrl+C para parar")
+    logging.info("=== MONITOR DE PDF INICIADO EM MODO AGENDADO ===")
+    logging.info("Pressione Ctrl+C para parar (se executando localmente)")
     
     try:
         while True:
             schedule.run_pending()
             time.sleep(1)
     except KeyboardInterrupt:
-        logging.info("Monitor interrompido pelo usuário")
+        logging.info("Monitor interrompido pelo usuário.")
     except Exception as e:
-        logging.error(f"Erro no schedule: {e}")
+        logging.error(f"Erro fatal no loop do schedule: {e}", exc_info=True)
 
 def main():
     """Função principal"""
-    if len(sys.argv) > 1:
-        if sys.argv[1] == '--single':
-            # Execução única
-            logging.info("=== EXECUÇÃO ÚNICA (TESTE) ===")
-            monitor = PDFMonitor(ARQUIVO_ID)
-            monitor.executar()
-        elif sys.argv[1] == '--status':
-            # Status do sistema
-            monitor = PDFMonitor(ARQUIVO_ID)
-            status = monitor.status_sistema()
-            print(json.dumps(status, indent=2, ensure_ascii=False))
-        else:
-            print("Uso: python script.py [--single|--status]")
+    force_email_arg = False
+    # Verifica se --force-email está presente e seu valor
+    if '--force-email' in sys.argv:
+        try:
+            force_email_index = sys.argv.index('--force-email')
+            if force_email_index + 1 < len(sys.argv):
+                force_email_str = sys.argv[force_email_index + 1].lower()
+                force_email_arg = force_email_str == 'true' or force_email_str == '1'
+        except ValueError:
+            pass
+
+    if '--single' in sys.argv:
+        logging.info("=== MODO DE EXECUÇÃO ÚNICA (TESTE) ===")
+        monitor = PDFMonitor(ARQUIVO_ID)
+        monitor.executar()
+    elif '--status' in sys.argv:
+        logging.info("=== MODO DE VERIFICAÇÃO DE STATUS ===")
+        monitor = PDFMonitor(ARQUIVO_ID)
+        status = monitor.status_sistema()
+        print(json.dumps(status, indent=2, ensure_ascii=False))
     else:
-        # Execução com schedule
         executar_schedule()
 
 if __name__ == "__main__":
     main()
+
