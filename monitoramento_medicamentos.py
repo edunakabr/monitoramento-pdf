@@ -101,7 +101,7 @@ class PDFMonitor:
         
         logging.basicConfig(
             level=logging.INFO,
-            format='%(asctime)s | %(levelname)8s | %(message)s',
+            format='% (asctime)s | % (levelname)8s | % (message)s',
             handlers=[
                 logging.FileHandler(self.arquivo_log, encoding='utf-8'),
                 logging.StreamHandler(sys.stdout)
@@ -290,22 +290,22 @@ class PDFMonitor:
     def verificar_palavras_chave(self, texto: str) -> Tuple[List[str], List[str]]:
         """
         Verifica medicamentos em falta e disponíveis.
-        LÓGICA CORRETA:
-        - Medicamentos EM FALTA: NÃO encontrados no texto do PDF
-        - Medicamentos DISPONÍVEIS: encontrados no texto do PDF
+        LÓGICA INVERTIDA:
+        - Medicamentos EM FALTA: encontrados no texto do PDF
+        - Medicamentos DISPONÍVEIS: NÃO encontrados no texto do PDF
         """
         texto_lower = texto.lower()
-        medicamentos_disponiveis = []  # Encontrados no PDF (não estão em falta)
-        medicamentos_em_falta = []     # NÃO encontrados no PDF (estão em falta)
+        medicamentos_em_falta = []     # Encontrados no PDF (estão em falta)
+        medicamentos_disponiveis = []  # NÃO encontrados no PDF (não estão em falta)
         
         for medicamento in PALAVRAS_CHAVE:
             if medicamento.lower() in texto_lower:
-                medicamentos_disponiveis.append(medicamento)
-            else:
                 medicamentos_em_falta.append(medicamento)
+            else:
+                medicamentos_disponiveis.append(medicamento)
         
-        logging.info(f"Medicamentos DISPONÍVEIS (encontrados no PDF): {', '.join(medicamentos_disponiveis) if medicamentos_disponiveis else 'Nenhum'}")
-        logging.info(f"Medicamentos EM FALTA (NÃO encontrados no PDF): {', '.join(medicamentos_em_falta) if medicamentos_em_falta else 'Nenhum'}")
+        logging.info(f"Medicamentos EM FALTA (encontrados no PDF): {', '.join(medicamentos_em_falta) if medicamentos_em_falta else 'Nenhum'}")
+        logging.info(f"Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): {', '.join(medicamentos_disponiveis) if medicamentos_disponiveis else 'Nenhum'}")
         
         return medicamentos_em_falta, medicamentos_disponiveis
 
@@ -348,12 +348,12 @@ class PDFMonitor:
                     
                     {f'''
                     <h4 style="color: #dc3545;"><span class="icon">❌</span> Medicamentos em Falta:</h4>
-                    {''.join(f'<div class="medicamento falta"><span class="icon">•</span> {med}</div>' for med in medicamentos_em_falta)}
+                    {'' .join(f'<div class="medicamento falta"><span class="icon">•</span> {med}</div>' for med in medicamentos_em_falta)}
                     ''' if medicamentos_em_falta else ''}
                     
                     {f'''
                     <h4 style="color: #28a745;"><span class="icon">✔️</span> Medicamentos Disponíveis:</h4>
-                    {''.join(f'<div class="medicamento disponivel"><span class="icon">•</span> {med}</div>' for med in medicamentos_disponiveis)}
+                    {'' .join(f'<div class="medicamento disponivel"><span class="icon">•</span> {med}</div>' for med in medicamentos_disponiveis)}
                     ''' if medicamentos_disponiveis else ''}
                     
                     <div class="info">
@@ -619,3 +619,8 @@ def main():
 if __name__ == "__main__":
     main()
 
+
+
+live
+
+Jump to live
