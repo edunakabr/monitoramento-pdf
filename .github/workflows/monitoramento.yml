@@ -3,7 +3,7 @@ name: Enhanced PDF Medication Monitor
 on:
   schedule:
     # UTC-3 (Brasília timezone) - Converted from original times
-    - cron: '0 2,3,4,5,6,7,8,9,10,11,20 * * 1-5'
+    - cron: '0 8,9,10,11,12,13,14,15,16,17,2 * * 1-5' # Corrigido para 05:00, 06:00, ..., 14:00, 23:00 UTC-3
   workflow_dispatch:
     inputs:
       debug_mode:
@@ -289,10 +289,7 @@ jobs:
           
           # Commit and push - always create a commit to force update
           commit_message="🔄 Update state - $(date '+%Y-%m-%d %H:%M:%S') [skip ci]"
-          git commit --allow-empty -m "$commit_message" || {
-            echo "No changes to commit"
-            exit 0
-          }
+          git commit --allow-empty -m "$commit_message"
           
           git push origin estado --force
           echo "✅ State saved successfully"
@@ -397,5 +394,3 @@ jobs:
               print('Could not read final stats')
           "
           fi
-
-
