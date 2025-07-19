@@ -27,6 +27,7 @@ import schedule
 import threading
 from typing import List, Dict, Optional, Tuple
 import re
+from pytz import timezone
 
 # Try multiple PDF libraries for better compatibility
 try:
@@ -78,6 +79,14 @@ SCHEDULE_CONFIG = {
     'dias_semana': [0, 1, 2, 3, 4],  # Segunda a sexta (0=Segunda, 6=Domingo)
 }
 
+# CONFIGURAÇÃO DE TIMEZONE
+TIMEZONE = os.environ.get("TIMEZONE", "America/Sao_Paulo")
+
+def get_current_datetime_in_timezone():
+    """Retorna a data e hora atual no timezone configurado."""
+    tz = timezone(TIMEZONE)
+    return datetime.now(tz)
+
 class PDFMonitor:
     def __init__(self, file_id: str):
         self.file_id = file_id
@@ -115,6 +124,7 @@ class PDFMonitor:
         logging.info(f"Python: {sys.version.splitlines()[0]}")
         logging.info(f"Arquivo ID: {self.file_id}")
         logging.info(f"Medicamentos monitorados: {', '.join(PALAVRAS_CHAVE)}")
+        logging.info(f"Timezone configurado: {TIMEZONE}")
 
     def carregar_estado(self) -> Dict:
         """Carrega o estado anterior ou cria um novo"""
@@ -152,7 +162,7 @@ class PDFMonitor:
 
     def salvar_estado(self, estado: Dict):
         """Salva o estado atual"""
-        estado['data_atualizacao'] = datetime.now().isoformat()
+        estado['data_atualizacao'] = get_current_datetime_in_timezone().isoformat()
         try:
             temp_arquivo_estado = self.arquivo_estado + ".tmp"
             with open(temp_arquivo_estado, 'w', encoding='utf-8') as f:
@@ -311,7 +321,7 @@ class PDFMonitor:
 
     def criar_email_html(self, medicamentos_em_falta: List[str], medicamentos_disponiveis: List[str]) -> str:
         """Cria conteúdo HTML para o email"""
-        agora = datetime.now()
+        agora = get_current_datetime_in_timezone()
         data_hora = agora.strftime("%d/%m/%Y às %H:%M:%S")
         
         # Cor baseada no status
@@ -388,7 +398,7 @@ class PDFMonitor:
                 logging.error("Variáveis de ambiente EMAIL_USUARIO ou EMAIL_SENHA não configuradas. Não é possível enviar e-mail.")
                 return
 
-            agora = datetime.now()
+            agora = get_current_datetime_in_timezone()
             data_hora_subject = agora.strftime("%d/%m/%Y %H:%M")
             
             msg = MIMEMultipart('alternative')
@@ -437,7 +447,7 @@ Execução #{self.estado.get('execucoes', 0)} | Total de mudanças: {self.estado
     def atualizar_historico_status(self, medicamentos_em_falta: List[str]):
         """Atualiza histórico de status dos medicamentos"""
         status_atual = {
-            'timestamp': datetime.now().isoformat(),
+            'timestamp': get_current_datetime_in_timezone().isoformat(),
             'medicamentos_em_falta': medicamentos_em_falta,
             'total_em_falta': len(medicamentos_em_falta)
         }
@@ -452,7 +462,7 @@ Execução #{self.estado.get('execucoes', 0)} | Total de mudanças: {self.estado
         """Executa o monitoramento principal"""
         # IMPORTANTE: Incrementar o contador ANTES de qualquer operação
         self.estado["execucoes"] = self.estado.get("execucoes", 0) + 1
-        inicio = datetime.now()
+        inicio = get_current_datetime_in_timezone()
         
         logging.info(f"=== EXECUÇÃO #{self.estado['execucoes']} INICIADA ===")
         
@@ -485,8 +495,8 @@ Execução #{self.estado.get('execucoes', 0)} | Total de mudanças: {self.estado
                     self.estado["mudancas"] = self.estado.get("mudancas", 0) + 1
                     self.estado["texto_ultimo"] = texto
                     self.estado["hash_ultimo"] = hash_atual
-                    self.estado["data_ultimo"] = datetime.now().isoformat()
-                    self.estado["ultima_mudanca"] = datetime.now().isoformat()
+                    self.estado["data_ultimo"] = get_current_datetime_in_timezone().isoformat()
+                    self.estado["ultima_mudanca"] = get_current_datetime_in_timezone().isoformat()
                     logging.info(f"✅ Mudança no conteúdo do PDF detectada. Novo hash: {hash_atual[:10]}...")
                 
                 # Atualiza o estado dos medicamentos em falta para a próxima comparação
@@ -506,9 +516,9 @@ Execução #{self.estado.get('execucoes', 0)} | Total de mudanças: {self.estado
                 logging.info("ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.")
             
             self.estado["erros_consecutivos"] = 0
-            self.estado["ultima_execucao_sucesso"] = datetime.now().isoformat()
+            self.estado["ultima_execucao_sucesso"] = get_current_datetime_in_timezone().isoformat()
             
-            duracao = (datetime.now() - inicio).total_seconds()
+            duracao = (get_current_datetime_in_timezone() - inicio).total_seconds()
             logging.info(f"Execução concluída em {duracao:.2f}s")
             
         except Exception as e:
@@ -527,7 +537,7 @@ Execução #{self.estado.get('execucoes', 0)} | Total de mudanças: {self.estado
 
     def deve_executar_agora(self) -> bool:
         """Verifica se deve executar baseado nas configurações"""
-        agora = datetime.now()
+        agora = get_current_datetime_in_timezone()
         
         # Verifica dia da semana (0=Segunda, 6=Domingo)
         if agora.weekday() not in SCHEDULE_CONFIG['dias_semana']:
