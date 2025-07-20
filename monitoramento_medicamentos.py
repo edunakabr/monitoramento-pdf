@@ -17,15 +17,13 @@ import logging
 import requests
 import hashlib
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import sys
 import schedule
-import threading
-from typing import List, Dict, Optional, Tuple
 import re
 from pytz import timezone
 
@@ -110,7 +108,7 @@ class PDFMonitor:
         
         logging.basicConfig(
             level=logging.INFO,
-            format='%(asctime)s | %(levelname)8s | %(message)s',
+            format='% (asctime)s | % (levelname)8s | % (message)s',
             handlers=[
                 logging.FileHandler(self.arquivo_log, encoding='utf-8'),
                 logging.StreamHandler(sys.stdout)
@@ -126,7 +124,7 @@ class PDFMonitor:
         logging.info(f"Medicamentos monitorados: {', '.join(PALAVRAS_CHAVE)}")
         logging.info(f"Timezone configurado: {TIMEZONE}")
 
-    def carregar_estado(self) -> Dict:
+    def carregar_estado(self) -> dict:
         """Carrega o estado anterior ou cria um novo"""
         if os.path.exists(self.arquivo_estado) and os.path.getsize(self.arquivo_estado) > 0:
             try:
@@ -145,7 +143,7 @@ class PDFMonitor:
             logging.info("Primeiro uso ou arquivo de estado inexistente. Criando estado inicial.")
             return self.estado_inicial()
     
-    def estado_inicial(self) -> Dict:
+    def estado_inicial(self) -> dict:
         """Cria o estado inicial"""
         estado = {
             "texto_ultimo": "",
@@ -160,7 +158,7 @@ class PDFMonitor:
         }
         return estado
 
-    def salvar_estado(self, estado: Dict):
+    def salvar_estado(self, estado: dict):
         """Salva o estado atual"""
         estado['data_atualizacao'] = get_current_datetime_in_timezone().isoformat()
         try:
@@ -297,7 +295,7 @@ class PDFMonitor:
         """Calcula hash MD5 do texto"""
         return hashlib.md5(texto.encode('utf-8')).hexdigest() if texto else ""
 
-    def verificar_palavras_chave(self, texto: str) -> Tuple[List[str], List[str]]:
+    def verificar_palavras_chave(self, texto: str) -> list[str]:
         """
         Verifica medicamentos em falta e disponíveis.
         LÓGICA INVERTIDA:
@@ -319,7 +317,7 @@ class PDFMonitor:
         
         return medicamentos_em_falta, medicamentos_disponiveis
 
-    def criar_email_html(self, medicamentos_em_falta: List[str], medicamentos_disponiveis: List[str]) -> str:
+    def criar_email_html(self, medicamentos_em_falta: list[str], medicamentos_disponiveis: list[str]) -> str:
         """Cria conteúdo HTML para o email"""
         agora = get_current_datetime_in_timezone()
         data_hora = agora.strftime("%d/%m/%Y às %H:%M:%S")
@@ -387,7 +385,7 @@ class PDFMonitor:
         
         return html
 
-    def enviar_email_melhorado(self, medicamentos_em_falta: List[str], medicamentos_disponiveis: List[str]):
+    def enviar_email_melhorado(self, medicamentos_em_falta: list[str], medicamentos_disponiveis: list[str]):
         """Envia email com formatação HTML melhorada"""
         try:
             remetente = os.environ.get("EMAIL_USUARIO")
@@ -444,7 +442,7 @@ Execução #{self.estado.get('execucoes', 0)} | Total de mudanças: {self.estado
         except Exception as e:
             logging.error(f"Erro ao enviar email: {e}")
 
-    def atualizar_historico_status(self, medicamentos_em_falta: List[str]):
+    def atualizar_historico_status(self, medicamentos_em_falta: list[str]):
         """Atualiza histórico de status dos medicamentos"""
         status_atual = {
             'timestamp': get_current_datetime_in_timezone().isoformat(),
@@ -551,7 +549,7 @@ Execução #{self.estado.get('execucoes', 0)} | Total de mudanças: {self.estado
             
         return True
 
-    def status_sistema(self) -> Dict:
+    def status_sistema(self) -> dict:
         """Retorna status do sistema"""
         return {
             'execucoes': self.estado.get('execucoes', 0),
