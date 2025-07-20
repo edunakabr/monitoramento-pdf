@@ -108,7 +108,7 @@ class PDFMonitor:
         
         logging.basicConfig(
             level=logging.INFO,
-            format='% (asctime)s | % (levelname)8s | % (message)s',
+            format='%(asctime)s | %(levelname)8s | %(message)s',
             handlers=[
                 logging.FileHandler(self.arquivo_log, encoding='utf-8'),
                 logging.StreamHandler(sys.stdout)
