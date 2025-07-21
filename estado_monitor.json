@@ -2,7 +2,7 @@
   "texto_ultimo": "Planilha1 Página 1MEDICAMENTOS EM FALTA ALENTUZUMABE 10 MGML SOLUÇÃO INJETÁVEL CLADRIBINA 10MG CLOBAZAM 10MG CLOBAZAM 20MG DANAZOL 100MG DONEPEZIL 10MG FUMARATO DE DIMETILA 240MG GENFIBROZILA 900MG INSULINA DE AÇÃO RÁPIDA 100 UIML  ASPARTE ISOTRETINOÍNA 10MG LEVETIRACETAM 500MG LEVETIRACETAM 750MG MESALAZINA 2G MICOFENOLATO SÓDICO 180MG PALIVIZUMABE 50 MG RILUZOL 50MG RIVASTIGMINA 3,0MG RIVASTIGMINA 6,0MG RIVASTIGMINA 9MG 4,6MG24H  ADESIVO ZIPRASIDONA 80MG",
   "hash_ultimo": "cdf177ef8fbf3e9b648b80da94bbaac2",
   "data_ultimo": "2025-07-21T08:15:04.801596-03:00",
-  "execucoes": 15,
+  "execucoes": 16,
   "mudancas": 2,
   "ultima_mudanca": "2025-07-21T08:15:04.801625-03:00",
   "historico_status": [
@@ -64,9 +64,9 @@
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2025-07-21T11:18:31.332609-03:00",
+  "ultima_execucao_sucesso": "2025-07-21T12:17:57.780637-03:00",
   "medicamentos_em_falta_ultimo": [
     "Donepezil"
   ],
-  "data_atualizacao": "2025-07-21T11:18:31.332710-03:00"
+  "data_atualizacao": "2025-07-21T12:17:57.780753-03:00"
 }
