@@ -108,7 +108,7 @@ class PDFMonitor:
         
         logging.basicConfig(
             level=logging.INFO,
-            format='%(asctime)s | %(levelname)8s | %(message)s',
+            format='% (asctime)s | % (levelname)8s | % (message)s',
             handlers=[
                 logging.FileHandler(self.arquivo_log, encoding='utf-8'),
                 logging.StreamHandler(sys.stdout)
@@ -154,7 +154,8 @@ class PDFMonitor:
             "ultima_mudanca": "",
             "historico_status": [],
             "erros_consecutivos": 0,
-            "ultima_execucao_sucesso": ""
+            "ultima_execucao_sucesso": "",
+            "medicamentos_em_falta_ultimo": [] # Adicionado para armazenar o estado anterior dos medicamentos
         }
         return estado
 
@@ -295,7 +296,7 @@ class PDFMonitor:
         """Calcula hash MD5 do texto"""
         return hashlib.md5(texto.encode('utf-8')).hexdigest() if texto else ""
 
-    def verificar_palavras_chave(self, texto: str) -> list[str]:
+    def verificar_palavras_chave(self, texto: str) -> tuple[list[str], list[str]]:
         """
         Verifica medicamentos em falta e disponíveis.
         LÓGICA INVERTIDA:
@@ -317,7 +318,7 @@ class PDFMonitor:
         
         return medicamentos_em_falta, medicamentos_disponiveis
 
-    def criar_email_html(self, medicamentos_em_falta: list[str], medicamentos_disponiveis: list[str]) -> str:
+    def criar_email_html(self, medicamentos_em_falta: list[str], medicamentos_disponiveis: list[str], medicamentos_em_falta_anterior: list[str]) -> str:
         """Cria conteúdo HTML para o email"""
         agora = get_current_datetime_in_timezone()
         data_hora = agora.strftime("%d/%m/%Y às %H:%M:%S")
@@ -325,6 +326,68 @@ class PDFMonitor:
         # Cor baseada no status
         cor_status = "#dc3545" if medicamentos_em_falta else "#28a745"  # vermelho se há falta, verde se todos disponíveis
         
+        # Lógica para a tabela comparativa
+        set_anterior = set(medicamentos_em_falta_anterior)
+        set_atual = set(medicamentos_em_falta)
+
+        medicamentos_removidos = sorted(list(set_anterior - set_atual))
+        medicamentos_adicionados = sorted(list(set_atual - set_anterior))
+        medicamentos_comuns = sorted(list(set_anterior.intersection(set_atual)))
+
+        tabela_comparativa_html = ""
+        if not medicamentos_removidos and not medicamentos_adicionados:
+            # Nenhuma mudança, mostrar apenas uma coluna
+            tabela_comparativa_html = f"""
+            <div class="info">
+                <h4>Comparativo de Medicamentos:</h4>
+                <p>Nenhuma mudança detectada na lista de medicamentos em falta.</p>
+                <table style="width:100%; border-collapse: collapse; margin-top: 10px;">
+                    <tr>
+                        <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2; text-align: left;">Medicamentos Atuais em Falta</th>
+                    </tr>
+                    {''.join(f'<tr><td style="border: 1px solid #ddd; padding: 8px;">{med}</td></tr>' for med in sorted(list(set_atual)))}
+                </table>
+            </div>
+            """
+        else:
+            # Houve mudanças, mostrar tabela de duas colunas
+            tabela_comparativa_html = f"""
+            <div class="info">
+                <h4>Comparativo de Medicamentos:</h4>
+                <table style="width:100%; border-collapse: collapse; margin-top: 10px;">
+                    <tr>
+                        <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2; text-align: left;">Estado Anterior</th>
+                        <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2; text-align: left;">Estado Atual</th>
+                    </tr>
+            """
+            
+            # Combinar todas as listas para iterar e preencher a tabela
+            all_meds = sorted(list(set_anterior.union(set_atual)))
+            
+            for med in all_meds:
+                col_anterior = med
+                col_atual = med
+                style_anterior = ""
+                style_atual = ""
+
+                if med in medicamentos_removidos:
+                    style_anterior = "color: red; font-weight: bold;"
+                    col_atual = "-"
+                elif med in medicamentos_adicionados:
+                    style_atual = "color: green; font-weight: bold;"
+                    col_anterior = "-"
+                
+                tabela_comparativa_html += f"""
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 8px; {style_anterior}">{col_anterior}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px; {style_atual}">{col_atual}</td>
+                    </tr>
+                """
+            tabela_comparativa_html += """
+                </table>
+            </div>
+            """
+
         html = f"""
         <!DOCTYPE html>
         <html>
@@ -356,12 +419,12 @@ class PDFMonitor:
                     
                     {f'''
                     <h4 style="color: #dc3545;"><span class="icon">❌</span> Medicamentos em Falta:</h4>
-                    {'' .join(f'<div class="medicamento falta"><span class="icon">•</span> {med}</div>' for med in medicamentos_em_falta)}
+                    {''.join(f'<div class="medicamento falta"><span class="icon">•</span> {med}</div>' for med in medicamentos_em_falta)}
                     ''' if medicamentos_em_falta else ''}
                     
                     {f'''
                     <h4 style="color: #28a745;"><span class="icon">✔️</span> Medicamentos Disponíveis:</h4>
-                    {'' .join(f'<div class="medicamento disponivel"><span class="icon">•</span> {med}</div>' for med in medicamentos_disponiveis)}
+                    {''.join(f'<div class="medicamento disponivel"><span class="icon">•</span> {med}</div>' for med in medicamentos_disponiveis)}
                     ''' if medicamentos_disponiveis else ''}
                     
                     <div class="info">
@@ -374,6 +437,7 @@ class PDFMonitor:
                             <p><strong>Última mudança registrada:</strong> {self.estado.get('ultima_mudanca', 'N/A')}</p>
                         </div>
                     </div>
+                    {tabela_comparativa_html}
                 </div>
                 <div class="footer">
                     Este é um e-mail automático do sistema de monitoramento de PDF.
@@ -426,7 +490,9 @@ Medicamentos disponíveis: {', '.join(medicamentos_disponiveis) if medicamentos_
 Execução #{self.estado.get('execucoes', 0)} | Total de mudanças: {self.estado.get('mudancas', 0)}
             """
             
-            html_content = self.criar_email_html(medicamentos_em_falta, medicamentos_disponiveis)
+            # Passa o estado anterior dos medicamentos para a função de criação de HTML
+            medicamentos_em_falta_anterior = self.estado.get('medicamentos_em_falta_ultimo', [])
+            html_content = self.criar_email_html(medicamentos_em_falta, medicamentos_disponiveis, medicamentos_em_falta_anterior)
             
             msg.attach(MIMEText(texto_simples, 'plain', 'utf-8'))
             msg.attach(MIMEText(html_content, 'html', 'utf-8'))
