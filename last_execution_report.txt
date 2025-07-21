@@ -1,9 +1,9 @@
-Execution Report - Mon Jul 21 13:33:09 UTC 2025
+Execution Report - Mon Jul 21 13:35:50 UTC 2025
 ================================
 
 Workflow: Enhanced PDF Medication Monitor
-Run ID: 16418436164
-Trigger: workflow_dispatch
+Run ID: 16418498112
+Trigger: schedule
 
 Current Statistics:
 - Total executions: 13
