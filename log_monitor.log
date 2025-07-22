@@ -329,3 +329,23 @@
 2025-07-21 17:17:02,411 |     INFO | Execução concluída em 1.83s
 2025-07-21 17:17:02,411 |     INFO | Estado salvo com sucesso
 2025-07-21 17:17:02,411 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
+2025-07-22 03:25:58,094 |     INFO | Estado carregado com sucesso. Execução #18
+2025-07-22 03:25:58,094 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
+2025-07-22 03:25:58,094 |     INFO | Biblioteca PDF: PyPDF2
+2025-07-22 03:25:58,094 |     INFO | Python: 3.11.13 (main, Jun  4 2025, 04:12:12) [GCC 13.3.0]
+2025-07-22 03:25:58,094 |     INFO | Arquivo ID: 1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-07-22 03:25:58,094 |     INFO | Medicamentos monitorados: Donepezil, Memantina, Galantamina
+2025-07-22 03:25:58,094 |     INFO | Timezone configurado: America/Sao_Paulo
+2025-07-22 03:25:58,105 |     INFO | === EXECUÇÃO #19 INICIADA ===
+2025-07-22 03:25:58,105 |     INFO | Tentativa 1 de download...
+2025-07-22 03:25:59,863 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-07-22 03:25:59,882 |     INFO | Download concluído (58640 bytes) da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-07-22 03:25:59,994 |     INFO | Texto extraído com PyPDF2 (492 caracteres)
+2025-07-22 03:25:59,994 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Donepezil
+2025-07-22 03:25:59,994 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): Memantina, Galantamina
+2025-07-22 03:25:59,994 |     INFO | ✅ Mudança no conteúdo do PDF detectada. Novo hash: 733e285659...
+2025-07-22 03:26:00,531 |    ERROR | Erro ao enviar email: (534, b'5.7.9 Please log in with your web browser and then try again. For more\n5.7.9 information, go to\n5.7.9  https://support.google.com/mail/?p=WebLoginRequired e9e14a558f8ab-3e29813368dsm26724545ab.2 - gsmtp')
+2025-07-22 03:26:00,531 |     INFO | ✅ Mudança no conteúdo do PDF detectada. Enviando e-mail.
+2025-07-22 03:26:00,532 |     INFO | Execução concluída em 2.43s
+2025-07-22 03:26:00,532 |     INFO | Estado salvo com sucesso
+2025-07-22 03:26:00,532 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
