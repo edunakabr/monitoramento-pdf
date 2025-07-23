@@ -1,19 +1,19 @@
-Execution Report - Wed Jul 23 13:27:31 UTC 2025
+Execution Report - Wed Jul 23 13:35:32 UTC 2025
 ================================
 
 Workflow: Enhanced PDF Medication Monitor
-Run ID: 16471999441
-Trigger: workflow_dispatch
+Run ID: 16472197862
+Trigger: schedule
 
 Current Statistics:
-- Total executions: 37
+- Total executions: 38
 - Total changes: 4
 - Consecutive errors: 0
 - Last change: 2025-07-23T00:27:33.482875-03:00
 
 Recent Log Summary:
-2025-07-23 13:27:31,053 |    ERROR | Erro ao enviar email: (534, b'5.7.9 Please log in with your web browser and then try again. For more\n5.7.9 information, go to\n5.7.9  https://support.google.com/mail/?p=WebLoginRequired d2e1a72fcca58-75e17d253e1sm4637086b3a.77 - gsmtp')
-2025-07-23 13:27:31,053 |     INFO | 📧 E-mail forçado enviado (nenhuma mudança detectada).
-2025-07-23 13:27:31,053 |     INFO | Execução concluída em 2.43s
-2025-07-23 13:27:31,054 |     INFO | Estado salvo com sucesso
-2025-07-23 13:27:31,054 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
+2025-07-23 13:35:32,516 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): Memantina, Galantamina
+2025-07-23 13:35:32,516 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
+2025-07-23 13:35:32,516 |     INFO | Execução concluída em 1.53s
+2025-07-23 13:35:32,516 |     INFO | Estado salvo com sucesso
+2025-07-23 13:35:32,516 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
