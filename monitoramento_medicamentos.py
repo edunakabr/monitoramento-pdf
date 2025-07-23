@@ -388,11 +388,13 @@ class PDFMonitor:
     def enviar_email_melhorado(self, medicamentos_em_falta: list[str], medicamentos_disponiveis: list[str]):
         """Envia email com formatação HTML melhorada"""
         try:
-            remetente = os.environ.get("EMAIL_USUARIO")
-            senha = os.environ.get("EMAIL_SENHA")
+            remetente = os.environ.get("EMAIL_REMETENTE", "edunaka@live.com")
             destinatario = os.environ.get("EMAIL_DESTINATARIO", "edunaka@live.com")
+            servidor = os.environ.get("SMTP_SERVER", "in-v3.mailjet.com")
+            usuario = os.environ.get("EMAIL_USUARIO")
+            senha = os.environ.get("EMAIL_SENHA")
             
-            if not remetente or not senha:
+            if not usuario or not senha:
                 logging.error("Variáveis de ambiente EMAIL_USUARIO ou EMAIL_SENHA não configuradas. Não é possível enviar e-mail.")
                 return
 
@@ -414,6 +416,7 @@ class PDFMonitor:
             
             msg["X-Priority"] = "1"
             msg["Importance"] = "High"
+            msg["X-MSMail-Priority"] = "High"
             
             texto_simples = f"""
 Execução realizada em: {agora.strftime("%d/%m/%Y às %H:%M:%S")}
@@ -431,9 +434,9 @@ Execução #{self.estado.get('execucoes', 0)} | Total de mudanças: {self.estado
             msg.attach(MIMEText(texto_simples, 'plain', 'utf-8'))
             msg.attach(MIMEText(html_content, 'html', 'utf-8'))
             
-            server = smtplib.SMTP("smtp.gmail.com", 587)
+            server = smtplib.SMTP(servidor, 587)
             server.starttls()
-            server.login(remetente, senha)
+            server.login(usuario, senha)
             server.sendmail(remetente, [destinatario], msg.as_string())
             server.quit()
             
