@@ -639,3 +639,22 @@
 2025-07-23 12:34:57,840 |     INFO | Execução concluída em 1.36s
 2025-07-23 12:34:57,841 |     INFO | Estado salvo com sucesso
 2025-07-23 12:34:57,841 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
+2025-07-23 13:20:25,857 |     INFO | Estado carregado com sucesso. Execução #35
+2025-07-23 13:20:25,857 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
+2025-07-23 13:20:25,857 |     INFO | Biblioteca PDF: PyPDF2
+2025-07-23 13:20:25,857 |     INFO | Python: 3.11.13 (main, Jun  4 2025, 04:12:12) [GCC 13.3.0]
+2025-07-23 13:20:25,857 |     INFO | Arquivo ID: 1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-07-23 13:20:25,858 |     INFO | Medicamentos monitorados: Donepezil, Memantina, Galantamina
+2025-07-23 13:20:25,858 |     INFO | Timezone configurado: America/Sao_Paulo
+2025-07-23 13:20:25,868 |     INFO | === EXECUÇÃO #36 INICIADA ===
+2025-07-23 13:20:25,868 |     INFO | Tentativa 1 de download...
+2025-07-23 13:20:29,315 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-07-23 13:20:29,334 |     INFO | Download concluído (58937 bytes) da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-07-23 13:20:29,363 |     INFO | Texto extraído com PyPDF2 (519 caracteres)
+2025-07-23 13:20:29,364 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Donepezil
+2025-07-23 13:20:29,364 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): Memantina, Galantamina
+2025-07-23 13:20:29,955 |    ERROR | Erro ao enviar email: (534, b'5.7.9 Please log in with your web browser and then try again. For more\n5.7.9 information, go to\n5.7.9  https://support.google.com/mail/?p=WebLoginRequired e9e14a558f8ab-3e29826e1cdsm38700675ab.38 - gsmtp')
+2025-07-23 13:20:29,955 |     INFO | 📧 E-mail forçado enviado (nenhuma mudança detectada).
+2025-07-23 13:20:29,955 |     INFO | Execução concluída em 4.09s
+2025-07-23 13:20:29,956 |     INFO | Estado salvo com sucesso
+2025-07-23 13:20:29,956 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
