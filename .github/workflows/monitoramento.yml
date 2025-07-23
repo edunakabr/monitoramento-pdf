@@ -22,6 +22,9 @@ permissions:
   actions: read
 
 env:
+  EMAIL_REMETENTE: ${{ secrets.EMAIL_REMETENTE }}
+  EMAIL_DESTINATARIO: ${{ secrets.EMAIL_DESTINATARIO }}
+  SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
   EMAIL_USUARIO: ${{ secrets.EMAIL_USUARIO }}
   EMAIL_SENHA: ${{ secrets.EMAIL_SENHA }}
   DEBUG_MODE: ${{ github.event.inputs.debug_mode || 'false' }}
@@ -296,17 +299,21 @@ jobs:
           
           def send_failure_notification():
               try:
-                  sender = os.environ["EMAIL_USUARIO"]
-                  password = os.environ["EMAIL_SENHA"]
-                  recipient = os.environ.get("EMAIL_DESTINATARIO", "edunaka@live.com")
+                  remetente = os.environ["EMAIL_REMETENTE", "edunaka@live.com"]
+                  destinatario = os.environ.get("EMAIL_DESTINATARIO", "edunaka@live.com")
+                  servidor = os.environ.get("SMTP_SERVER", "in-v3.mailjet.com")
+                  usuario = os.environ["EMAIL_USUARIO"]
+                  senha = os.environ["EMAIL_SENHA"]
                   
                   now = datetime.now()
                   
                   msg = MIMEMultipart()
                   msg["Subject"] = f"⚠️ PDF Monitor Failed - {now.strftime('%d/%m/%Y %H:%M')}"
-                  msg["From"] = sender
-                  msg["To"] = recipient
+                  msg["From"] = remetente
+                  msg["To"] = destinatario
                   msg["X-Priority"] = "1"
+                  msg["Importance"] = "High"
+                  msg["X-MSMail-Priority"] = "High"
                   
                   body = f"""
           PDF Monitoring System Alert
@@ -326,10 +333,10 @@ jobs:
                   
                   msg.attach(MIMEText(body, 'plain', 'utf-8'))
                   
-                  server = smtplib.SMTP("smtp.gmail.com", 587)
+                  server = smtplib.SMTP(servidor, 587)
                   server.starttls()
-                  server.login(sender, password)
-                  server.sendmail(sender, [recipient], msg.as_string())
+                  server.login(usuario, senha)
+                  server.sendmail(remetente, [destinatario], msg.as_string())
                   server.quit()
                   
                   print("✅ Failure notification sent")
