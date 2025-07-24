@@ -933,3 +933,23 @@
 2025-07-24 11:15:00,554 |     INFO | Execução concluída em 1.84s
 2025-07-24 11:15:00,555 |     INFO | Estado salvo com sucesso
 2025-07-24 11:15:00,555 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
+2025-07-24 12:35:04,753 |     INFO | Estado carregado com sucesso. Execução #51
+2025-07-24 12:35:04,753 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
+2025-07-24 12:35:04,753 |     INFO | Biblioteca PDF: PyPDF2
+2025-07-24 12:35:04,753 |     INFO | Python: 3.11.13 (main, Jun  4 2025, 04:12:12) [GCC 13.3.0]
+2025-07-24 12:35:04,753 |     INFO | Arquivo ID: 1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-07-24 12:35:04,753 |     INFO | Medicamentos monitorados: Donepezil, Memantina, Galantamina
+2025-07-24 12:35:04,753 |     INFO | Timezone configurado: America/Sao_Paulo
+2025-07-24 12:35:04,764 |     INFO | === EXECUÇÃO #52 INICIADA ===
+2025-07-24 12:35:04,764 |     INFO | Tentativa 1 de download...
+2025-07-24 12:35:06,907 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-07-24 12:35:06,914 |     INFO | Download concluído (58941 bytes) da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-07-24 12:35:07,047 |     INFO | Texto extraído com PyPDF2 (521 caracteres)
+2025-07-24 12:35:07,047 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Donepezil
+2025-07-24 12:35:07,047 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): Memantina, Galantamina
+2025-07-24 12:35:07,048 |     INFO | ✅ Mudança no conteúdo do PDF detectada. Novo hash: ec7148a217...
+2025-07-24 12:35:08,525 |     INFO | Email enviado com sucesso: FALTA: Donepezil
+2025-07-24 12:35:08,525 |     INFO | ✅ Mudança no conteúdo do PDF detectada. Enviando e-mail.
+2025-07-24 12:35:08,525 |     INFO | Execução concluída em 3.76s
+2025-07-24 12:35:08,526 |     INFO | Estado salvo com sucesso
+2025-07-24 12:35:08,526 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
