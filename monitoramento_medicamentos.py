@@ -445,6 +445,27 @@ Execução #{self.estado.get('execucoes', 0)} | Total de mudanças: {self.estado
         except Exception as e:
             logging.error(f"Erro ao enviar email: {e}")
 
+def enviar_telegram(self, mensagem: str):
+    """Envia notificação via Telegram"""
+    try:
+        token = os.environ.get("TELEGRAM_BOT_TOKEN")
+        chat_id = os.environ.get("TELEGRAM_CHAT_ID")
+        
+        if not token or not chat_id:
+            logging.error("TELEGRAM_BOT_TOKEN ou TELEGRAM_CHAT_ID não configurados.")
+            return
+        
+        url = f"https://api.telegram.org/bot{token}/sendMessage"
+        payload = {
+            "chat_id": chat_id,
+            "text": mensagem
+        }
+        response = requests.post(url, data=payload, timeout=10)
+        response.raise_for_status()
+        logging.info("✅ Notificação enviada via Telegram.")
+    except Exception as e:
+        logging.error(f"❌ Erro ao enviar mensagem via Telegram: {e}")
+
     def atualizar_historico_status(self, medicamentos_em_falta: list[str]):
         """Atualiza histórico de status dos medicamentos"""
         status_atual = {
@@ -504,7 +525,30 @@ Execução #{self.estado.get('execucoes', 0)} | Total de mudanças: {self.estado
                 self.estado['medicamentos_em_falta_ultimo'] = medicamentos_em_falta
 
                 self.atualizar_historico_status(medicamentos_em_falta)
-                self.enviar_email_melhorado(medicamentos_em_falta, medicamentos_disponiveis)
+
+                # Decide quais notificações enviar com base na flag
+                modo_envio = os.environ.get("FLAG_EMAIL_TELEGRAM_BOTH", "EMAIL").strip().upper()
+                
+                mensagem_simples = f"""
+                📋 Notificação Automática:
+                
+                Data/hora: {get_current_datetime_in_timezone().strftime("%d/%m/%Y %H:%M:%S")}
+                
+                Medicamentos em falta: {', '.join(medicamentos_em_falta) if medicamentos_em_falta else 'Nenhum'}
+                Medicamentos disponíveis: {', '.join(medicamentos_disponiveis) if medicamentos_disponiveis else 'Nenhum'}
+                
+                Execução #{self.estado.get('execucoes', 0)} | Mudanças detectadas: {self.estado.get('mudancas', 0)}
+                """
+                
+                if modo_envio == "EMAIL":
+                    self.enviar_email_melhorado(medicamentos_em_falta, medicamentos_disponiveis)
+                elif modo_envio == "TELEGRAM":
+                    self.enviar_telegram(mensagem_simples)
+                elif modo_envio == "BOTH":
+                    self.enviar_email_melhorado(medicamentos_em_falta, medicamentos_disponiveis)
+                    self.enviar_telegram(mensagem_simples)
+                else:
+                    logging.warning(f"Modo de envio desconhecido: '{modo_envio}'. Nenhuma notificação enviada.")
                 
                 if not mudou_conteudo and not mudou_status_medicamentos and os.environ.get("FORCE_EMAIL", "false").lower() == "true":
                     logging.info(f"📧 E-mail forçado enviado (nenhuma mudança detectada).")
