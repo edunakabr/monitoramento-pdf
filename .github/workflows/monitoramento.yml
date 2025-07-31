@@ -11,8 +11,8 @@ on:
         required: false
         default: 'false'
         type: boolean
-      force_email:
-        description: 'Force email even if no changes'
+      force_notification:
+        description: 'Force notification even if no changes'
         required: false
         default: 'false'
         type: boolean
@@ -28,7 +28,7 @@ env:
   EMAIL_USUARIO: ${{ secrets.EMAIL_USUARIO }}
   EMAIL_SENHA: ${{ secrets.EMAIL_SENHA }}
   DEBUG_MODE: ${{ github.event.inputs.debug_mode || 'false' }}
-  FORCE_EMAIL: ${{ github.event.inputs.force_email || 'false' }}
+  FORCE_NOTIFICATION: ${{ github.event.inputs.force_notification || 'false' }}
   GOOGLE_DRIVE_FILE_ID: ${{ secrets.GOOGLE_DRIVE_FILE_ID }}
   DATA_DIR: dados_monitoramento
   TIMEZONE: America/Sao_Paulo
