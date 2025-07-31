@@ -510,9 +510,9 @@ def enviar_telegram(self, mensagem: str):
             mudou_status_medicamentos = set(medicamentos_em_falta) != set(medicamentos_em_falta_anterior)
             
             # Condição para enviar e-mail: mudança no conteúdo do PDF OU mudança no status dos medicamentos OU force_email
-            deve_enviar_email = mudou_conteudo or mudou_status_medicamentos or os.environ.get("FORCE_EMAIL", "false").lower() == "true"
+            deve_enviar_notificacao = mudou_conteudo or mudou_status_medicamentos or os.environ.get("FORCE_EMAIL", "false").lower() == "true"
             
-            if deve_enviar_email:
+            if deve_enviar_notificacao:
                 if mudou_conteudo:
                     self.estado["mudancas"] = self.estado.get("mudancas", 0) + 1
                     self.estado["texto_ultimo"] = texto
@@ -520,26 +520,23 @@ def enviar_telegram(self, mensagem: str):
                     self.estado["data_ultimo"] = get_current_datetime_in_timezone().isoformat()
                     self.estado["ultima_mudanca"] = get_current_datetime_in_timezone().isoformat()
                     logging.info(f"✅ Mudança no conteúdo do PDF detectada. Novo hash: {hash_atual[:10]}...")
-                
-                # Atualiza o estado dos medicamentos em falta para a próxima comparação
+            
                 self.estado['medicamentos_em_falta_ultimo'] = medicamentos_em_falta
-
                 self.atualizar_historico_status(medicamentos_em_falta)
-
-                # Decide quais notificações enviar com base na flag
+            
                 modo_envio = os.environ.get("FLAG_EMAIL_TELEGRAM_BOTH", "EMAIL").strip().upper()
-                
+            
                 mensagem_simples = f"""
-                📋 Notificação Automática:
-                
-                Data/hora: {get_current_datetime_in_timezone().strftime("%d/%m/%Y %H:%M:%S")}
-                
-                Medicamentos em falta: {', '.join(medicamentos_em_falta) if medicamentos_em_falta else 'Nenhum'}
-                Medicamentos disponíveis: {', '.join(medicamentos_disponiveis) if medicamentos_disponiveis else 'Nenhum'}
-                
-                Execução #{self.estado.get('execucoes', 0)} | Mudanças detectadas: {self.estado.get('mudancas', 0)}
+            📋 Notificação Automática:
+            
+            Data/hora: {get_current_datetime_in_timezone().strftime("%d/%m/%Y %H:%M:%S")}
+            
+            Medicamentos em falta: {', '.join(medicamentos_em_falta) if medicamentos_em_falta else 'Nenhum'}
+            Medicamentos disponíveis: {', '.join(medicamentos_disponiveis) if medicamentos_disponiveis else 'Nenhum'}
+            
+            Execução #{self.estado.get('execucoes', 0)} | Mudanças detectadas: {self.estado.get('mudancas', 0)}
                 """
-                
+            
                 if modo_envio == "EMAIL":
                     self.enviar_email_melhorado(medicamentos_em_falta, medicamentos_disponiveis)
                 elif modo_envio == "TELEGRAM":
@@ -549,16 +546,16 @@ def enviar_telegram(self, mensagem: str):
                     self.enviar_telegram(mensagem_simples)
                 else:
                     logging.warning(f"Modo de envio desconhecido: '{modo_envio}'. Nenhuma notificação enviada.")
-                
+            
                 if not mudou_conteudo and not mudou_status_medicamentos and os.environ.get("FORCE_EMAIL", "false").lower() == "true":
-                    logging.info(f"📧 E-mail forçado enviado (nenhuma mudança detectada).")
+                    logging.info("📤 Notificação forçada enviada (nenhuma mudança detectada).")
                 elif not mudou_conteudo and mudou_status_medicamentos:
-                    logging.info(f"✅ Mudança no status dos medicamentos detectada (mesmo conteúdo do PDF). Enviando e-mail.")
+                    logging.info("✅ Mudança no status dos medicamentos detectada. Notificação enviada.")
                 elif mudou_conteudo:
-                    logging.info(f"✅ Mudança no conteúdo do PDF detectada. Enviando e-mail.")
-
+                    logging.info("✅ Mudança no conteúdo do PDF detectada. Notificação enviada.")
             else:
-                logging.info("ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.")
+                logging.info("ℹ️ Nenhuma mudança detectada. Nenhuma notificação enviada.")
+
             
             self.estado["erros_consecutivos"] = 0
             self.estado["ultima_execucao_sucesso"] = get_current_datetime_in_timezone().isoformat()
