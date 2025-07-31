@@ -509,8 +509,8 @@ def enviar_telegram(self, mensagem: str):
             medicamentos_em_falta_anterior = self.estado.get('medicamentos_em_falta_ultimo', [])
             mudou_status_medicamentos = set(medicamentos_em_falta) != set(medicamentos_em_falta_anterior)
             
-            # Condição para enviar e-mail: mudança no conteúdo do PDF OU mudança no status dos medicamentos OU force_email
-            deve_enviar_notificacao = mudou_conteudo or mudou_status_medicamentos or os.environ.get("FORCE_EMAIL", "false").lower() == "true"
+            # Condição para enviar notificação: mudança no conteúdo do PDF OU mudança no status dos medicamentos OU force_notification
+            deve_enviar_notificacao = mudou_conteudo or mudou_status_medicamentos or os.environ.get("FORCE_NOTIFICATION", "false").lower() == "true"
             
             if deve_enviar_notificacao:
                 if mudou_conteudo:
@@ -645,14 +645,14 @@ def executar_schedule():
 
 def main():
     """Função principal"""
-    force_email_arg = False
-    # Verifica se --force-email está presente e seu valor
-    if '--force-email' in sys.argv:
+    force_notification_arg = False
+    # Verifica se --force-notification está presente e seu valor
+    if '--force-notification' in sys.argv:
         try:
-            force_email_index = sys.argv.index('--force-email')
-            if force_email_index + 1 < len(sys.argv):
-                force_email_str = sys.argv[force_email_index + 1].lower()
-                force_email_arg = force_email_str == 'true' or force_email_str == '1'
+            force_index = sys.argv.index('--force-notification')
+            if force_index + 1 < len(sys.argv):
+                force_str = sys.argv[force_index + 1].lower()
+                force_notification_arg = force_str == 'true' or force_str == '1'
         except ValueError:
             pass
 
