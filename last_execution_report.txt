@@ -1,19 +1,19 @@
-Execution Report - Thu Jul 31 08:23:27 UTC 2025
+Execution Report - Thu Jul 31 09:22:27 UTC 2025
 ================================
 
 Workflow: Enhanced PDF Medication Monitor
-Run ID: 16643846023
+Run ID: 16645110247
 Trigger: schedule
 
 Current Statistics:
-- Total executions: 109
+- Total executions: 110
 - Total changes: 8
 - Consecutive errors: 0
 - Last change: 2025-07-31T00:38:34.871357-03:00
 
 Recent Log Summary:
-2025-07-31 08:23:27,647 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): Memantina, Galantamina
-2025-07-31 08:23:27,647 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
-2025-07-31 08:23:27,648 |     INFO | Execução concluída em 1.77s
-2025-07-31 08:23:27,648 |     INFO | Estado salvo com sucesso
-2025-07-31 08:23:27,648 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
+2025-07-31 09:22:27,688 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): Memantina, Galantamina
+2025-07-31 09:22:27,688 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
+2025-07-31 09:22:27,688 |     INFO | Execução concluída em 2.21s
+2025-07-31 09:22:27,688 |     INFO | Estado salvo com sucesso
+2025-07-31 09:22:27,689 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
