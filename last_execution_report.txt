@@ -1,8 +1,8 @@
-Execution Report - Thu Jul 31 22:38:48 UTC 2025
+Execution Report - Fri Aug  1 00:00:31 UTC 2025
 ================================
 
 Workflow: Enhanced PDF Medication Monitor
-Run ID: 16661518342
+Run ID: 16662621983
 Trigger: workflow_dispatch
 
 Current Statistics:
@@ -12,8 +12,8 @@ Current Statistics:
 - Last change: 2025-07-31T00:38:34.871357-03:00
 
 Recent Log Summary:
-2025-07-31 22:38:48,640 |     INFO | Email enviado com sucesso: FALTA: Donepezil
-2025-07-31 22:38:48,640 |     INFO | 📧 E-mail forçado enviado (nenhuma mudança detectada).
-2025-07-31 22:38:48,641 |     INFO | Execução concluída em 2.92s
-2025-07-31 22:38:48,641 |     INFO | Estado salvo com sucesso
-2025-07-31 22:38:48,641 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
+2025-08-01 00:00:31,452 |     INFO | Biblioteca PDF: PyPDF2
+2025-08-01 00:00:31,453 |     INFO | Python: 3.11.13 (main, Jun  4 2025, 04:12:12) [GCC 13.3.0]
+2025-08-01 00:00:31,453 |     INFO | Arquivo ID: 1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-08-01 00:00:31,453 |     INFO | Medicamentos monitorados: Donepezil, Memantina, Galantamina
+2025-08-01 00:00:31,453 |     INFO | Timezone configurado: America/Sao_Paulo
