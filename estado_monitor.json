@@ -2,7 +2,7 @@
   "texto_ultimo": "Planilha1 Página 1MEDICAMENTOS EM FALTA ALENTUZUMABE 10 MGML SOL. INJETÁVEL CALCITONINA 200UI CLADRIBINA 10MG CLOBAZAM 20MG DANAZOL 100MG DONEPEZIL 10MG GENFIBROZILA 900MG INSULINA AÇÃO RÁPIDA 100 UIML ASPARTE ISOTRETINOÍNA 10MG LEVETIRACETAM 500MG RILUZOL 50MG RISANQUIZUMABE 75MG0,83ML RIVASTIGMINA 6,0MG RIVASTIGMINA 9MG 4,6MG24H  ADESIVO SILDENAFIL 25MG ZIPRASIDONA 80MGCANETA APLICAÇÃO DE INSULINA LISPRO",
   "hash_ultimo": "d1d747a1d66f6ae671d5365c4e7faa7d",
   "data_ultimo": "2025-08-13T07:59:58.234751-03:00",
-  "execucoes": 220,
+  "execucoes": 221,
   "mudancas": 13,
   "ultima_mudanca": "2025-08-13T07:59:58.234785-03:00",
   "historico_status": [
@@ -246,9 +246,9 @@
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2025-08-13T13:16:38.214778-03:00",
+  "ultima_execucao_sucesso": "2025-08-13T14:12:43.414005-03:00",
   "medicamentos_em_falta_ultimo": [
     "Donepezil"
   ],
-  "data_atualizacao": "2025-08-13T13:16:38.214886-03:00"
+  "data_atualizacao": "2025-08-13T14:12:43.414111-03:00"
 }
