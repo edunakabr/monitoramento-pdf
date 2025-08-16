@@ -387,6 +387,9 @@ class PDFMonitor:
 
     def enviar_email_melhorado(self, medicamentos_em_falta: list[str], medicamentos_disponiveis: list[str]):
         """Envia email com formatação HTML melhorada"""
+        email_enviado = False
+        telegram_enviado = False
+        
         try:
             remetente = os.environ.get("EMAIL_REMETENTE", "edunaka@live.com")
             destinatario = os.environ.get("EMAIL_DESTINATARIO", "edunaka@live.com")
@@ -396,29 +399,29 @@ class PDFMonitor:
             
             if not usuario or not senha:
                 logging.error("Variáveis de ambiente EMAIL_USUARIO ou EMAIL_SENHA não configuradas. Não é possível enviar e-mail.")
-                return
-
-            agora = get_current_datetime_in_timezone()
-            data_hora_subject = agora.strftime("%d/%m/%Y %H:%M")
-            
-            msg = MIMEMultipart('alternative')
-            
-            if medicamentos_em_falta:
-                status_emoji = "🚨"
-                status_text = f"FALTA: {', '.join(medicamentos_em_falta)}"
             else:
-                status_emoji = "✅"
-                status_text = "TODOS DISPONÍVEIS"
-            
-            msg["Subject"] = f"{status_emoji} Medicamentos - {data_hora_subject} ({status_text})"
-            msg["From"] = remetente
-            msg["To"] = destinatario
-            
-            msg["X-Priority"] = "1"
-            msg["Importance"] = "High"
-            msg["X-MSMail-Priority"] = "High"
-            
-            texto_simples = f"""
+                # Código do e-mail (mantenha todo o código existente)...
+                agora = get_current_datetime_in_timezone()
+                data_hora_subject = agora.strftime("%d/%m/%Y %H:%M")
+                
+                msg = MIMEMultipart('alternative')
+                
+                if medicamentos_em_falta:
+                    status_emoji = "🚨"
+                    status_text = f"FALTA: {', '.join(medicamentos_em_falta)}"
+                else:
+                    status_emoji = "✅"
+                    status_text = "TODOS DISPONÍVEIS"
+                
+                msg["Subject"] = f"{status_emoji} Medicamentos - {data_hora_subject} ({status_text})"
+                msg["From"] = remetente
+                msg["To"] = destinatario
+                
+                msg["X-Priority"] = "1"
+                msg["Importance"] = "High"
+                msg["X-MSMail-Priority"] = "High"
+                
+                texto_simples = f"""
 Execução realizada em: {agora.strftime("%d/%m/%Y às %H:%M:%S")}
 
 Status do PDF:
@@ -427,23 +430,40 @@ Medicamentos em falta: {', '.join(medicamentos_em_falta) if medicamentos_em_falt
 Medicamentos disponíveis: {', '.join(medicamentos_disponiveis) if medicamentos_disponiveis else 'Nenhum'}
 
 Execução #{self.estado.get('execucoes', 0)} | Total de mudanças: {self.estado.get('mudancas', 0)}
-            """
-            
-            html_content = self.criar_email_html(medicamentos_em_falta, medicamentos_disponiveis)
-            
-            msg.attach(MIMEText(texto_simples, 'plain', 'utf-8'))
-            msg.attach(MIMEText(html_content, 'html', 'utf-8'))
-            
-            server = smtplib.SMTP(servidor, 587)
-            server.starttls()
-            server.login(usuario, senha)
-            server.sendmail(remetente, [destinatario], msg.as_string())
-            server.quit()
-            
-            logging.info(f"Email enviado com sucesso: {status_text}")
+                """
+                
+                html_content = self.criar_email_html(medicamentos_em_falta, medicamentos_disponiveis)
+                
+                msg.attach(MIMEText(texto_simples, 'plain', 'utf-8'))
+                msg.attach(MIMEText(html_content, 'html', 'utf-8'))
+                
+                server = smtplib.SMTP(servidor, 587)
+                server.starttls()
+                server.login(usuario, senha)
+                server.sendmail(remetente, [destinatario], msg.as_string())
+                server.quit()
+                
+                logging.info(f"Email enviado com sucesso: {status_text}")
+                email_enviado = True
             
         except Exception as e:
             logging.error(f"Erro ao enviar email: {e}")
+        
+        # NOVO: Enviar também para Telegram
+        try:
+            telegram_enviado = self.enviar_telegram(medicamentos_em_falta, medicamentos_disponiveis)
+        except Exception as e:
+            logging.error(f"Erro ao processar envio do Telegram: {e}")
+        
+        # Log do resultado final
+        if email_enviado and telegram_enviado:
+            logging.info("✅ Notificações enviadas com sucesso para E-mail e Telegram!")
+        elif email_enviado:
+            logging.info("✅ E-mail enviado com sucesso! ⚠️ Telegram falhou.")
+        elif telegram_enviado:
+            logging.info("⚠️ E-mail falhou! ✅ Telegram enviado com sucesso!")
+        else:
+            logging.error("❌ Falha no envio tanto do E-mail quanto do Telegram!")
 
     def atualizar_historico_status(self, medicamentos_em_falta: list[str]):
         """Atualiza histórico de status dos medicamentos"""
@@ -565,6 +585,76 @@ Execução #{self.estado.get('execucoes', 0)} | Total de mudanças: {self.estado
             'estado_atual_hash': self.estado.get('hash_ultimo', '')[:10] + '...' if self.estado.get('hash_ultimo') else 'N/A',
             'medicamentos_em_falta_ultimo': self.estado.get('medicamentos_em_falta_ultimo', [])
         }
+
+    def enviar_telegram(self, medicamentos_em_falta: list[str], medicamentos_disponiveis: list[str]):
+        """Envia mensagem para o Telegram Bot com o mesmo conteúdo do e-mail"""
+        try:
+            bot_token = os.environ.get('TELEGRAM_BOT_TOKEN')
+            chat_id = os.environ.get('TELEGRAM_CHAT_ID')
+            
+            if not bot_token or not chat_id:
+                logging.warning("TELEGRAM_BOT_TOKEN ou TELEGRAM_CHAT_ID não encontrados. Telegram não será enviado.")
+                return False
+            
+            agora = get_current_datetime_in_timezone()
+            data_hora = agora.strftime("%d/%m/%Y às %H:%M:%S")
+            
+            # Criar mensagem formatada para Telegram
+            if medicamentos_em_falta:
+                status_emoji = "🚨"
+                status_text = f"MEDICAMENTOS EM FALTA"
+            else:
+                status_emoji = "✅"
+                status_text = "TODOS OS MEDICAMENTOS DISPONÍVEIS"
+            
+            mensagem = f"""
+{status_emoji} <b>ATUALIZAÇÃO DE MEDICAMENTOS</b>
+📅 {data_hora}
+
+<b>STATUS ATUAL:</b>
+"""
+            
+            if medicamentos_em_falta:
+                mensagem += f"\n❌ <b>Medicamentos em Falta:</b>\n"
+                for med in medicamentos_em_falta:
+                    mensagem += f"  • {med}\n"
+            
+            if medicamentos_disponiveis:
+                mensagem += f"\n✅ <b>Medicamentos Disponíveis:</b>\n"
+                for med in medicamentos_disponiveis:
+                    mensagem += f"  • {med}\n"
+            
+            mensagem += f"""
+<b>📊 INFORMAÇÕES DA EXECUÇÃO:</b>
+• Execução: #{self.estado.get('execucoes', 0)}
+• Total de mudanças: {self.estado.get('mudancas', 0)}
+• Última mudança: {self.estado.get('ultima_mudanca', 'N/A')}
+
+<i>🤖 Enviado automaticamente via GitHub Actions</i>
+"""
+            
+            url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+            
+            payload = {
+                'chat_id': chat_id,
+                'text': mensagem,
+                'parse_mode': 'HTML',
+                'disable_web_page_preview': True
+            }
+            
+            response = requests.post(url, data=payload, timeout=30)
+            
+            if response.status_code == 200:
+                logging.info("✅ Mensagem enviada para Telegram com sucesso!")
+                return True
+            else:
+                logging.error(f"❌ Erro ao enviar para Telegram: {response.status_code}")
+                logging.error(f"Resposta: {response.text}")
+                return False
+                
+        except Exception as e:
+            logging.error(f"❌ Erro ao enviar mensagem para Telegram: {str(e)}")
+            return False
 
 def configurar_schedule():
     """Configura o agendamento baseado nas configurações"""
