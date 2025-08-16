@@ -3,7 +3,8 @@ name: Enhanced PDF Medication Monitor
 on:
   schedule:
     # UTC-3 (Brasília timezone) - Converted from original times
-    - cron: '0 8,9,10,11,12,13,14,15,16,17,2 * * 1-5' # Corrigido para 05:00, 06:00, ..., 14:00, 23:00 UTC-3
+    #- cron: '0 8,9,10,11,12,13,14,15,16,17,2 * * 1-5' # Corrigido para 05:00, 06:00, ..., 14:00, 23:00 UTC-3
+    - cron: '0 10,22 * * *' # roda todos os dias as 7:00 e 19:00
   workflow_dispatch:
     inputs:
       debug_mode:
