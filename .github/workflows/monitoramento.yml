@@ -31,6 +31,8 @@ env:
   DEBUG_MODE: ${{ github.event.inputs.debug_mode || 'false' }}
   FORCE_EMAIL: ${{ github.event.inputs.force_email || 'false' }}
   GOOGLE_DRIVE_FILE_ID: ${{ secrets.GOOGLE_DRIVE_FILE_ID }}
+  TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+  TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
   DATA_DIR: dados_monitoramento
   TIMEZONE: America/Sao_Paulo
 
