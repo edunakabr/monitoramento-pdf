@@ -1,21 +1,3 @@
-2025-08-12 11:14:12,333 |     INFO | ✅ Mudança no conteúdo do PDF detectada. Novo hash: 0b6374a57a...
-2025-08-12 11:14:14,438 |     INFO | Email enviado com sucesso: FALTA: Donepezil
-2025-08-12 11:14:14,438 |     INFO | ✅ Mudança no conteúdo do PDF detectada. Enviando e-mail.
-2025-08-12 11:14:14,438 |     INFO | Execução concluída em 4.50s
-2025-08-12 11:14:14,439 |     INFO | Estado salvo com sucesso
-2025-08-12 11:14:14,439 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
-2025-08-12 12:32:53,972 |     INFO | Estado carregado com sucesso. Execução #203
-2025-08-12 12:32:53,972 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
-2025-08-12 12:32:53,972 |     INFO | Biblioteca PDF: PyPDF2
-2025-08-12 12:32:53,972 |     INFO | Python: 3.11.13 (main, Jun  4 2025, 04:12:12) [GCC 13.3.0]
-2025-08-12 12:32:53,972 |     INFO | Arquivo ID: 1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
-2025-08-12 12:32:53,972 |     INFO | Medicamentos monitorados: Donepezil, Memantina, Galantamina
-2025-08-12 12:32:53,972 |     INFO | Timezone configurado: America/Sao_Paulo
-2025-08-12 12:32:53,983 |     INFO | === EXECUÇÃO #204 INICIADA ===
-2025-08-12 12:32:53,983 |     INFO | Tentativa 1 de download...
-2025-08-12 12:32:55,879 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
-2025-08-12 12:32:55,888 |     INFO | Download concluído (59405 bytes) da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
-2025-08-12 12:32:55,919 |     INFO | Texto extraído com PyPDF2 (458 caracteres)
 2025-08-12 12:32:55,919 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Donepezil
 2025-08-12 12:32:55,919 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): Memantina, Galantamina
 2025-08-12 12:32:55,919 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
@@ -1016,3 +998,25 @@
 2025-08-22 10:16:56,445 |     INFO | Execução concluída em 1.90s
 2025-08-22 10:16:56,445 |     INFO | Estado salvo com sucesso
 2025-08-22 10:16:56,445 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
+2025-08-22 22:14:28,453 |     INFO | Estado carregado com sucesso. Execução #258
+2025-08-22 22:14:28,453 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
+2025-08-22 22:14:28,453 |     INFO | Biblioteca PDF: PyPDF2
+2025-08-22 22:14:28,453 |     INFO | Python: 3.11.13 (main, Jun  4 2025, 04:12:12) [GCC 13.3.0]
+2025-08-22 22:14:28,454 |     INFO | Arquivo ID: 1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-08-22 22:14:28,454 |     INFO | Medicamentos monitorados: Donepezil, Memantina, Galantamina
+2025-08-22 22:14:28,454 |     INFO | Timezone configurado: America/Sao_Paulo
+2025-08-22 22:14:28,464 |     INFO | === EXECUÇÃO #259 INICIADA ===
+2025-08-22 22:14:28,464 |     INFO | Tentativa 1 de download...
+2025-08-22 22:14:30,061 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-08-22 22:14:30,078 |     INFO | Download concluído (59337 bytes) da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-08-22 22:14:30,184 |     INFO | Texto extraído com PyPDF2 (437 caracteres)
+2025-08-22 22:14:30,185 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Donepezil
+2025-08-22 22:14:30,185 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): Memantina, Galantamina
+2025-08-22 22:14:30,185 |     INFO | ✅ Mudança no conteúdo do PDF detectada. Novo hash: 1c0a9de077...
+2025-08-22 22:14:31,801 |     INFO | Email enviado com sucesso: FALTA: Donepezil
+2025-08-22 22:14:32,274 |     INFO | ✅ Mensagem enviada para Telegram com sucesso!
+2025-08-22 22:14:32,275 |     INFO | ✅ Notificações enviadas com sucesso para E-mail e Telegram!
+2025-08-22 22:14:32,276 |     INFO | ✅ Mudança no conteúdo do PDF detectada. Enviando e-mail.
+2025-08-22 22:14:32,276 |     INFO | Execução concluída em 3.81s
+2025-08-22 22:14:32,277 |     INFO | Estado salvo com sucesso
+2025-08-22 22:14:32,277 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.

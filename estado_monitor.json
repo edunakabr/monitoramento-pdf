@@ -1,10 +1,10 @@
 {
-  "texto_ultimo": "Planilha1 Página 1MEDICAMENTOS EM FALTA ALENTUZUMABE 10 MGML SOLUÇÃO INJETÁVEL CALCITONINA 200UI CLADRIBINA 10MG CLOBAZAM 20MG DANAZOL 100MG DONEPEZIL 10MG GENFIBROZILA 900MG INSULINA DE AÇÃO RÁPIDA 100 UIML  ASPARTE ISOTRETINOÍNA 10MG LEVETIRACETAM 500MG RISANQUIZUMABE 75MG0,83ML RIVASTIGMINA 3,0MG RIVASTIGMINA 6,0MG RIVASTIGMINA 9MG 4,6MG24H  ADESIVO SILDENAFIL 25MGCANETA APLICAÇÃO DE INSULINA - LISPRO",
-  "hash_ultimo": "b14b27891127bbfcd3c55d2aa343bcbc",
-  "data_ultimo": "2025-08-19T19:15:16.233018-03:00",
-  "execucoes": 258,
-  "mudancas": 16,
-  "ultima_mudanca": "2025-08-19T19:15:16.233052-03:00",
+  "texto_ultimo": "Planilha1 Página 1MEDICAMENTOS EM FALTA ALENTUZUMABE 10 MGML SOLUÇÃO INJETÁVEL CALCITONINA 200UI CLADRIBINA 10MG CLOBAZAM 20MG DANAZOL 100MG DONEPEZIL 10MG GENFIBROZILA 900MG INSULINA DE AÇÃO RÁPIDA 100 UIML  ASPARTE ISOTRETINOÍNA 10MG LEVETIRACETAM 500MG RISANQUIZUMABE 75MG0,83ML RIVASTIGMINA 3,0MG RIVASTIGMINA 6,0MG RIVASTIGMINA 9MG 4,6MG24H  ADESIVO SILDENAFIL 25MG ZIPRASIDONA 80MGCANETA APLICAÇÃO DE INSULINA - LISPRO",
+  "hash_ultimo": "1c0a9de07739f8e2a75bec305dcd063f",
+  "data_ultimo": "2025-08-22T19:14:30.185465-03:00",
+  "execucoes": 259,
+  "mudancas": 17,
+  "ultima_mudanca": "2025-08-22T19:14:30.185514-03:00",
   "historico_status": [
     {
       "timestamp": "2025-07-19T21:30:05.615426",
@@ -278,12 +278,19 @@
         "Donepezil"
       ],
       "total_em_falta": 1
+    },
+    {
+      "timestamp": "2025-08-22T19:14:30.185603-03:00",
+      "medicamentos_em_falta": [
+        "Donepezil"
+      ],
+      "total_em_falta": 1
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2025-08-22T07:16:56.445087-03:00",
+  "ultima_execucao_sucesso": "2025-08-22T19:14:32.276377-03:00",
   "medicamentos_em_falta_ultimo": [
     "Donepezil"
   ],
-  "data_atualizacao": "2025-08-22T07:16:56.445226-03:00"
+  "data_atualizacao": "2025-08-22T19:14:32.276541-03:00"
 }
