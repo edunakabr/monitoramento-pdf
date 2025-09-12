@@ -2,7 +2,7 @@
   "texto_ultimo": "Planilha1 Página 1MEDICAMENTOS EM FALTA ALENTUZUMABE 10 MGML SOLUÇÃO INJETÁVEL CALCITONINA 200UI CICLOSPORINA MICROEMULSÃO 50MG CAPS CLADRIBINA 10MG CLOBAZAM 20MG CLOBETASOL, 0,5MGG SOL.TÓPICA CAPIL.50G50ML DANAZOL 100MG INSULINA DE AÇÃO RÁPIDA 100 UIML  ASPARTE ISOTRETINOÍNA 10MG LEVETIRACETAM 500MG RISANQUIZUMABE 75MG0,83ML RIVASTIGMINA 3,0MG ZIPRASIDONA 80MGCANETA P APLICAÇÃO DE INSULINA - LISPRO",
   "hash_ultimo": "97a80d13480c556d050fd8471bdf0f31",
   "data_ultimo": "2025-09-11T19:14:11.063156-03:00",
-  "execucoes": 300,
+  "execucoes": 301,
   "mudancas": 22,
   "ultima_mudanca": "2025-09-11T19:14:11.063188-03:00",
   "historico_status": [
@@ -313,7 +313,7 @@
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2025-09-12T07:16:29.532813-03:00",
+  "ultima_execucao_sucesso": "2025-09-12T19:13:44.630519-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2025-09-12T07:16:29.532947-03:00"
+  "data_atualizacao": "2025-09-12T19:13:44.630624-03:00"
 }
