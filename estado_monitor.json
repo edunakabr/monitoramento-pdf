@@ -1,18 +1,11 @@
 {
-  "texto_ultimo": "Planilha1 Página 1MEDICAMENTOS EM FALTA ALENTUZUMABE 10 MGML SOLUÇÃO INJETÁVEL CLADRIBINA 10MG CLOBAZAM 20MG DANAZOL 100MG KIT PARA INFUSÃO DE INFLIXIMABE AC INSULINA DE AÇÃO RÁPIDA 100 UIML  ASPARTE ISOTRETINOÍNA 10MG LEVETIRACETAM 500MG MICOFENOLATO SÓDICO 360MG RIVASTIGMINA 9MG 4,6mg 24h ADESIVO RIVASTIGMINA 6MG ROMOSOZUMABE 90 MGML SOLUÇÃO INJETÁVEL ZIPRASIDONA 40MG ZIPRASIDONA 80MGCANETA APLICAÇÃO DE INSULINA - LISPRO CANETA APLICAÇÃO INSULINA  GLARGINA",
-  "hash_ultimo": "98e30f7e0617af3c0afe6f01835ac180",
-  "data_ultimo": "2025-10-09T19:14:02.028254-03:00",
-  "execucoes": 364,
-  "mudancas": 28,
-  "ultima_mudanca": "2025-10-09T19:14:02.028286-03:00",
+  "texto_ultimo": "Planilha1 Página 1MEDICAMENTOS EM FALTA ALENTUZUMABE 10 MGML SOLUÇÃO INJETÁVEL CLADRIBINA 10MG CLOBAZAM 20MG DANAZOL 100MG KIT PARA INFUSÃO DE INFLIXIMABE AC INSULINA DE AÇÃO RÁPIDA 100 UIML  ASPARTE ISOTRETINOÍNA 10MG LEVETIRACETAM 500MG RIVASTIGMINA 9MG 4,6mg 24h ADESIVO RIVASTIGMINA 6MG ROMOSOZUMABE 90 MGML SOLUÇÃO INJETÁVEL UPADACITINIBE 15 MG ZIPRASIDONA 40MGCANETA APLICAÇÃO DE INSULINA - LISPRO CANETA APLICAÇÃO INSULINA  GLARGINA",
+  "hash_ultimo": "68b2b4cd08352bcb6cef2f61d1d05935",
+  "data_ultimo": "2025-10-14T19:15:11.239771-03:00",
+  "execucoes": 365,
+  "mudancas": 29,
+  "ultima_mudanca": "2025-10-14T19:15:11.239811-03:00",
   "historico_status": [
-    {
-      "timestamp": "2025-07-19T21:30:57.806598",
-      "medicamentos_em_falta": [
-        "Donepezil"
-      ],
-      "total_em_falta": 1
-    },
     {
       "timestamp": "2025-07-19T21:31:56.660616",
       "medicamentos_em_falta": [
@@ -333,10 +326,15 @@
       "timestamp": "2025-10-09T19:14:02.028366-03:00",
       "medicamentos_em_falta": [],
       "total_em_falta": 0
+    },
+    {
+      "timestamp": "2025-10-14T19:15:11.239891-03:00",
+      "medicamentos_em_falta": [],
+      "total_em_falta": 0
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2025-10-14T07:17:12.646545-03:00",
+  "ultima_execucao_sucesso": "2025-10-14T19:15:13.142270-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2025-10-14T07:17:12.646676-03:00"
+  "data_atualizacao": "2025-10-14T19:15:13.142428-03:00"
 }
