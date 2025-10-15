@@ -2,7 +2,7 @@
   "texto_ultimo": "Planilha1 Página 1MEDICAMENTOS EM FALTA ALENTUZUMABE 10 MGML SOLUÇÃO INJETÁVEL CLADRIBINA 10MG CLOBAZAM 20MG DANAZOL 100MG KIT PARA INFUSÃO DE INFLIXIMABE AC INSULINA DE AÇÃO RÁPIDA 100 UIML  ASPARTE ISOTRETINOÍNA 10MG LEVETIRACETAM 500MG RIVASTIGMINA 9MG 4,6mg 24h ADESIVO RIVASTIGMINA 6MG ROMOSOZUMABE 90 MGML SOLUÇÃO INJETÁVEL UPADACITINIBE 15 MG ZIPRASIDONA 40MGCANETA APLICAÇÃO DE INSULINA - LISPRO CANETA APLICAÇÃO INSULINA  GLARGINA",
   "hash_ultimo": "68b2b4cd08352bcb6cef2f61d1d05935",
   "data_ultimo": "2025-10-14T19:15:11.239771-03:00",
-  "execucoes": 366,
+  "execucoes": 367,
   "mudancas": 29,
   "ultima_mudanca": "2025-10-14T19:15:11.239811-03:00",
   "historico_status": [
@@ -334,7 +334,7 @@
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2025-10-15T07:17:56.004461-03:00",
+  "ultima_execucao_sucesso": "2025-10-15T19:13:01.631679-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2025-10-15T07:17:56.004561-03:00"
+  "data_atualizacao": "2025-10-15T19:13:01.631803-03:00"
 }
