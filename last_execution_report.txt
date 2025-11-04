@@ -1,19 +1,19 @@
-Execution Report - Mon Nov  3 22:15:44 UTC 2025
+Execution Report - Tue Nov  4 10:19:36 UTC 2025
 ================================
 
 Workflow: Enhanced PDF Medication Monitor
-Run ID: 19051004847
+Run ID: 19065366040
 Trigger: schedule
 
 Current Statistics:
-- Total executions: 405
+- Total executions: 406
 - Total changes: 36
 - Consecutive errors: 0
 - Last change: 2025-11-03T19:15:42.223195-03:00
 
 Recent Log Summary:
-2025-11-03 22:15:44,671 |     INFO | ✅ Notificações enviadas com sucesso para E-mail e Telegram!
-2025-11-03 22:15:44,671 |     INFO | ✅ Mudança no conteúdo do PDF detectada. Enviando e-mail.
-2025-11-03 22:15:44,671 |     INFO | Execução concluída em 4.64s
-2025-11-03 22:15:44,672 |     INFO | Estado salvo com sucesso
-2025-11-03 22:15:44,672 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
+2025-11-04 10:19:36,516 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): Donepezil, Memantina, Galantamina
+2025-11-04 10:19:36,516 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
+2025-11-04 10:19:36,516 |     INFO | Execução concluída em 1.50s
+2025-11-04 10:19:36,517 |     INFO | Estado salvo com sucesso
+2025-11-04 10:19:36,517 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
