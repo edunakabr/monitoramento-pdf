@@ -1,21 +1,3 @@
-2025-10-15 22:13:01,632 |     INFO | Estado salvo com sucesso
-2025-10-15 22:13:01,632 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
-2025-10-16 10:18:17,188 |     INFO | Estado carregado com sucesso. Execução #367
-2025-10-16 10:18:17,189 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
-2025-10-16 10:18:17,189 |     INFO | Biblioteca PDF: PyPDF2
-2025-10-16 10:18:17,189 |     INFO | Python: 3.11.13 (main, Jun  4 2025, 04:12:12) [GCC 13.3.0]
-2025-10-16 10:18:17,189 |     INFO | Arquivo ID: 1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
-2025-10-16 10:18:17,189 |     INFO | Medicamentos monitorados: Donepezil, Memantina, Galantamina
-2025-10-16 10:18:17,189 |     INFO | Timezone configurado: America/Sao_Paulo
-2025-10-16 10:18:17,200 |     INFO | === EXECUÇÃO #368 INICIADA ===
-2025-10-16 10:18:17,200 |     INFO | Tentativa 1 de download...
-2025-10-16 10:18:18,749 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
-2025-10-16 10:18:18,799 |     INFO | Download concluído (60098 bytes) da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
-2025-10-16 10:18:18,840 |     INFO | Texto extraído com PyPDF2 (452 caracteres)
-2025-10-16 10:18:18,840 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Nenhum
-2025-10-16 10:18:18,840 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): Donepezil, Memantina, Galantamina
-2025-10-16 10:18:18,840 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
-2025-10-16 10:18:18,840 |     INFO | Execução concluída em 1.64s
 2025-10-16 10:18:18,841 |     INFO | Estado salvo com sucesso
 2025-10-16 10:18:18,841 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
 2025-10-16 22:12:12,270 |     INFO | Estado carregado com sucesso. Execução #368
@@ -1016,3 +998,21 @@
 2025-11-11 22:15:49,162 |     INFO | Execução concluída em 1.68s
 2025-11-11 22:15:49,163 |     INFO | Estado salvo com sucesso
 2025-11-11 22:15:49,163 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
+2025-11-12 10:18:27,627 |     INFO | Estado carregado com sucesso. Execução #421
+2025-11-12 10:18:27,627 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
+2025-11-12 10:18:27,627 |     INFO | Biblioteca PDF: PyPDF2
+2025-11-12 10:18:27,627 |     INFO | Python: 3.11.14 (main, Oct 10 2025, 01:03:14) [GCC 13.3.0]
+2025-11-12 10:18:27,627 |     INFO | Arquivo ID: 1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-11-12 10:18:27,627 |     INFO | Medicamentos monitorados: Donepezil, Memantina, Galantamina
+2025-11-12 10:18:27,627 |     INFO | Timezone configurado: America/Sao_Paulo
+2025-11-12 10:18:27,638 |     INFO | === EXECUÇÃO #422 INICIADA ===
+2025-11-12 10:18:27,638 |     INFO | Tentativa 1 de download...
+2025-11-12 10:18:29,461 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-11-12 10:18:29,484 |     INFO | Download concluído (60330 bytes) da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-11-12 10:18:29,516 |     INFO | Texto extraído com PyPDF2 (994 caracteres)
+2025-11-12 10:18:29,516 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Nenhum
+2025-11-12 10:18:29,516 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): Donepezil, Memantina, Galantamina
+2025-11-12 10:18:29,516 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
+2025-11-12 10:18:29,516 |     INFO | Execução concluída em 1.88s
+2025-11-12 10:18:29,517 |     INFO | Estado salvo com sucesso
+2025-11-12 10:18:29,517 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
