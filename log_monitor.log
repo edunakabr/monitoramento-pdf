@@ -1,25 +1,3 @@
-2025-11-07 10:18:20,889 |     INFO | Biblioteca PDF: PyPDF2
-2025-11-07 10:18:20,889 |     INFO | Python: 3.11.14 (main, Oct 10 2025, 01:03:14) [GCC 13.3.0]
-2025-11-07 10:18:20,889 |     INFO | Arquivo ID: 1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
-2025-11-07 10:18:20,889 |     INFO | Medicamentos monitorados: Donepezil, Memantina, Galantamina
-2025-11-07 10:18:20,889 |     INFO | Timezone configurado: America/Sao_Paulo
-2025-11-07 10:18:20,896 |     INFO | === EXECUÇÃO #412 INICIADA ===
-2025-11-07 10:18:20,896 |     INFO | Tentativa 1 de download...
-2025-11-07 10:18:22,729 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
-2025-11-07 10:18:22,770 |     INFO | Download concluído (55879 bytes) da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
-2025-11-07 10:18:22,804 |     INFO | Texto extraído com PyPDF2 (916 caracteres)
-2025-11-07 10:18:22,805 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Nenhum
-2025-11-07 10:18:22,805 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): Donepezil, Memantina, Galantamina
-2025-11-07 10:18:22,805 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
-2025-11-07 10:18:22,805 |     INFO | Execução concluída em 1.91s
-2025-11-07 10:18:22,805 |     INFO | Estado salvo com sucesso
-2025-11-07 10:18:22,806 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
-2025-11-07 22:14:52,299 |     INFO | Estado carregado com sucesso. Execução #412
-2025-11-07 22:14:52,300 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
-2025-11-07 22:14:52,300 |     INFO | Biblioteca PDF: PyPDF2
-2025-11-07 22:14:52,300 |     INFO | Python: 3.11.14 (main, Oct 10 2025, 01:03:14) [GCC 13.3.0]
-2025-11-07 22:14:52,300 |     INFO | Arquivo ID: 1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
-2025-11-07 22:14:52,300 |     INFO | Medicamentos monitorados: Donepezil, Memantina, Galantamina
 2025-11-07 22:14:52,300 |     INFO | Timezone configurado: America/Sao_Paulo
 2025-11-07 22:14:52,310 |     INFO | === EXECUÇÃO #413 INICIADA ===
 2025-11-07 22:14:52,310 |     INFO | Tentativa 1 de download...
@@ -1020,3 +998,21 @@
 2025-12-03 22:17:13,208 |     INFO | Execução concluída em 5.57s
 2025-12-03 22:17:13,208 |     INFO | Estado salvo com sucesso
 2025-12-03 22:17:13,208 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
+2025-12-04 10:20:46,055 |     INFO | Estado carregado com sucesso. Execução #465
+2025-12-04 10:20:46,055 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
+2025-12-04 10:20:46,055 |     INFO | Biblioteca PDF: PyPDF2
+2025-12-04 10:20:46,055 |     INFO | Python: 3.11.14 (main, Oct 10 2025, 01:03:14) [GCC 13.3.0]
+2025-12-04 10:20:46,055 |     INFO | Arquivo ID: 1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-12-04 10:20:46,055 |     INFO | Medicamentos monitorados: Donepezil, Memantina, Galantamina
+2025-12-04 10:20:46,055 |     INFO | Timezone configurado: America/Sao_Paulo
+2025-12-04 10:20:46,066 |     INFO | === EXECUÇÃO #466 INICIADA ===
+2025-12-04 10:20:46,066 |     INFO | Tentativa 1 de download...
+2025-12-04 10:20:48,017 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-12-04 10:20:48,033 |     INFO | Download concluído (61484 bytes) da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-12-04 10:20:48,139 |     INFO | Texto extraído com PyPDF2 (2009 caracteres)
+2025-12-04 10:20:48,140 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Donepezil, Memantina, Galantamina
+2025-12-04 10:20:48,140 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): Nenhum
+2025-12-04 10:20:48,140 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
+2025-12-04 10:20:48,140 |     INFO | Execução concluída em 2.07s
+2025-12-04 10:20:48,141 |     INFO | Estado salvo com sucesso
+2025-12-04 10:20:48,141 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
