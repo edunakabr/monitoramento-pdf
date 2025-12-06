@@ -1,19 +1,19 @@
-Execution Report - Fri Dec  5 22:16:08 UTC 2025
+Execution Report - Sat Dec  6 10:16:19 UTC 2025
 ================================
 
 Workflow: Enhanced PDF Medication Monitor
-Run ID: 19977517310
+Run ID: 19987066175
 Trigger: schedule
 
 Current Statistics:
-- Total executions: 469
+- Total executions: 470
 - Total changes: 52
 - Consecutive errors: 0
 - Last change: 2025-12-05T19:16:06.594101-03:00
 
 Recent Log Summary:
-2025-12-05 22:16:08,579 |     INFO | ✅ Notificações enviadas com sucesso para E-mail e Telegram!
-2025-12-05 22:16:08,579 |     INFO | ✅ Mudança no conteúdo do PDF detectada. Enviando e-mail.
-2025-12-05 22:16:08,580 |     INFO | Execução concluída em 4.12s
-2025-12-05 22:16:08,580 |     INFO | Estado salvo com sucesso
-2025-12-05 22:16:08,581 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
+2025-12-06 10:16:19,282 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): Nenhum
+2025-12-06 10:16:19,282 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
+2025-12-06 10:16:19,282 |     INFO | Execução concluída em 2.13s
+2025-12-06 10:16:19,283 |     INFO | Estado salvo com sucesso
+2025-12-06 10:16:19,283 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
