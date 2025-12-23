@@ -1,21 +1,3 @@
-2025-11-26 22:16:11,931 |     INFO | Download concluído (63964 bytes) da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
-2025-11-26 22:16:11,992 |     INFO | Texto extraído com PyPDF2 (1975 caracteres)
-2025-11-26 22:16:11,992 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Donepezil, Memantina, Galantamina
-2025-11-26 22:16:11,992 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): Nenhum
-2025-11-26 22:16:11,993 |     INFO | ✅ Mudança no conteúdo do PDF detectada. Novo hash: 34174ab27a...
-2025-11-26 22:16:14,437 |     INFO | Email enviado com sucesso: FALTA: Donepezil, Memantina, Galantamina
-2025-11-26 22:16:15,220 |     INFO | ✅ Mensagem enviada para Telegram com sucesso!
-2025-11-26 22:16:15,221 |     INFO | ✅ Notificações enviadas com sucesso para E-mail e Telegram!
-2025-11-26 22:16:15,221 |     INFO | ✅ Mudança no conteúdo do PDF detectada. Enviando e-mail.
-2025-11-26 22:16:15,221 |     INFO | Execução concluída em 5.83s
-2025-11-26 22:16:15,222 |     INFO | Estado salvo com sucesso
-2025-11-26 22:16:15,222 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
-2025-11-27 10:18:38,756 |     INFO | Estado carregado com sucesso. Execução #451
-2025-11-27 10:18:38,756 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
-2025-11-27 10:18:38,756 |     INFO | Biblioteca PDF: PyPDF2
-2025-11-27 10:18:38,756 |     INFO | Python: 3.11.14 (main, Oct 10 2025, 01:03:14) [GCC 13.3.0]
-2025-11-27 10:18:38,757 |     INFO | Arquivo ID: 1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
-2025-11-27 10:18:38,757 |     INFO | Medicamentos monitorados: Donepezil, Memantina, Galantamina
 2025-11-27 10:18:38,757 |     INFO | Timezone configurado: America/Sao_Paulo
 2025-11-27 10:18:38,768 |     INFO | === EXECUÇÃO #452 INICIADA ===
 2025-11-27 10:18:38,768 |     INFO | Tentativa 1 de download...
@@ -1016,3 +998,25 @@
 2025-12-23 10:19:44,727 |     INFO | Execução concluída em 1.71s
 2025-12-23 10:19:44,728 |     INFO | Estado salvo com sucesso
 2025-12-23 10:19:44,728 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
+2025-12-23 22:16:31,111 |     INFO | Estado carregado com sucesso. Execução #504
+2025-12-23 22:16:31,111 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
+2025-12-23 22:16:31,111 |     INFO | Biblioteca PDF: PyPDF2
+2025-12-23 22:16:31,111 |     INFO | Python: 3.11.14 (main, Oct 10 2025, 01:03:14) [GCC 13.3.0]
+2025-12-23 22:16:31,111 |     INFO | Arquivo ID: 1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-12-23 22:16:31,111 |     INFO | Medicamentos monitorados: Donepezil, Memantina, Galantamina
+2025-12-23 22:16:31,111 |     INFO | Timezone configurado: America/Sao_Paulo
+2025-12-23 22:16:31,122 |     INFO | === EXECUÇÃO #505 INICIADA ===
+2025-12-23 22:16:31,122 |     INFO | Tentativa 1 de download...
+2025-12-23 22:16:33,775 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-12-23 22:16:33,790 |     INFO | Download concluído (59335 bytes) da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2025-12-23 22:16:33,863 |     INFO | Texto extraído com PyPDF2 (668 caracteres)
+2025-12-23 22:16:33,863 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Galantamina
+2025-12-23 22:16:33,863 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): Donepezil, Memantina
+2025-12-23 22:16:33,863 |     INFO | ✅ Mudança no conteúdo do PDF detectada. Novo hash: 4a9353c30f...
+2025-12-23 22:16:36,300 |     INFO | Email enviado com sucesso: FALTA: Galantamina
+2025-12-23 22:16:37,116 |     INFO | ✅ Mensagem enviada para Telegram com sucesso!
+2025-12-23 22:16:37,117 |     INFO | ✅ Notificações enviadas com sucesso para E-mail e Telegram!
+2025-12-23 22:16:37,118 |     INFO | ✅ Mudança no conteúdo do PDF detectada. Enviando e-mail.
+2025-12-23 22:16:37,118 |     INFO | Execução concluída em 6.00s
+2025-12-23 22:16:37,119 |     INFO | Estado salvo com sucesso
+2025-12-23 22:16:37,119 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
