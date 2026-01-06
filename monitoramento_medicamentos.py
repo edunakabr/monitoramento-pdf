@@ -48,7 +48,8 @@ PASTA_DADOS = os.environ.get("DATA_DIR", "dados_monitoramento")
 ARQUIVO_ESTADO = os.path.join(PASTA_DADOS, os.environ.get("STATE_FILE", "estado_monitor.json"))
 ARQUIVO_LOG = os.path.join(PASTA_DADOS, os.environ.get("LOG_FILE", "log_monitor.log"))
 ARQUIVO_TEMP = os.path.join(PASTA_DADOS, os.environ.get("TEMP_PDF_FILE", "temp.pdf"))
-PALAVRAS_CHAVE = ["Donepezil", "Memantina", "Galantamina"]
+PALAVRAS_CHAVE = ["DONEPEZIL 10MG", "MEMANTINA 10MG", "GALANTAMINA 24MG"]
+#PALAVRAS_CHAVE = ["Donepezil", "Memantina", "Galantamina"]
 
 # CONFIGURAÇÕES DE RETRY
 RETRY_CONFIG = {
