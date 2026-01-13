@@ -1,16 +1,11 @@
 {
-  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MG AMBRISENTANA 5MG AMBRISENTANA 10MG BARICITINIBE 4MG CANETA P APLICAÇÃO INSULINA  LISPRO CIPROFIBRATO 100MG CLADRIBINA 10MG CLOBAZAN 20MG DEFERASIROX 250MG FENOFIBRATO 250MG GALANTAMINA 16MG LEVETIRACETAM 500 MG MESALAZINA 2G SACHÊ NAPROXENO 500MG OCTREOTIDA LAR 10MG RILUZOL 50MG RITUXIMABE 10MGML SILDENAFIL 25MG TAFAMIDIS 20MG TRIPTORRELINA 3,75 MG USTEQUINUMABE 45MG0,5ML ZIPRASIDONA 80MG",
-  "hash_ultimo": "94a55577fad4e2660a9663e11a957495",
-  "data_ultimo": "2026-01-12T19:16:12.403920-03:00",
-  "execucoes": 547,
-  "mudancas": 69,
-  "ultima_mudanca": "2026-01-12T19:16:12.403955-03:00",
+  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MG AMBRISENTANA 10MG BARICITINIBE 4MG CANETA P APLICAÇÃO INSULINA  LISPRO CIPROFIBRATO 100MG CLADRIBINA 10MG CLOBAZAN 20MG CLOBETASOL CREME - 0,5MGG DEFERASIROX 250MG DONEPEZIL 10MG FENOFIBRATO 250MG LEVETIRACETAM 500 MG MESALAZINA 2G SACHÊ NAPROXENO 500MG OCTREOTIDA LAR 10MG RILUZOL 50MG RITUXIMABE 10MGML SILDENAFIL 25MG TAFAMIDIS 20MG TRIPTORRELINA 3,75 MG USTEQUINUMABE 45MG0,5ML ZIPRASIDONA 80MG",
+  "hash_ultimo": "7ac41456c07fcebb5f6645e6f465b1c9",
+  "data_ultimo": "2026-01-13T19:18:46.593600-03:00",
+  "execucoes": 548,
+  "mudancas": 70,
+  "ultima_mudanca": "2026-01-13T19:18:46.593632-03:00",
   "historico_status": [
-    {
-      "timestamp": "2025-09-02T19:13:25.919165-03:00",
-      "medicamentos_em_falta": [],
-      "total_em_falta": 0
-    },
     {
       "timestamp": "2025-09-10T19:14:02.672359-03:00",
       "medicamentos_em_falta": [],
@@ -331,10 +326,19 @@
       "timestamp": "2026-01-12T19:16:12.404044-03:00",
       "medicamentos_em_falta": [],
       "total_em_falta": 0
+    },
+    {
+      "timestamp": "2026-01-13T19:18:46.593727-03:00",
+      "medicamentos_em_falta": [
+        "DONEPEZIL 10MG"
+      ],
+      "total_em_falta": 1
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-01-13T07:20:16.853658-03:00",
-  "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-01-13T07:20:16.853766-03:00"
+  "ultima_execucao_sucesso": "2026-01-13T19:18:49.652602-03:00",
+  "medicamentos_em_falta_ultimo": [
+    "DONEPEZIL 10MG"
+  ],
+  "data_atualizacao": "2026-01-13T19:18:49.652728-03:00"
 }
