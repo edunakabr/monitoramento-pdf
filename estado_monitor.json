@@ -1,16 +1,11 @@
 {
-  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MG AMBRISENTANA 10MG BARICITINIBE 4MG CANETA P APLICAÇÃO INSULINA  LISPRO CIPROFIBRATO 100MG CLADRIBINA 10MG CLOBAZAN 20MG CLOBETASOL CREME - 0,5MGG DEFERASIROX 250MG DONEPEZIL 10MG LEVETIRACETAM 500 MG MESALAZINA 2G SACHÊ MESALAZINA 500MG  SUPOSITÓRIO MORFINA 10MGML  60ML NAPROXENO 500MG OCTREOTIDA LAR 10MG OLANZAPINA 10MG RITUXIMABE 10MGML SILDENAFIL 25MG SULFASSALAZINA 500MG TAFAMIDIS 20MG TRIPTORRELINA 3,75 MG USTEQUINUMABE 45MG0,5ML ZIPRASIDONA 80MG",
-  "hash_ultimo": "7d2264e6c06eba7c070d9e786dda3e49",
-  "data_ultimo": "2026-01-16T19:17:46.746945-03:00",
-  "execucoes": 559,
-  "mudancas": 73,
-  "ultima_mudanca": "2026-01-16T19:17:46.746977-03:00",
+  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MG AMBRISENTANA 10MG CANETA P APLICAÇÃO INSULINA  LISPRO CIPROFIBRATO 100MG CLADRIBINA 10MG CLOBAZAN 20MG CLOBETASOL CREME - 0,5MGG LEVETIRACETAM 500 MG MESALAZINA 500MG  SUPOSITÓRIO OCTREOTIDA LAR 10MG OLANZAPINA 10MG RITUXIMABE 10MGML SULFASSALAZINA 500MG TAFAMIDIS 20MG USTEQUINUMABE 45MG0,5ML ZIPRASIDONA 80MG",
+  "hash_ultimo": "c296edc3c2170721d4055bb54b0dc7da",
+  "data_ultimo": "2026-01-19T19:18:21.070943-03:00",
+  "execucoes": 560,
+  "mudancas": 74,
+  "ultima_mudanca": "2026-01-19T19:18:21.070978-03:00",
   "historico_status": [
-    {
-      "timestamp": "2025-09-23T19:13:54.884912-03:00",
-      "medicamentos_em_falta": [],
-      "total_em_falta": 0
-    },
     {
       "timestamp": "2025-09-25T19:12:59.350546-03:00",
       "medicamentos_em_falta": [],
@@ -339,12 +334,15 @@
         "DONEPEZIL 10MG"
       ],
       "total_em_falta": 1
+    },
+    {
+      "timestamp": "2026-01-19T19:18:21.071029-03:00",
+      "medicamentos_em_falta": [],
+      "total_em_falta": 0
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-01-19T07:24:30.211972-03:00",
-  "medicamentos_em_falta_ultimo": [
-    "DONEPEZIL 10MG"
-  ],
-  "data_atualizacao": "2026-01-19T07:24:30.212092-03:00"
+  "ultima_execucao_sucesso": "2026-01-19T19:18:23.268353-03:00",
+  "medicamentos_em_falta_ultimo": [],
+  "data_atualizacao": "2026-01-19T19:18:23.268489-03:00"
 }
