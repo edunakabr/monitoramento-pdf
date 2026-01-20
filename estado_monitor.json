@@ -1,16 +1,11 @@
 {
-  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MG AMBRISENTANA 10MG CANETA P APLICAÇÃO INSULINA  LISPRO CIPROFIBRATO 100MG CLADRIBINA 10MG CLOBAZAN 20MG CLOBETASOL CREME - 0,5MGG LEVETIRACETAM 500 MG MESALAZINA 500MG  SUPOSITÓRIO OCTREOTIDA LAR 10MG OLANZAPINA 10MG RITUXIMABE 10MGML SULFASSALAZINA 500MG TAFAMIDIS 20MG USTEQUINUMABE 45MG0,5ML ZIPRASIDONA 80MG",
-  "hash_ultimo": "c296edc3c2170721d4055bb54b0dc7da",
-  "data_ultimo": "2026-01-19T19:18:21.070943-03:00",
-  "execucoes": 561,
-  "mudancas": 74,
-  "ultima_mudanca": "2026-01-19T19:18:21.070978-03:00",
+  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MG AMBRISENTANA 10MG CANETA P APLICAÇÃO INSULINA  LISPRO CIPROFIBRATO 100MG CLADRIBINA 10MG CLOBAZAN 20MG CLOBETASOL CREME - 0,5MGG LEVETIRACETAM 500 MG MESALAZINA 500MG  SUPOSITÓRIO OCTREOTIDA LAR 10MG OLANZAPINA 10MG RITUXIMABE 10MGML RIVASTIGMINA 4,5MG SULFASSALAZINA 500MG TAFAMIDIS 20MG USTEQUINUMABE 45MG0,5ML ZIPRASIDONA 40MG ZIPRASIDONA 80MG",
+  "hash_ultimo": "380ed8f320ed306dd68e21c29041d0b1",
+  "data_ultimo": "2026-01-20T19:19:47.060597-03:00",
+  "execucoes": 562,
+  "mudancas": 75,
+  "ultima_mudanca": "2026-01-20T19:19:47.060629-03:00",
   "historico_status": [
-    {
-      "timestamp": "2025-09-25T19:12:59.350546-03:00",
-      "medicamentos_em_falta": [],
-      "total_em_falta": 0
-    },
     {
       "timestamp": "2025-10-01T19:13:57.658602-03:00",
       "medicamentos_em_falta": [],
@@ -339,10 +334,15 @@
       "timestamp": "2026-01-19T19:18:21.071029-03:00",
       "medicamentos_em_falta": [],
       "total_em_falta": 0
+    },
+    {
+      "timestamp": "2026-01-20T19:19:47.060688-03:00",
+      "medicamentos_em_falta": [],
+      "total_em_falta": 0
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-01-20T07:23:49.068997-03:00",
+  "ultima_execucao_sucesso": "2026-01-20T19:19:49.466458-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-01-20T07:23:49.069099-03:00"
+  "data_atualizacao": "2026-01-20T19:19:49.466575-03:00"
 }
