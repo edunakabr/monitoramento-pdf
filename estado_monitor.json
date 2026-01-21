@@ -1,16 +1,11 @@
 {
-  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MG AMBRISENTANA 10MG CANETA P APLICAÇÃO INSULINA  LISPRO CIPROFIBRATO 100MG CLADRIBINA 10MG CLOBAZAN 20MG CLOBETASOL CREME - 0,5MGG LEVETIRACETAM 500 MG MESALAZINA 500MG  SUPOSITÓRIO OCTREOTIDA LAR 10MG OLANZAPINA 10MG RITUXIMABE 10MGML RIVASTIGMINA 4,5MG SULFASSALAZINA 500MG TAFAMIDIS 20MG USTEQUINUMABE 45MG0,5ML ZIPRASIDONA 40MG ZIPRASIDONA 80MG",
-  "hash_ultimo": "380ed8f320ed306dd68e21c29041d0b1",
-  "data_ultimo": "2026-01-20T19:19:47.060597-03:00",
-  "execucoes": 563,
-  "mudancas": 75,
-  "ultima_mudanca": "2026-01-20T19:19:47.060629-03:00",
+  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MG AMBRISENTANA 10MG ATORVASTATINA 40MG CANETA P APLICAÇÃO INSULINA  LISPRO CIPROFIBRATO 100MG CLADRIBINA 10MG CLOBAZAN 20MG CLOBETASOL CREME - 0,5MGG LEVETIRACETAM 500 MG MESALAZINA 500MG  SUPOSITÓRIO OCTREOTIDA LAR 10MG OLANZAPINA 10MG RITUXIMABE 10MGML RIVASTIGMINA 4,5MG SULFASSALAZINA 500MG TAFAMIDIS 20MG ZIPRASIDONA 80MG",
+  "hash_ultimo": "41225cc2b52b80b26b8e81f60cbbbd46",
+  "data_ultimo": "2026-01-21T19:20:51.893624-03:00",
+  "execucoes": 564,
+  "mudancas": 76,
+  "ultima_mudanca": "2026-01-21T19:20:51.893655-03:00",
   "historico_status": [
-    {
-      "timestamp": "2025-10-01T19:13:57.658602-03:00",
-      "medicamentos_em_falta": [],
-      "total_em_falta": 0
-    },
     {
       "timestamp": "2025-10-06T19:13:44.526379-03:00",
       "medicamentos_em_falta": [],
@@ -339,10 +334,15 @@
       "timestamp": "2026-01-20T19:19:47.060688-03:00",
       "medicamentos_em_falta": [],
       "total_em_falta": 0
+    },
+    {
+      "timestamp": "2026-01-21T19:20:51.893731-03:00",
+      "medicamentos_em_falta": [],
+      "total_em_falta": 0
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-01-21T07:24:36.781219-03:00",
+  "ultima_execucao_sucesso": "2026-01-21T19:20:54.435628-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-01-21T07:24:36.781336-03:00"
+  "data_atualizacao": "2026-01-21T19:20:54.435746-03:00"
 }
