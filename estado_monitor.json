@@ -2,7 +2,7 @@
   "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MG CANETA P APLICAÇÃO INSULINA  LISPRO CIPROFIBRATO 100MG CLADRIBINA 10MG CLOBAZAN 20MG LEVETIRACETAM 500 MG OLANZAPINA 10MG RIVASTIGMINA 4,5MG ZIPRASIDONA 80MG",
   "hash_ultimo": "d3403822c822d5958987cf9d097d7465",
   "data_ultimo": "2026-01-27T19:19:42.050518-03:00",
-  "execucoes": 577,
+  "execucoes": 578,
   "mudancas": 80,
   "ultima_mudanca": "2026-01-27T19:19:42.050550-03:00",
   "historico_status": [
@@ -342,7 +342,7 @@
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-01-28T07:24:30.069787-03:00",
+  "ultima_execucao_sucesso": "2026-01-28T19:22:53.665677-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-01-28T07:24:30.069884-03:00"
+  "data_atualizacao": "2026-01-28T19:22:53.665793-03:00"
 }
