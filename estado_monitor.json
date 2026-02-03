@@ -1,16 +1,11 @@
 {
-  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MG CANETA P APLICAÇÃO INSULINA  LISPRO CIPROFIBRATO 100MG CLADRIBINA 10MG CLOBAZAN 20MG LEVETIRACETAM 500 MG OLANZAPINA 10MG RIVASTIGMINA 4,5MG SULFASSALAZINA 500MG ZIPRASIDONA 80MG",
-  "hash_ultimo": "ac95049c5a5b4f518dfa62f4e5793672",
-  "data_ultimo": "2026-01-30T19:21:15.488948-03:00",
-  "execucoes": 587,
-  "mudancas": 83,
-  "ultima_mudanca": "2026-01-30T19:21:15.488980-03:00",
+  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MG CANETA P APLICAÇÃO INSULINA  LISPRO CIPROFIBRATO 100MG CLADRIBINA 10MG CLOBAZAN 20MG ENZIMAS PANCREATICAS 10.000 ETANERCEPTE 50MG LEVETIRACETAM 500 MG OLANZAPINA 10MG RIVASTIGMINA 4,5MG SULFASSALAZINA 500MG ZIPRASIDONA 40MG ZIPRASIDONA 80MG",
+  "hash_ultimo": "6585397b0e14c3091e5e43895ceb40fa",
+  "data_ultimo": "2026-02-03T07:36:01.382505-03:00",
+  "execucoes": 588,
+  "mudancas": 84,
+  "ultima_mudanca": "2026-02-03T07:36:01.382539-03:00",
   "historico_status": [
-    {
-      "timestamp": "2025-10-30T19:15:12.785982-03:00",
-      "medicamentos_em_falta": [],
-      "total_em_falta": 0
-    },
     {
       "timestamp": "2025-10-31T19:15:16.060460-03:00",
       "medicamentos_em_falta": [],
@@ -341,10 +336,15 @@
       "timestamp": "2026-01-30T19:21:15.489061-03:00",
       "medicamentos_em_falta": [],
       "total_em_falta": 0
+    },
+    {
+      "timestamp": "2026-02-03T07:36:01.382623-03:00",
+      "medicamentos_em_falta": [],
+      "total_em_falta": 0
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-02-02T07:40:22.997644-03:00",
+  "ultima_execucao_sucesso": "2026-02-03T07:36:04.897954-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-02-02T07:40:22.997752-03:00"
+  "data_atualizacao": "2026-02-03T07:36:04.898093-03:00"
 }
