@@ -2,7 +2,7 @@
   "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MG CANETA P APLICAÇÃO INSULINA  LISPRO CIPROFIBRATO 100MG CLADRIBINA 10MG CLOBAZAN 20MG ENZIMAS PANCREATICAS 10.000 ETANERCEPTE 50MG FORMOTEROL 12MCG  BUDESONIDA 400MCG LEVETIRACETAM 500 MG OLANZAPINA 10MG RIVASTIGMINA 4,5MG SULFASSALAZINA 500MG ZIPRASIDONA 40MG ZIPRASIDONA 80MG",
   "hash_ultimo": "6d62473b73919e20482c83c903f55d65",
   "data_ultimo": "2026-02-03T19:25:50.692142-03:00",
-  "execucoes": 591,
+  "execucoes": 592,
   "mudancas": 85,
   "ultima_mudanca": "2026-02-03T19:25:50.692179-03:00",
   "historico_status": [
@@ -344,7 +344,7 @@
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-02-04T19:23:02.713730-03:00",
+  "ultima_execucao_sucesso": "2026-02-05T07:36:37.892248-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-02-04T19:23:02.713858-03:00"
+  "data_atualizacao": "2026-02-05T07:36:37.892369-03:00"
 }
