@@ -1,21 +1,3 @@
-2026-01-10 22:16:22,563 |     INFO | Tentativa 1 de download...
-2026-01-10 22:16:23,857 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
-2026-01-10 22:16:23,860 |     INFO | Download concluído (52129 bytes) da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
-2026-01-10 22:16:23,976 |     INFO | Texto extraído com PyPDF2 (456 caracteres)
-2026-01-10 22:16:23,977 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Nenhum
-2026-01-10 22:16:23,977 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
-2026-01-10 22:16:23,977 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
-2026-01-10 22:16:23,977 |     INFO | Execução concluída em 1.41s
-2026-01-10 22:16:23,978 |     INFO | Estado salvo com sucesso
-2026-01-10 22:16:23,978 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
-2026-01-11 10:17:46,712 |     INFO | Estado carregado com sucesso. Execução #542
-2026-01-11 10:17:46,712 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
-2026-01-11 10:17:46,713 |     INFO | Biblioteca PDF: PyPDF2
-2026-01-11 10:17:46,713 |     INFO | Python: 3.11.14 (main, Oct 10 2025, 01:03:14) [GCC 13.3.0]
-2026-01-11 10:17:46,713 |     INFO | Arquivo ID: 1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
-2026-01-11 10:17:46,713 |     INFO | Medicamentos monitorados: DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
-2026-01-11 10:17:46,713 |     INFO | Timezone configurado: America/Sao_Paulo
-2026-01-11 10:17:46,723 |     INFO | === EXECUÇÃO #543 INICIADA ===
 2026-01-11 10:17:46,723 |     INFO | Tentativa 1 de download...
 2026-01-11 10:17:48,568 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
 2026-01-11 10:17:48,594 |     INFO | Download concluído (52129 bytes) da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
@@ -1016,3 +998,21 @@
 2026-02-06 10:35:20,761 |     INFO | Execução concluída em 1.76s
 2026-02-06 10:35:20,762 |     INFO | Estado salvo com sucesso
 2026-02-06 10:35:20,762 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
+2026-02-06 22:19:18,976 |     INFO | Estado carregado com sucesso. Execução #594
+2026-02-06 22:19:18,976 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
+2026-02-06 22:19:18,976 |     INFO | Biblioteca PDF: PyPDF2
+2026-02-06 22:19:18,976 |     INFO | Python: 3.11.14 (main, Oct 10 2025, 01:03:14) [GCC 13.3.0]
+2026-02-06 22:19:18,976 |     INFO | Arquivo ID: 1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2026-02-06 22:19:18,976 |     INFO | Medicamentos monitorados: DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
+2026-02-06 22:19:18,976 |     INFO | Timezone configurado: America/Sao_Paulo
+2026-02-06 22:19:18,987 |     INFO | === EXECUÇÃO #595 INICIADA ===
+2026-02-06 22:19:18,987 |     INFO | Tentativa 1 de download...
+2026-02-06 22:19:20,721 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2026-02-06 22:19:20,722 |     INFO | Download concluído (51191 bytes) da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2026-02-06 22:19:20,796 |     INFO | Texto extraído com PyPDF2 (402 caracteres)
+2026-02-06 22:19:20,797 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Nenhum
+2026-02-06 22:19:20,797 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
+2026-02-06 22:19:20,797 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
+2026-02-06 22:19:20,797 |     INFO | Execução concluída em 1.81s
+2026-02-06 22:19:20,797 |     INFO | Estado salvo com sucesso
+2026-02-06 22:19:20,798 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
