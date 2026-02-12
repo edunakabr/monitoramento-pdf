@@ -1,16 +1,11 @@
 {
-  "texto_ultimo": "MEDICAMENTOS EM FALTA ATORVASTATINA 10MG ALENTUZUMABE 10MG CANETA P APLICAÇÃO INSULINA  LISPRO CIPROFIBRATO 100MG CLADRIBINA 10MG ENZIMAS PANCREATICAS 10.000 ETANERCEPTE 50MG FORMOTEROL 12MCG  BUDESONIDA 400MCG LEVETIRACETAM 500 MG MEMANTINA 10MG OLANZAPINA 10MG PRIMIDONA 100MG RIVASTIGMINA 4,5MG TENOFOVIR 300MG USTEQUINUMABE 45 MG0,5ML ZIPRASIDONA 40MG ZIPRASIDONA 80MG",
-  "hash_ultimo": "56f7553a0af4d5f089f131466c2f0e89",
-  "data_ultimo": "2026-02-10T19:36:24.119773-03:00",
-  "execucoes": 606,
-  "mudancas": 87,
-  "ultima_mudanca": "2026-02-10T19:36:24.119805-03:00",
+  "texto_ultimo": "MEDICAMENTOS EM FALTA ATORVASTATINA 10MG CANETA P APLICAÇÃO INSULINA  LISPRO CIPROFIBRATO 100MG CLADRIBINA 10MG ENTECAVIR 0,5MG ETANERCEPTE 50MG FORMOTEROL 12MCG  BUDESONIDA 400MCG GOLIMUMABE 50MG LEVETIRACETAM 500 MG MEMANTINA 10MG OLANZAPINA 10MG RIVASTIGMINA 4,5MG TENOFOVIR 300MG USTEQUINUMABE 45 MG0,5ML ZIPRASIDONA 40MG ZIPRASIDONA 80MG",
+  "hash_ultimo": "568b344ed3fa67788259b1a84d181259",
+  "data_ultimo": "2026-02-12T19:28:39.898155-03:00",
+  "execucoes": 607,
+  "mudancas": 88,
+  "ultima_mudanca": "2026-02-12T19:28:39.898190-03:00",
   "historico_status": [
-    {
-      "timestamp": "2025-11-06T19:15:20.328246-03:00",
-      "medicamentos_em_falta": [],
-      "total_em_falta": 0
-    },
     {
       "timestamp": "2025-11-07T19:14:54.307687-03:00",
       "medicamentos_em_falta": [],
@@ -343,12 +338,19 @@
         "MEMANTINA 10MG"
       ],
       "total_em_falta": 1
+    },
+    {
+      "timestamp": "2026-02-12T19:28:39.898266-03:00",
+      "medicamentos_em_falta": [
+        "MEMANTINA 10MG"
+      ],
+      "total_em_falta": 1
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-02-12T07:41:01.809843-03:00",
+  "ultima_execucao_sucesso": "2026-02-12T19:28:42.521143-03:00",
   "medicamentos_em_falta_ultimo": [
     "MEMANTINA 10MG"
   ],
-  "data_atualizacao": "2026-02-12T07:41:01.809956-03:00"
+  "data_atualizacao": "2026-02-12T19:28:42.521259-03:00"
 }
