@@ -2,7 +2,7 @@
   "texto_ultimo": "MEDICAMENTOS EM FALTA ATORVASTATINA 10MG CANETA P APLICAÇÃO INSULINA  LISPRO CIPROFIBRATO 100MG CLADRIBINA 10MG ENTECAVIR 0,5MG ETANERCEPTE 50MG GOLIMUMABE 50MG LEVETIRACETAM 500 MG MEMANTINA 10MG OLANZAPINA 10MG RIVASTIGMINA 4,5MG TENOFOVIR 300MG USTEQUINUMABE 45 MG0,5ML ZIPRASIDONA 80MG",
   "hash_ultimo": "b771ac9ddb16f92e92f2592da79eaa62",
   "data_ultimo": "2026-02-13T19:28:57.430341-03:00",
-  "execucoes": 609,
+  "execucoes": 610,
   "mudancas": 89,
   "ultima_mudanca": "2026-02-13T19:28:57.430372-03:00",
   "historico_status": [
@@ -350,9 +350,9 @@
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-02-13T19:28:59.340168-03:00",
+  "ultima_execucao_sucesso": "2026-02-14T07:22:56.306525-03:00",
   "medicamentos_em_falta_ultimo": [
     "MEMANTINA 10MG"
   ],
-  "data_atualizacao": "2026-02-13T19:28:59.340297-03:00"
+  "data_atualizacao": "2026-02-14T07:22:56.306651-03:00"
 }
