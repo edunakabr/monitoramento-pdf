@@ -2,7 +2,7 @@
   "texto_ultimo": "MEDICAMENTOS EM FALTA CANETA P APLICAÇÃO INSULINA  LISPRO CIPROFIBRATO 100MG CLADRIBINA 10MG ENTECAVIR 0,5MG ETANERCEPTE 50MG LEVETIRACETAM 500 MG MEMANTINA 10MG OLANZAPINA 10MG RIVASTIGMINA 4,5MG TENOFOVIR 300MG USTEQUINUMABE 45 MG0,5ML",
   "hash_ultimo": "c5b2aa70af5e4627b2dc0d974444a606",
   "data_ultimo": "2026-02-23T19:37:14.483870-03:00",
-  "execucoes": 633,
+  "execucoes": 634,
   "mudancas": 91,
   "ultima_mudanca": "2026-02-23T19:37:14.483904-03:00",
   "historico_status": [
@@ -352,9 +352,9 @@
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-02-25T19:28:46.748019-03:00",
+  "ultima_execucao_sucesso": "2026-02-26T07:41:13.420847-03:00",
   "medicamentos_em_falta_ultimo": [
     "MEMANTINA 10MG"
   ],
-  "data_atualizacao": "2026-02-25T19:28:46.748175-03:00"
+  "data_atualizacao": "2026-02-26T07:41:13.420955-03:00"
 }
