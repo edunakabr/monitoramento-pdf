@@ -1,20 +1,11 @@
 {
-  "texto_ultimo": "MEDICAMENTOS EM FALTA CANETA P APLICAÇÃO INSULINA  LISPRO CIPROFIBRATO 100MG CLADRIBINA 10MG ENTECAVIR 0,5MG ETANERCEPTE 50MG LEVETIRACETAM 500 MG MEMANTINA 10MG OLANZAPINA 10MG RIVASTIGMINA 4,5MG TENOFOVIR 300MG USTEQUINUMABE 45 MG0,5ML",
-  "hash_ultimo": "c5b2aa70af5e4627b2dc0d974444a606",
-  "data_ultimo": "2026-02-23T19:37:14.483870-03:00",
-  "execucoes": 636,
-  "mudancas": 91,
-  "ultima_mudanca": "2026-02-23T19:37:14.483904-03:00",
+  "texto_ultimo": "MEDICAMENTOS EM FALTA CANETA P APLICAÇÃO INSULINA  LISPRO ENTECAVIR 0,5MG LEVETIRACETAM 500 MG OLANZAPINA 10MG RIVASTIGMINA 4,5MG TENOFOVIR 300MG USTEQUINUMABE 45 MG0,5ML",
+  "hash_ultimo": "63ba6b9763bd0032cc9eaf4552efa8d4",
+  "data_ultimo": "2026-02-27T19:19:18.249913-03:00",
+  "execucoes": 637,
+  "mudancas": 92,
+  "ultima_mudanca": "2026-02-27T19:19:18.249948-03:00",
   "historico_status": [
-    {
-      "timestamp": "2025-11-13T19:16:20.675651-03:00",
-      "medicamentos_em_falta": [
-        "Donepezil",
-        "Memantina",
-        "Galantamina"
-      ],
-      "total_em_falta": 3
-    },
     {
       "timestamp": "2025-11-15T19:12:30.398165-03:00",
       "medicamentos_em_falta": [
@@ -349,12 +340,15 @@
         "MEMANTINA 10MG"
       ],
       "total_em_falta": 1
+    },
+    {
+      "timestamp": "2026-02-27T19:19:18.250045-03:00",
+      "medicamentos_em_falta": [],
+      "total_em_falta": 0
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-02-27T07:33:29.311676-03:00",
-  "medicamentos_em_falta_ultimo": [
-    "MEMANTINA 10MG"
-  ],
-  "data_atualizacao": "2026-02-27T07:33:29.311828-03:00"
+  "ultima_execucao_sucesso": "2026-02-27T19:19:21.146254-03:00",
+  "medicamentos_em_falta_ultimo": [],
+  "data_atualizacao": "2026-02-27T19:19:21.146406-03:00"
 }
