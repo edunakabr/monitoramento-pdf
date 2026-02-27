@@ -1,21 +1,3 @@
-2026-01-30 10:29:44,550 |     INFO | Tentativa 1 de download...
-2026-01-30 10:29:46,292 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
-2026-01-30 10:29:46,303 |     INFO | Download concluído (50117 bytes) da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
-2026-01-30 10:29:46,355 |     INFO | Texto extraído com PyPDF2 (240 caracteres)
-2026-01-30 10:29:46,356 |     INFO | Medicamentos EM FALTA (encontrados no PDF): DONEPEZIL 10MG
-2026-01-30 10:29:46,356 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): MEMANTINA 10MG, GALANTAMINA 24MG
-2026-01-30 10:29:46,356 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
-2026-01-30 10:29:46,356 |     INFO | Execução concluída em 1.81s
-2026-01-30 10:29:46,356 |     INFO | Estado salvo com sucesso
-2026-01-30 10:29:46,357 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
-2026-01-30 22:21:13,685 |     INFO | Estado carregado com sucesso. Execução #581
-2026-01-30 22:21:13,685 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
-2026-01-30 22:21:13,685 |     INFO | Biblioteca PDF: PyPDF2
-2026-01-30 22:21:13,685 |     INFO | Python: 3.11.14 (main, Oct 10 2025, 01:03:14) [GCC 13.3.0]
-2026-01-30 22:21:13,685 |     INFO | Arquivo ID: 1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
-2026-01-30 22:21:13,685 |     INFO | Medicamentos monitorados: DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
-2026-01-30 22:21:13,685 |     INFO | Timezone configurado: America/Sao_Paulo
-2026-01-30 22:21:13,696 |     INFO | === EXECUÇÃO #582 INICIADA ===
 2026-01-30 22:21:13,696 |     INFO | Tentativa 1 de download...
 2026-01-30 22:21:15,399 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
 2026-01-30 22:21:15,438 |     INFO | Download concluído (50096 bytes) da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
@@ -1016,3 +998,21 @@
 2026-02-26 22:29:31,233 |     INFO | Execução concluída em 1.77s
 2026-02-26 22:29:31,234 |     INFO | Estado salvo com sucesso
 2026-02-26 22:29:31,234 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
+2026-02-27 10:33:27,462 |     INFO | Estado carregado com sucesso. Execução #635
+2026-02-27 10:33:27,462 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
+2026-02-27 10:33:27,462 |     INFO | Biblioteca PDF: PyPDF2
+2026-02-27 10:33:27,462 |     INFO | Python: 3.11.14 (main, Oct 10 2025, 01:03:14) [GCC 13.3.0]
+2026-02-27 10:33:27,463 |     INFO | Arquivo ID: 1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2026-02-27 10:33:27,463 |     INFO | Medicamentos monitorados: DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
+2026-02-27 10:33:27,463 |     INFO | Timezone configurado: America/Sao_Paulo
+2026-02-27 10:33:27,474 |     INFO | === EXECUÇÃO #636 INICIADA ===
+2026-02-27 10:33:27,474 |     INFO | Tentativa 1 de download...
+2026-02-27 10:33:29,285 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2026-02-27 10:33:29,287 |     INFO | Download concluído (50142 bytes) da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2026-02-27 10:33:29,311 |     INFO | Texto extraído com PyPDF2 (243 caracteres)
+2026-02-27 10:33:29,311 |     INFO | Medicamentos EM FALTA (encontrados no PDF): MEMANTINA 10MG
+2026-02-27 10:33:29,311 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): DONEPEZIL 10MG, GALANTAMINA 24MG
+2026-02-27 10:33:29,311 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
+2026-02-27 10:33:29,311 |     INFO | Execução concluída em 1.84s
+2026-02-27 10:33:29,312 |     INFO | Estado salvo com sucesso
+2026-02-27 10:33:29,312 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
