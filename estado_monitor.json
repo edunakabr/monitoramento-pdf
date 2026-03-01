@@ -2,7 +2,7 @@
   "texto_ultimo": "MEDICAMENTOS EM FALTA CANETA P APLICAÇÃO INSULINA  LISPRO ENTECAVIR 0,5MG LEVETIRACETAM 500 MG OLANZAPINA 10MG RIVASTIGMINA 4,5MG TENOFOVIR 300MG USTEQUINUMABE 45 MG0,5ML",
   "hash_ultimo": "63ba6b9763bd0032cc9eaf4552efa8d4",
   "data_ultimo": "2026-02-27T19:19:18.249913-03:00",
-  "execucoes": 640,
+  "execucoes": 641,
   "mudancas": 92,
   "ultima_mudanca": "2026-02-27T19:19:18.249948-03:00",
   "historico_status": [
@@ -348,7 +348,7 @@
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-03-01T07:21:02.015941-03:00",
+  "ultima_execucao_sucesso": "2026-03-01T19:20:00.093000-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-03-01T07:21:02.016060-03:00"
+  "data_atualizacao": "2026-03-01T19:20:00.093106-03:00"
 }
