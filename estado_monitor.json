@@ -1,20 +1,11 @@
 {
-  "texto_ultimo": "MEDICAMENTOS EM FALTA CANETA P APLICAÇÃO INSULINA  LISPRO ENTECAVIR 0,5MG LEVETIRACETAM 500 MG OLANZAPINA 10MG RIVASTIGMINA 4,5MG TENOFOVIR 300MG USTEQUINUMABE 45 MG0,5ML",
-  "hash_ultimo": "63ba6b9763bd0032cc9eaf4552efa8d4",
-  "data_ultimo": "2026-02-27T19:19:18.249913-03:00",
-  "execucoes": 643,
-  "mudancas": 92,
-  "ultima_mudanca": "2026-02-27T19:19:18.249948-03:00",
+  "texto_ultimo": "MEDICAMENTOS EM FALTA CANETA P APLICAÇÃO INSULINA  LISPRO ENTECAVIR 0,5MG LEVETIRACETAM 500 MG OLANZAPINA 10MG RIVASTIGMINA 4,5MG TENOFOVIR 300MG TERIFLUNOMIDA 14MG USTEQUINUMABE 45 MG0,5ML",
+  "hash_ultimo": "714903288f6e69a94cb0231bb02f55f8",
+  "data_ultimo": "2026-03-03T07:35:01.940678-03:00",
+  "execucoes": 644,
+  "mudancas": 93,
+  "ultima_mudanca": "2026-03-03T07:35:01.940709-03:00",
   "historico_status": [
-    {
-      "timestamp": "2025-11-15T19:12:30.398165-03:00",
-      "medicamentos_em_falta": [
-        "Donepezil",
-        "Memantina",
-        "Galantamina"
-      ],
-      "total_em_falta": 3
-    },
     {
       "timestamp": "2025-11-18T19:16:16.678641-03:00",
       "medicamentos_em_falta": [
@@ -345,10 +336,15 @@
       "timestamp": "2026-02-27T19:19:18.250045-03:00",
       "medicamentos_em_falta": [],
       "total_em_falta": 0
+    },
+    {
+      "timestamp": "2026-03-03T07:35:01.940795-03:00",
+      "medicamentos_em_falta": [],
+      "total_em_falta": 0
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-03-02T19:23:29.804414-03:00",
+  "ultima_execucao_sucesso": "2026-03-03T07:35:05.429617-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-03-02T19:23:29.804525-03:00"
+  "data_atualizacao": "2026-03-03T07:35:05.429750-03:00"
 }
