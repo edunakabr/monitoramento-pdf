@@ -2,7 +2,7 @@
   "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML BETA INTERFERON 6.000.000 30 MCG CLADRIBINA 10MG DANAZOL 100MG ENTECAVIR 0,5MG ISOTRETINOÍNA 10MG LEVETIRACETAM 500 MG MESALAZINA 10MGML ENEMA NAPROXENO 500 MG SIROLIMO 1MG USTEQUINUMABE 45 MG0,5ML",
   "hash_ultimo": "c8eb6d563728b885464efa2d46ac4ff8",
   "data_ultimo": "2026-03-17T07:46:53.429656-03:00",
-  "execucoes": 675,
+  "execucoes": 676,
   "mudancas": 101,
   "ultima_mudanca": "2026-03-17T07:46:53.429709-03:00",
   "historico_status": [
@@ -312,7 +312,7 @@
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-03-18T19:28:29.850770-03:00",
+  "ultima_execucao_sucesso": "2026-03-19T07:36:02.960087-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-03-18T19:28:29.850879-03:00"
+  "data_atualizacao": "2026-03-19T07:36:02.960209-03:00"
 }
