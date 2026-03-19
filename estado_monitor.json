@@ -1,20 +1,11 @@
 {
-  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML BETA INTERFERON 6.000.000 30 MCG CLADRIBINA 10MG DANAZOL 100MG ENTECAVIR 0,5MG ISOTRETINOÍNA 10MG LEVETIRACETAM 500 MG MESALAZINA 10MGML ENEMA NAPROXENO 500 MG SIROLIMO 1MG USTEQUINUMABE 45 MG0,5ML",
-  "hash_ultimo": "c8eb6d563728b885464efa2d46ac4ff8",
-  "data_ultimo": "2026-03-17T07:46:53.429656-03:00",
-  "execucoes": 676,
-  "mudancas": 101,
-  "ultima_mudanca": "2026-03-17T07:46:53.429709-03:00",
+  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML BETA INTERFERON 6.000.000 30 MCG CLADRIBINA 10MG DANAZOL 100MG DEFERASIROX 250MG ENTECAVIR 0,5MG ISOTRETINOÍNA 10MG LEVETIRACETAM 500 MG MESALAZINA 10MGML  ENEMA NAPROXENO 500 MG USTEQUINUMABE 45 MG0,5ML",
+  "hash_ultimo": "b8641540fb832f62e7a3334cccd806e8",
+  "data_ultimo": "2026-03-19T19:24:07.718525-03:00",
+  "execucoes": 677,
+  "mudancas": 102,
+  "ultima_mudanca": "2026-03-19T19:24:07.718558-03:00",
   "historico_status": [
-    {
-      "timestamp": "2025-12-05T19:16:06.594201-03:00",
-      "medicamentos_em_falta": [
-        "Donepezil",
-        "Memantina",
-        "Galantamina"
-      ],
-      "total_em_falta": 3
-    },
     {
       "timestamp": "2025-12-08T19:16:24.811115-03:00",
       "medicamentos_em_falta": [
@@ -309,10 +300,15 @@
       "timestamp": "2026-03-17T07:46:53.429795-03:00",
       "medicamentos_em_falta": [],
       "total_em_falta": 0
+    },
+    {
+      "timestamp": "2026-03-19T19:24:07.718638-03:00",
+      "medicamentos_em_falta": [],
+      "total_em_falta": 0
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-03-19T07:36:02.960087-03:00",
+  "ultima_execucao_sucesso": "2026-03-19T19:24:10.567574-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-03-19T07:36:02.960209-03:00"
+  "data_atualizacao": "2026-03-19T19:24:10.567714-03:00"
 }
