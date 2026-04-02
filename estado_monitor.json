@@ -1,18 +1,11 @@
 {
-  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML BARICITINIBE 2MG CANETA PARA INSULINA LISPRO CLADRIBINA 10MG DANAZOL 100MG DEFERASIROX 250MG ELTROMBOPAGUE 50MG ENTECAVIR 0,5MG ISOTRETINOÍNA 10MG LEVETIRACETAM 500 MG MESALAZINA 10MGML  ENEMA PRAVASTATINA 40MG TENOFOVIR 300MG USTEQUINUMABE 45 MG0,5ML",
-  "hash_ultimo": "d3bf610f3821679e1673e21e020a9edf",
-  "data_ultimo": "2026-04-01T19:33:34.332594-03:00",
-  "execucoes": 704,
-  "mudancas": 107,
-  "ultima_mudanca": "2026-04-01T19:33:34.332623-03:00",
+  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML BARICITINIBE 2MG CANETA PARA INSULINA LISPRO CLADRIBINA 10MG DANAZOL 100MG DEFERASIROX 250MG ELTROMBOPAGUE 50MG ISOTRETINOÍNA 10MG LEVETIRACETAM 500 MG MESALAZINA 10MGML  ENEMA PRAVASTATINA 40MG USTEQUINUMABE 45 MG0,5ML",
+  "hash_ultimo": "a86ea6c385382180f42ab9aaa8fcdeec",
+  "data_ultimo": "2026-04-02T19:27:32.490156-03:00",
+  "execucoes": 705,
+  "mudancas": 108,
+  "ultima_mudanca": "2026-04-02T19:27:32.490188-03:00",
   "historico_status": [
-    {
-      "timestamp": "2025-12-16T19:16:30.179416-03:00",
-      "medicamentos_em_falta": [
-        "Galantamina"
-      ],
-      "total_em_falta": 1
-    },
     {
       "timestamp": "2025-12-17T19:16:45.914313-03:00",
       "medicamentos_em_falta": [
@@ -291,10 +284,15 @@
       "timestamp": "2026-04-01T19:33:34.332738-03:00",
       "medicamentos_em_falta": [],
       "total_em_falta": 0
+    },
+    {
+      "timestamp": "2026-04-02T19:27:32.490267-03:00",
+      "medicamentos_em_falta": [],
+      "total_em_falta": 0
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-04-02T07:48:49.363313-03:00",
+  "ultima_execucao_sucesso": "2026-04-02T19:27:34.499493-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-04-02T07:48:49.363454-03:00"
+  "data_atualizacao": "2026-04-02T19:27:34.499655-03:00"
 }
