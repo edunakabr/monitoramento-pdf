@@ -1,21 +1,3 @@
-2026-03-18 22:28:28,576 |     INFO | Biblioteca PDF: PyPDF2
-2026-03-18 22:28:28,576 |     INFO | Python: 3.11.15 (main, Mar  3 2026, 16:10:12) [GCC 13.3.0]
-2026-03-18 22:28:28,576 |     INFO | Arquivo ID: 1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
-2026-03-18 22:28:28,576 |     INFO | Medicamentos monitorados: DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
-2026-03-18 22:28:28,576 |     INFO | Timezone configurado: America/Sao_Paulo
-2026-03-18 22:28:28,584 |     INFO | === EXECUÇÃO #675 INICIADA ===
-2026-03-18 22:28:28,584 |     INFO | Tentativa 1 de download...
-2026-03-18 22:28:29,799 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
-2026-03-18 22:28:29,838 |     INFO | Download concluído (50526 bytes) da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
-2026-03-18 22:28:29,850 |     INFO | Texto extraído com PyPDF2 (245 caracteres)
-2026-03-18 22:28:29,850 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Nenhum
-2026-03-18 22:28:29,850 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
-2026-03-18 22:28:29,850 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
-2026-03-18 22:28:29,850 |     INFO | Execução concluída em 1.27s
-2026-03-18 22:28:29,851 |     INFO | Estado salvo com sucesso
-2026-03-18 22:28:29,851 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
-2026-03-19 10:36:01,506 |     INFO | Estado carregado com sucesso. Execução #675
-2026-03-19 10:36:01,507 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
 2026-03-19 10:36:01,507 |     INFO | Biblioteca PDF: PyPDF2
 2026-03-19 10:36:01,507 |     INFO | Python: 3.11.15 (main, Mar  3 2026, 16:10:12) [GCC 13.3.0]
 2026-03-19 10:36:01,507 |     INFO | Arquivo ID: 1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
@@ -1016,3 +998,25 @@
 2026-04-14 10:59:28,819 |     INFO | Execução concluída em 1.97s
 2026-04-14 10:59:28,820 |     INFO | Estado salvo com sucesso
 2026-04-14 10:59:28,820 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
+2026-04-14 22:41:03,501 |     INFO | Estado carregado com sucesso. Execução #728
+2026-04-14 22:41:03,501 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
+2026-04-14 22:41:03,501 |     INFO | Biblioteca PDF: PyPDF2
+2026-04-14 22:41:03,501 |     INFO | Python: 3.11.15 (main, Mar  3 2026, 16:10:12) [GCC 13.3.0]
+2026-04-14 22:41:03,502 |     INFO | Arquivo ID: 1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2026-04-14 22:41:03,502 |     INFO | Medicamentos monitorados: DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
+2026-04-14 22:41:03,502 |     INFO | Timezone configurado: America/Sao_Paulo
+2026-04-14 22:41:03,512 |     INFO | === EXECUÇÃO #729 INICIADA ===
+2026-04-14 22:41:03,512 |     INFO | Tentativa 1 de download...
+2026-04-14 22:41:04,975 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2026-04-14 22:41:05,014 |     INFO | Download concluído (58590 bytes) da URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
+2026-04-14 22:41:05,028 |     INFO | Texto extraído com PyPDF2 (662 caracteres)
+2026-04-14 22:41:05,029 |     INFO | Medicamentos EM FALTA (encontrados no PDF): MEMANTINA 10MG
+2026-04-14 22:41:05,029 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): DONEPEZIL 10MG, GALANTAMINA 24MG
+2026-04-14 22:41:05,029 |     INFO | ✅ Mudança no conteúdo do PDF detectada. Novo hash: 5bdcc2ba52...
+2026-04-14 22:41:07,520 |     INFO | Email enviado com sucesso: FALTA: MEMANTINA 10MG
+2026-04-14 22:41:08,128 |     INFO | ✅ Mensagem enviada para Telegram com sucesso!
+2026-04-14 22:41:08,129 |     INFO | ✅ Notificações enviadas com sucesso para E-mail e Telegram!
+2026-04-14 22:41:08,130 |     INFO | ✅ Mudança no conteúdo do PDF detectada. Enviando e-mail.
+2026-04-14 22:41:08,130 |     INFO | Execução concluída em 4.62s
+2026-04-14 22:41:08,130 |     INFO | Estado salvo com sucesso
+2026-04-14 22:41:08,131 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
