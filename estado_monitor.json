@@ -2,7 +2,7 @@
   "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML BECLOMETASONAFORMOTEROLGLICOPIRRONIO CALCIPOTRIOL 50MCG CICLOFOSFAMIDA 50MG CLADRIBINA 10MG DANAZOL 100MG INTERFERON BETA 6.000.000UI 30MCG ISOTRETINOÍNA 10MG LEVETIRACETAM 500MG PAMIDRONATO 60MG SIROLIMO 1MG SOMATROPINA 12UI USTEQUINUMABE 45 MG0,5ML",
   "hash_ultimo": "812051603ac6e747e7f80bb18ecb7773",
   "data_ultimo": "2026-06-11T20:18:28.776452-03:00",
-  "execucoes": 868,
+  "execucoes": 869,
   "mudancas": 148,
   "ultima_mudanca": "2026-06-11T20:18:28.776485-03:00",
   "historico_status": [
@@ -306,7 +306,7 @@
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-06-23T20:05:24.949643-03:00",
+  "ultima_execucao_sucesso": "2026-06-24T09:16:26.044888-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-06-23T20:05:24.949738-03:00"
+  "data_atualizacao": "2026-06-24T09:16:26.045029-03:00"
 }
