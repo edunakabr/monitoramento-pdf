@@ -43,7 +43,7 @@ jobs:
     
     steps:
       - name: 🔄 Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
@@ -97,7 +97,7 @@ jobs:
             echo "ℹ️  No last execution report found"
           fi
       - name: 🐍 Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
