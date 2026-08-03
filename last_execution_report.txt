@@ -1,19 +1,19 @@
-Execution Report - Sun Aug  2 22:52:06 UTC 2026
+Execution Report - Mon Aug  3 10:58:05 UTC 2026
 ================================
 
 Workflow: Enhanced PDF Medication Monitor
-Run ID: 30771020040
-Trigger: schedule
+Run ID: 30807607337
+Trigger: workflow_dispatch
 
 Current Statistics:
-- Total executions: 951
+- Total executions: 952
 - Total changes: 148
-- Consecutive errors: 35
+- Consecutive errors: 36
 - Last change: 2026-06-11T20:18:28.776485-03:00
 
 Recent Log Summary:
-2026-08-02 22:52:05,967 |  WARNING | Erro na URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l: 404 Client Error: Not Found for url: https://drive.usercontent.google.com/download?id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l&export=download
-2026-08-02 22:52:06,133 |  WARNING | Erro na URL https://docs.google.com/document/d/1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l/export?format=pdf: 400 Client Error: Bad Request for url: https://docs.google.com/document/d/1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l/export?format=pdf
-2026-08-02 22:52:06,134 |    ERROR | Falha no download após todas as tentativas
-2026-08-02 22:52:06,135 |    ERROR | Erro consecutivo #35: Falha no download do PDF.
-2026-08-02 22:52:06,238 |     INFO | Estado salvo com sucesso
+2026-08-03 10:58:04,971 |  WARNING | Erro na URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l: 404 Client Error: Not Found for url: https://drive.usercontent.google.com/download?id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l&export=download
+2026-08-03 10:58:05,138 |  WARNING | Erro na URL https://docs.google.com/document/d/1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l/export?format=pdf: 400 Client Error: Bad Request for url: https://docs.google.com/document/d/1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l/export?format=pdf
+2026-08-03 10:58:05,139 |    ERROR | Falha no download após todas as tentativas
+2026-08-03 10:58:05,140 |    ERROR | Erro consecutivo #36: Falha no download do PDF.
+2026-08-03 10:58:05,140 |     INFO | Estado salvo com sucesso
