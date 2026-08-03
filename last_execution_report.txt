@@ -1,19 +1,19 @@
-Execution Report - Mon Aug  3 22:12:05 UTC 2026
+Execution Report - Mon Aug  3 22:44:35 UTC 2026
 ================================
 
 Workflow: Enhanced PDF Medication Monitor
-Run ID: 30857698081
+Run ID: 30859762834
 Trigger: workflow_dispatch
 
 Current Statistics:
-- Total executions: 957
-- Total changes: 148
-- Consecutive errors: 41
-- Last change: 2026-06-11T20:18:28.776485-03:00
+- Total executions: 958
+- Total changes: 149
+- Consecutive errors: 0
+- Last change: 2026-08-03T19:44:31.957612-03:00
 
 Recent Log Summary:
-2026-08-03 22:12:05,590 |  WARNING | Erro na URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l: 404 Client Error: Not Found for url: https://drive.usercontent.google.com/download?id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l&export=download
-2026-08-03 22:12:05,777 |  WARNING | Erro na URL https://docs.google.com/document/d/1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l/export?format=pdf: 400 Client Error: Bad Request for url: https://docs.google.com/document/d/1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l/export?format=pdf
-2026-08-03 22:12:05,778 |    ERROR | Falha no download após todas as tentativas
-2026-08-03 22:12:05,778 |    ERROR | Erro consecutivo #41: Falha no download do PDF.
-2026-08-03 22:12:05,779 |     INFO | Estado salvo com sucesso
+2026-08-03 22:44:35,372 |     INFO | ✅ Notificações enviadas com sucesso para E-mail e Telegram!
+2026-08-03 22:44:35,372 |     INFO | ✅ Mudança no conteúdo do PDF detectada. Enviando e-mail.
+2026-08-03 22:44:35,373 |     INFO | Execução concluída em 4.64s
+2026-08-03 22:44:35,373 |     INFO | Estado salvo com sucesso
+2026-08-03 22:44:35,373 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
