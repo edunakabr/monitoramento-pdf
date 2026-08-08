@@ -2,7 +2,7 @@
   "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML CLADRIBINA 10MG DANAZOL 100MG DORZOLAMIDA 2 FILGRASTIMA 300MCG FORMOTEROL 12MCG ISOTRETINOÍNA 10MG LEFLUNOMIDE 20MG LEVETIRACETAM 500MG LEVETIRACETAM 750MG LEVETIRACETAM 1000MG MESALAZINA 2G SACHE TAFAMIDIS 61MG",
   "hash_ultimo": "9a7376c677364b1d396445e89af3dd37",
   "data_ultimo": "2026-08-03T19:44:31.957579-03:00",
-  "execucoes": 969,
+  "execucoes": 970,
   "mudancas": 149,
   "ultima_mudanca": "2026-08-03T19:44:31.957612-03:00",
   "historico_status": [
@@ -306,7 +306,7 @@
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-08-08T07:26:48.328491-03:00",
+  "ultima_execucao_sucesso": "2026-08-08T19:23:12.117599-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-08-08T07:26:48.328572-03:00"
+  "data_atualizacao": "2026-08-08T19:23:12.117699-03:00"
 }
