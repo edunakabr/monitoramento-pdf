@@ -1,16 +1,11 @@
 {
-  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML CLADRIBINA 10MG CLOBETASOL SOL. TÓPICA CAPIL. 50G50ML DANAZOL 100MG DORZOLAMIDA 2 FILGRASTIMA 300MCG FORMOTEROL 12MCG INFLIXIMABE 100MG ORIGINADOR ISOTRETINOÍNA 10MG LEFLUNOMIDE 20MG LEVETIRACETAM 500MG LEVETIRACETAM 750MG LEVETIRACETAM 1000MG MESALAZINA 2G SACHE TAFAMIDIS 61MG",
-  "hash_ultimo": "8c0447216bed875123e4cf65f029a36f",
-  "data_ultimo": "2026-08-11T07:46:01.749078-03:00",
-  "execucoes": 975,
-  "mudancas": 150,
-  "ultima_mudanca": "2026-08-11T07:46:01.749114-03:00",
+  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML CLADRIBINA 10MG CLOBETASOL SOL. TÓPICA CAPIL. 50G50ML DANAZOL 100MG DORZOLAMIDA 2 ETOSSUXIMIDA 50MGML FILGRASTIMA 300MCG FORMOTEROL 12MCG INFLIXIMABE 100MG ORIGINADOR ISOTRETINOÍNA 10MG LEFLUNOMIDE 20MG LEVETIRACETAM 500MG LEVETIRACETAM 750MG LEVETIRACETAM 1000MG MESALAZINA 2G SACHE TAFAMIDIS 61MG ZIPRASIDONA 40MG",
+  "hash_ultimo": "168245911d42f10e2f7f7c80ea37abee",
+  "data_ultimo": "2026-08-11T19:36:24.583786-03:00",
+  "execucoes": 976,
+  "mudancas": 151,
+  "ultima_mudanca": "2026-08-11T19:36:24.583822-03:00",
   "historico_status": [
-    {
-      "timestamp": "2026-03-31T19:30:47.884322-03:00",
-      "medicamentos_em_falta": [],
-      "total_em_falta": 0
-    },
     {
       "timestamp": "2026-04-01T19:33:34.332738-03:00",
       "medicamentos_em_falta": [],
@@ -303,10 +298,15 @@
       "timestamp": "2026-08-11T07:46:01.749181-03:00",
       "medicamentos_em_falta": [],
       "total_em_falta": 0
+    },
+    {
+      "timestamp": "2026-08-11T19:36:24.583883-03:00",
+      "medicamentos_em_falta": [],
+      "total_em_falta": 0
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-08-11T07:46:04.266202-03:00",
+  "ultima_execucao_sucesso": "2026-08-11T19:36:27.183317-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-08-11T07:46:04.266325-03:00"
+  "data_atualizacao": "2026-08-11T19:36:27.183450-03:00"
 }
