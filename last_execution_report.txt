@@ -1,19 +1,19 @@
-Execution Report - Sun Aug 16 10:18:13 UTC 2026
+Execution Report - Sun Aug 16 22:15:39 UTC 2026
 ================================
 
 Workflow: Enhanced PDF Medication Monitor
-Run ID: 31941298759
+Run ID: 31975844408
 Trigger: schedule
 
 Current Statistics:
-- Total executions: 985
+- Total executions: 986
 - Total changes: 151
 - Consecutive errors: 0
 - Last change: 2026-08-11T19:36:24.583822-03:00
 
 Recent Log Summary:
-2026-08-16 10:18:13,431 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
-2026-08-16 10:18:13,431 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
-2026-08-16 10:18:13,432 |     INFO | Execução concluída em 1.15s
-2026-08-16 10:18:13,432 |     INFO | Estado salvo com sucesso
-2026-08-16 10:18:13,433 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
+2026-08-16 22:15:39,713 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
+2026-08-16 22:15:39,713 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
+2026-08-16 22:15:39,713 |     INFO | Execução concluída em 1.02s
+2026-08-16 22:15:39,714 |     INFO | Estado salvo com sucesso
+2026-08-16 22:15:39,714 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
