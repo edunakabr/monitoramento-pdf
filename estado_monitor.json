@@ -2,7 +2,7 @@
   "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML CLADRIBINA 10MG DANAZOL 100MG FILGRASTIMA 300MCG FORMOTEROL 12MCG FORMOTEROL 6200MCG ISOTRETINOÍNA 10MG LEVETIRACETAM 500MG TAFAMIDIS 61MG",
   "hash_ultimo": "7a8c506e69a99a947257433fb6188ced",
   "data_ultimo": "2026-08-21T19:18:41.019593-03:00",
-  "execucoes": 996,
+  "execucoes": 997,
   "mudancas": 154,
   "ultima_mudanca": "2026-08-21T19:18:41.019626-03:00",
   "historico_status": [
@@ -304,7 +304,7 @@
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-08-21T19:18:44.574495-03:00",
+  "ultima_execucao_sucesso": "2026-08-22T07:17:49.999307-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-08-21T19:18:44.574655-03:00"
+  "data_atualizacao": "2026-08-22T07:17:49.999379-03:00"
 }
