@@ -1,21 +1,3 @@
-2026-07-31 22:56:03,298 |     INFO | === EXECUÇÃO #947 INICIADA ===
-2026-07-31 22:56:03,298 |     INFO | Tentativa 1 de download...
-2026-07-31 22:56:03,677 |  WARNING | Erro na URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l: 404 Client Error: Not Found for url: https://drive.usercontent.google.com/download?id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l&export=download
-2026-07-31 22:56:04,333 |  WARNING | Erro na URL https://docs.google.com/document/d/1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l/export?format=pdf: 400 Client Error: Bad Request for url: https://docs.google.com/document/d/1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l/export?format=pdf
-2026-07-31 22:56:04,333 |     INFO | Aguardando 5 segundos antes da próxima tentativa...
-2026-07-31 22:56:09,333 |     INFO | Tentativa 2 de download...
-2026-07-31 22:56:09,671 |  WARNING | Erro na URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l: 404 Client Error: Not Found for url: https://drive.usercontent.google.com/download?id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l&export=download
-2026-07-31 22:56:09,841 |  WARNING | Erro na URL https://docs.google.com/document/d/1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l/export?format=pdf: 400 Client Error: Bad Request for url: https://docs.google.com/document/d/1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l/export?format=pdf
-2026-07-31 22:56:09,841 |     INFO | Aguardando 5 segundos antes da próxima tentativa...
-2026-07-31 22:56:14,842 |     INFO | Tentativa 3 de download...
-2026-07-31 22:56:15,176 |  WARNING | Erro na URL https://drive.google.com/uc?export=download&id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l: 404 Client Error: Not Found for url: https://drive.usercontent.google.com/download?id=1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l&export=download
-2026-07-31 22:56:18,380 |  WARNING | Erro na URL https://docs.google.com/document/d/1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l/export?format=pdf: 400 Client Error: Bad Request for url: https://docs.google.com/document/d/1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l/export?format=pdf
-2026-07-31 22:56:18,381 |    ERROR | Falha no download após todas as tentativas
-2026-07-31 22:56:18,382 |    ERROR | Erro consecutivo #31: Falha no download do PDF.
-2026-07-31 22:56:18,382 |     INFO | Estado salvo com sucesso
-2026-08-01 11:13:00,493 |     INFO | Estado carregado com sucesso. Execução #947
-2026-08-01 11:13:00,494 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
-2026-08-01 11:13:00,494 |     INFO | Biblioteca PDF: PyPDF2
 2026-08-01 11:13:00,494 |     INFO | Python: 3.11.15 (main, Jun 16 2026, 21:41:52) [GCC 13.3.0]
 2026-08-01 11:13:00,494 |     INFO | Arquivo ID: 1ldltNZuBwIBfEE83mTOvzGrw_7HQEc-l
 2026-08-01 11:13:00,494 |     INFO | Medicamentos monitorados: DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
@@ -1016,3 +998,21 @@
 2026-08-23 10:18:33,913 |     INFO | Execução concluída em 1.45s
 2026-08-23 10:18:33,914 |     INFO | Estado salvo com sucesso
 2026-08-23 10:18:33,914 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
+2026-08-23 22:16:49,974 |     INFO | Estado carregado com sucesso. Execução #999
+2026-08-23 22:16:49,974 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
+2026-08-23 22:16:49,974 |     INFO | Biblioteca PDF: PyPDF2
+2026-08-23 22:16:49,974 |     INFO | Python: 3.11.16 (main, Aug 13 2026, 02:46:14) [GCC 13.3.0]
+2026-08-23 22:16:49,974 |     INFO | Arquivo ID: 1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
+2026-08-23 22:16:49,974 |     INFO | Medicamentos monitorados: DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
+2026-08-23 22:16:49,974 |     INFO | Timezone configurado: America/Sao_Paulo
+2026-08-23 22:16:49,981 |     INFO | === EXECUÇÃO #1000 INICIADA ===
+2026-08-23 22:16:49,981 |     INFO | Tentativa 1 de download...
+2026-08-23 22:16:51,408 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
+2026-08-23 22:16:51,422 |     INFO | Download concluído (41460 bytes) da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
+2026-08-23 22:16:51,442 |     INFO | Texto extraído com PyPDF2 (184 caracteres)
+2026-08-23 22:16:51,442 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Nenhum
+2026-08-23 22:16:51,442 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
+2026-08-23 22:16:51,442 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
+2026-08-23 22:16:51,442 |     INFO | Execução concluída em 1.46s
+2026-08-23 22:16:51,443 |     INFO | Estado salvo com sucesso
+2026-08-23 22:16:51,443 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
