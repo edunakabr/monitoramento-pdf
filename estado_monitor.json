@@ -1,18 +1,11 @@
 {
-  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML CLADRIBINA 10MG DANAZOL 100MG FILGRASTIMA 300MCG FORMOTEROL 12MCG FORMOTEROL 6200MCG ISOTRETINOÍNA 10MG LEVETIRACETAM 500MG TAFAMIDIS 61MG",
-  "hash_ultimo": "7a8c506e69a99a947257433fb6188ced",
-  "data_ultimo": "2026-08-21T19:18:41.019593-03:00",
-  "execucoes": 1001,
-  "mudancas": 154,
-  "ultima_mudanca": "2026-08-21T19:18:41.019626-03:00",
+  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML CLADRIBINA 10MG DANAZOL 100MG FILGRASTIMA 300MCG FORMOTEROL 6MCGBUDESONIDA 200MCG ISOTRETINOÍNA 10MG TAFAMIDIS 61MG",
+  "hash_ultimo": "1a5f40aa00f758031177f351d6b09210",
+  "data_ultimo": "2026-08-24T19:20:41.216365-03:00",
+  "execucoes": 1002,
+  "mudancas": 155,
+  "ultima_mudanca": "2026-08-24T19:20:41.216396-03:00",
   "historico_status": [
-    {
-      "timestamp": "2026-04-07T19:34:29.443582-03:00",
-      "medicamentos_em_falta": [
-        "MEMANTINA 10MG"
-      ],
-      "total_em_falta": 1
-    },
     {
       "timestamp": "2026-04-09T19:37:02.047295-03:00",
       "medicamentos_em_falta": [
@@ -301,10 +294,15 @@
       "timestamp": "2026-08-21T19:18:41.019717-03:00",
       "medicamentos_em_falta": [],
       "total_em_falta": 0
+    },
+    {
+      "timestamp": "2026-08-24T19:20:41.216481-03:00",
+      "medicamentos_em_falta": [],
+      "total_em_falta": 0
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-08-24T07:32:46.513461-03:00",
+  "ultima_execucao_sucesso": "2026-08-24T19:20:45.396645-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-08-24T07:32:46.513593-03:00"
+  "data_atualizacao": "2026-08-24T19:20:45.396807-03:00"
 }
