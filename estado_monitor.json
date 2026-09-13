@@ -2,7 +2,7 @@
   "texto_ultimo": "MEDICAMENTOS EM FALTA ÁCIDO URSODESOXICÓLICO 150MG ALENTUZUMABE 10MGML CLADRIBINA 10MG DANAZOL 100MG FILGRASTIMA 300MCG HIDROXIURÉIA 100MG ISOTRETINOÍNA 10MG MESALAZINA 400MG MORFINA 10MGML  60ML SILDENAFILA 25MG TAFAMIDIS 61MG",
   "hash_ultimo": "356dc6bab2ab4b9b4f8641071610364f",
   "data_ultimo": "2026-09-10T11:01:36.463054-03:00",
-  "execucoes": 1041,
+  "execucoes": 1042,
   "mudancas": 161,
   "ultima_mudanca": "2026-09-10T11:01:36.463085-03:00",
   "historico_status": [
@@ -289,7 +289,7 @@
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-09-13T11:02:01.029592-03:00",
+  "ultima_execucao_sucesso": "2026-09-13T20:51:29.060782-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-09-13T11:02:01.029696-03:00"
+  "data_atualizacao": "2026-09-13T20:51:29.060898-03:00"
 }
