@@ -1,21 +1,3 @@
-2026-08-19 10:23:07,555 |     INFO | Tentativa 1 de download...
-2026-08-19 10:23:08,851 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
-2026-08-19 10:23:08,869 |     INFO | Download concluído (44706 bytes) da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
-2026-08-19 10:23:08,891 |     INFO | Texto extraído com PyPDF2 (391 caracteres)
-2026-08-19 10:23:08,892 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Nenhum
-2026-08-19 10:23:08,892 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
-2026-08-19 10:23:08,892 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
-2026-08-19 10:23:08,892 |     INFO | Execução concluída em 1.34s
-2026-08-19 10:23:08,892 |     INFO | Estado salvo com sucesso
-2026-08-19 10:23:08,892 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
-2026-08-19 22:19:20,349 |     INFO | Estado carregado com sucesso. Execução #991
-2026-08-19 22:19:20,349 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
-2026-08-19 22:19:20,349 |     INFO | Biblioteca PDF: PyPDF2
-2026-08-19 22:19:20,349 |     INFO | Python: 3.11.15 (main, Jun 16 2026, 21:41:52) [GCC 13.3.0]
-2026-08-19 22:19:20,349 |     INFO | Arquivo ID: 1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
-2026-08-19 22:19:20,349 |     INFO | Medicamentos monitorados: DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
-2026-08-19 22:19:20,349 |     INFO | Timezone configurado: America/Sao_Paulo
-2026-08-19 22:19:20,358 |     INFO | === EXECUÇÃO #992 INICIADA ===
 2026-08-19 22:19:20,358 |     INFO | Tentativa 1 de download...
 2026-08-19 22:19:22,006 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
 2026-08-19 22:19:22,022 |     INFO | Download concluído (40645 bytes) da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
@@ -1016,3 +998,25 @@
 2026-09-15 14:36:26,966 |     INFO | Execução concluída em 1.34s
 2026-09-15 14:36:26,967 |     INFO | Estado salvo com sucesso
 2026-09-15 14:36:26,967 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
+2026-09-15 23:55:48,365 |     INFO | Estado carregado com sucesso. Execução #1045
+2026-09-15 23:55:48,365 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
+2026-09-15 23:55:48,365 |     INFO | Biblioteca PDF: PyPDF2
+2026-09-15 23:55:48,365 |     INFO | Python: 3.11.16 (main, Aug 13 2026, 02:46:14) [GCC 13.3.0]
+2026-09-15 23:55:48,365 |     INFO | Arquivo ID: 1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
+2026-09-15 23:55:48,365 |     INFO | Medicamentos monitorados: DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
+2026-09-15 23:55:48,365 |     INFO | Timezone configurado: America/Sao_Paulo
+2026-09-15 23:55:48,374 |     INFO | === EXECUÇÃO #1046 INICIADA ===
+2026-09-15 23:55:48,374 |     INFO | Tentativa 1 de download...
+2026-09-15 23:55:50,405 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
+2026-09-15 23:55:50,419 |     INFO | Download concluído (41646 bytes) da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
+2026-09-15 23:55:50,489 |     INFO | Texto extraído com PyPDF2 (177 caracteres)
+2026-09-15 23:55:50,489 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Nenhum
+2026-09-15 23:55:50,489 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
+2026-09-15 23:55:50,490 |     INFO | ✅ Mudança no conteúdo do PDF detectada. Novo hash: 5aeeef1892...
+2026-09-15 23:55:52,689 |     INFO | Email enviado com sucesso: TODOS DISPONÍVEIS
+2026-09-15 23:55:53,297 |     INFO | ✅ Mensagem enviada para Telegram com sucesso!
+2026-09-15 23:55:53,298 |     INFO | ✅ Notificações enviadas com sucesso para E-mail e Telegram!
+2026-09-15 23:55:53,298 |     INFO | ✅ Mudança no conteúdo do PDF detectada. Enviando e-mail.
+2026-09-15 23:55:53,298 |     INFO | Execução concluída em 4.92s
+2026-09-15 23:55:53,315 |     INFO | Estado salvo com sucesso
+2026-09-15 23:55:53,316 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
