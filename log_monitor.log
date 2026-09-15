@@ -1,21 +1,3 @@
-2026-08-18 10:22:58,298 |     INFO | Tentativa 1 de download...
-2026-08-18 10:22:59,316 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
-2026-08-18 10:22:59,322 |     INFO | Download concluído (44706 bytes) da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
-2026-08-18 10:22:59,345 |     INFO | Texto extraído com PyPDF2 (391 caracteres)
-2026-08-18 10:22:59,345 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Nenhum
-2026-08-18 10:22:59,345 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
-2026-08-18 10:22:59,345 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
-2026-08-18 10:22:59,345 |     INFO | Execução concluída em 1.05s
-2026-08-18 10:22:59,346 |     INFO | Estado salvo com sucesso
-2026-08-18 10:22:59,346 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
-2026-08-18 22:17:43,546 |     INFO | Estado carregado com sucesso. Execução #989
-2026-08-18 22:17:43,546 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
-2026-08-18 22:17:43,546 |     INFO | Biblioteca PDF: PyPDF2
-2026-08-18 22:17:43,546 |     INFO | Python: 3.11.15 (main, Jun 16 2026, 21:41:52) [GCC 13.3.0]
-2026-08-18 22:17:43,546 |     INFO | Arquivo ID: 1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
-2026-08-18 22:17:43,547 |     INFO | Medicamentos monitorados: DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
-2026-08-18 22:17:43,547 |     INFO | Timezone configurado: America/Sao_Paulo
-2026-08-18 22:17:43,558 |     INFO | === EXECUÇÃO #990 INICIADA ===
 2026-08-18 22:17:43,558 |     INFO | Tentativa 1 de download...
 2026-08-18 22:17:44,798 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
 2026-08-18 22:17:44,799 |     INFO | Download concluído (44706 bytes) da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
@@ -1016,3 +998,21 @@
 2026-09-14 16:07:44,435 |     INFO | Execução concluída em 1.30s
 2026-09-14 16:07:44,436 |     INFO | Estado salvo com sucesso
 2026-09-14 16:07:44,436 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
+2026-09-15 00:12:33,294 |     INFO | Estado carregado com sucesso. Execução #1043
+2026-09-15 00:12:33,294 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
+2026-09-15 00:12:33,294 |     INFO | Biblioteca PDF: PyPDF2
+2026-09-15 00:12:33,294 |     INFO | Python: 3.11.16 (main, Aug 13 2026, 02:46:14) [GCC 13.3.0]
+2026-09-15 00:12:33,294 |     INFO | Arquivo ID: 1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
+2026-09-15 00:12:33,294 |     INFO | Medicamentos monitorados: DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
+2026-09-15 00:12:33,294 |     INFO | Timezone configurado: America/Sao_Paulo
+2026-09-15 00:12:33,303 |     INFO | === EXECUÇÃO #1044 INICIADA ===
+2026-09-15 00:12:33,303 |     INFO | Tentativa 1 de download...
+2026-09-15 00:12:34,538 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
+2026-09-15 00:12:34,571 |     INFO | Download concluído (42225 bytes) da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
+2026-09-15 00:12:34,688 |     INFO | Texto extraído com PyPDF2 (232 caracteres)
+2026-09-15 00:12:34,689 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Nenhum
+2026-09-15 00:12:34,689 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
+2026-09-15 00:12:34,689 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
+2026-09-15 00:12:34,689 |     INFO | Execução concluída em 1.39s
+2026-09-15 00:12:34,698 |     INFO | Estado salvo com sucesso
+2026-09-15 00:12:34,698 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
