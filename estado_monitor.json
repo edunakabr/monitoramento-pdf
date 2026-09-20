@@ -2,7 +2,7 @@
   "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML CLADRIBINA 10MG DANAZOL 100MG FILGRASTIMA 300MCG ISOTRETINOÍNA 10MG MESALAZINA 400MG SILDENAFILA 25MG SOMATROPINA 4UI TAFAMIDIS 61MG",
   "hash_ultimo": "5aeeef1892dec4b3b72addd83d8b8422",
   "data_ultimo": "2026-09-15T20:55:50.490031-03:00",
-  "execucoes": 1055,
+  "execucoes": 1056,
   "mudancas": 162,
   "ultima_mudanca": "2026-09-15T20:55:50.490065-03:00",
   "historico_status": [
@@ -286,7 +286,7 @@
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-09-20T10:54:05.279446-03:00",
+  "ultima_execucao_sucesso": "2026-09-20T20:48:35.489611-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-09-20T10:54:05.279552-03:00"
+  "data_atualizacao": "2026-09-20T20:48:35.489695-03:00"
 }
