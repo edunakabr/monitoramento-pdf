@@ -1,19 +1,11 @@
 {
-  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML CLADRIBINA 10MG DANAZOL 100MG ISOTRETINOÍNA 10MG LEVETIRACETAM 500MG MESALAZINA 400MG SILDENAFILA 25MG SOMATROPINA 4UI SOMATROPINA 12UI TAFAMIDIS 61MG",
-  "hash_ultimo": "e53f186db59b371d9e010126f8d2428c",
-  "data_ultimo": "2026-09-21T13:10:04.842193-03:00",
-  "execucoes": 1063,
-  "mudancas": 163,
-  "ultima_mudanca": "2026-09-21T13:10:04.842229-03:00",
+  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML CLADRIBINA 10MG DANAZOL 100MG ISOTRETINOÍNA 10MG LEVETIRACETAM 500MG MESALAZINA 400MG SILDENAFILA 25MG SOMATROPINA 4UI TAFAMIDIS 61MG",
+  "hash_ultimo": "df77c38f2d66b9e5c55867ce9dc9b654",
+  "data_ultimo": "2026-09-24T21:14:07.987207-03:00",
+  "execucoes": 1064,
+  "mudancas": 164,
+  "ultima_mudanca": "2026-09-24T21:14:07.987241-03:00",
   "historico_status": [
-    {
-      "timestamp": "2026-04-22T19:42:59.699095-03:00",
-      "medicamentos_em_falta": [
-        "MEMANTINA 10MG",
-        "GALANTAMINA 24MG"
-      ],
-      "total_em_falta": 2
-    },
     {
       "timestamp": "2026-04-23T19:39:56.129684-03:00",
       "medicamentos_em_falta": [],
@@ -280,10 +272,15 @@
       "timestamp": "2026-09-21T13:10:04.842338-03:00",
       "medicamentos_em_falta": [],
       "total_em_falta": 0
+    },
+    {
+      "timestamp": "2026-09-24T21:14:07.987323-03:00",
+      "medicamentos_em_falta": [],
+      "total_em_falta": 0
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-09-24T11:35:45.789292-03:00",
+  "ultima_execucao_sucesso": "2026-09-24T21:14:11.210310-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-09-24T11:35:45.789395-03:00"
+  "data_atualizacao": "2026-09-24T21:14:11.210452-03:00"
 }
