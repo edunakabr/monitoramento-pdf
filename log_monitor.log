@@ -1,25 +1,3 @@
-2026-09-08 14:04:53,809 |     INFO | Arquivo ID: 1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
-2026-09-08 14:04:53,809 |     INFO | Medicamentos monitorados: DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
-2026-09-08 14:04:53,809 |     INFO | Timezone configurado: America/Sao_Paulo
-2026-09-08 14:04:53,820 |     INFO | === EXECUÇÃO #1031 INICIADA ===
-2026-09-08 14:04:53,820 |     INFO | Tentativa 1 de download...
-2026-09-08 14:04:55,498 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
-2026-09-08 14:04:55,516 |     INFO | Download concluído (42320 bytes) da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
-2026-09-08 14:04:55,610 |     INFO | Texto extraído com PyPDF2 (226 caracteres)
-2026-09-08 14:04:55,610 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Nenhum
-2026-09-08 14:04:55,610 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
-2026-09-08 14:04:55,610 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
-2026-09-08 14:04:55,610 |     INFO | Execução concluída em 1.79s
-2026-09-08 14:04:55,611 |     INFO | Estado salvo com sucesso
-2026-09-08 14:04:55,611 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
-2026-09-08 23:47:50,772 |     INFO | Estado carregado com sucesso. Execução #1031
-2026-09-08 23:47:50,772 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
-2026-09-08 23:47:50,773 |     INFO | Biblioteca PDF: PyPDF2
-2026-09-08 23:47:50,773 |     INFO | Python: 3.11.16 (main, Aug 13 2026, 02:46:14) [GCC 13.3.0]
-2026-09-08 23:47:50,773 |     INFO | Arquivo ID: 1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
-2026-09-08 23:47:50,773 |     INFO | Medicamentos monitorados: DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
-2026-09-08 23:47:50,773 |     INFO | Timezone configurado: America/Sao_Paulo
-2026-09-08 23:47:50,784 |     INFO | === EXECUÇÃO #1032 INICIADA ===
 2026-09-08 23:47:50,784 |     INFO | Tentativa 1 de download...
 2026-09-08 23:47:51,896 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
 2026-09-08 23:47:51,902 |     INFO | Download concluído (42504 bytes) da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
@@ -1020,3 +998,21 @@
 2026-10-05 19:01:31,086 |     INFO | Execução concluída em 4.63s
 2026-10-05 19:01:31,087 |     INFO | Estado salvo com sucesso
 2026-10-05 19:01:31,087 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
+2026-10-06 02:01:37,499 |     INFO | Estado carregado com sucesso. Execução #1085
+2026-10-06 02:01:37,499 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
+2026-10-06 02:01:37,499 |     INFO | Biblioteca PDF: PyPDF2
+2026-10-06 02:01:37,499 |     INFO | Python: 3.11.16 (main, Aug 13 2026, 02:46:14) [GCC 13.3.0]
+2026-10-06 02:01:37,499 |     INFO | Arquivo ID: 1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
+2026-10-06 02:01:37,500 |     INFO | Medicamentos monitorados: DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
+2026-10-06 02:01:37,500 |     INFO | Timezone configurado: America/Sao_Paulo
+2026-10-06 02:01:37,511 |     INFO | === EXECUÇÃO #1086 INICIADA ===
+2026-10-06 02:01:37,511 |     INFO | Tentativa 1 de download...
+2026-10-06 02:01:38,800 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
+2026-10-06 02:01:38,802 |     INFO | Download concluído (41680 bytes) da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
+2026-10-06 02:01:38,826 |     INFO | Texto extraído com PyPDF2 (181 caracteres)
+2026-10-06 02:01:38,827 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Nenhum
+2026-10-06 02:01:38,827 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
+2026-10-06 02:01:38,827 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
+2026-10-06 02:01:38,827 |     INFO | Execução concluída em 1.32s
+2026-10-06 02:01:38,828 |     INFO | Estado salvo com sucesso
+2026-10-06 02:01:38,828 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.

@@ -2,7 +2,7 @@
   "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML CLADRIBINA 10MG DANAZOL 100MG ISOTRETINOÍNA 10MG LEVETIRACETAM 500MG LEVETIRACETAM 750MG SILDENAFILA 25MG SOMATROPINA 4UI TAFAMIDIS 61MG",
   "hash_ultimo": "50ae95f2361da2b36c714de8c489318e",
   "data_ultimo": "2026-10-05T16:01:28.114229-03:00",
-  "execucoes": 1085,
+  "execucoes": 1086,
   "mudancas": 168,
   "ultima_mudanca": "2026-10-05T16:01:28.114254-03:00",
   "historico_status": [
@@ -280,7 +280,7 @@
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-10-05T16:01:31.086696-03:00",
+  "ultima_execucao_sucesso": "2026-10-05T23:01:38.827474-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-10-05T16:01:31.086764-03:00"
+  "data_atualizacao": "2026-10-05T23:01:38.827592-03:00"
 }
