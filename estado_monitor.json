@@ -1,16 +1,11 @@
 {
-  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML ALFAEPOETINA 2.000 UI CLADRIBINA 10MG DANAZOL 100MG ISOTRETINOÍNA 10MG LEVETIRACETAM 500MG LEVETIRACETAM 750MG PRAVASTATINA 40MG RITUXIMABE 50MG50ML SILDENAFILA 25MG SOMATROPINA 4UI TAFAMIDIS 61MG TOXINA BOTULINICA 500UI",
-  "hash_ultimo": "ce7a36ad437e78d1a1e7955b794032db",
-  "data_ultimo": "2026-10-06T13:27:50.729751-03:00",
-  "execucoes": 1087,
-  "mudancas": 169,
-  "ultima_mudanca": "2026-10-06T13:27:50.729784-03:00",
+  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML ALFAEPOETINA 2.000 UI CLADRIBINA 10MG COMPLEMENTO ALIM. MAIOR DE 8 ANOS DANAZOL 100MG ISOTRETINOÍNA 10MG LEVETIRACETAM 750MG PRAVASTATINA 40MG RITUXIMABE 50MG50ML SOMATROPINA 4UI TAFAMIDIS 61MG TOXINA BOTULINICA 500UI",
+  "hash_ultimo": "b5e29ef46ed783cebb1fd91742f46c51",
+  "data_ultimo": "2026-10-06T22:11:14.400983-03:00",
+  "execucoes": 1088,
+  "mudancas": 170,
+  "ultima_mudanca": "2026-10-06T22:11:14.401015-03:00",
   "historico_status": [
-    {
-      "timestamp": "2026-05-05T08:13:31.527322-03:00",
-      "medicamentos_em_falta": [],
-      "total_em_falta": 0
-    },
     {
       "timestamp": "2026-05-05T19:52:09.453688-03:00",
       "medicamentos_em_falta": [],
@@ -277,10 +272,15 @@
       "timestamp": "2026-10-06T13:27:50.729871-03:00",
       "medicamentos_em_falta": [],
       "total_em_falta": 0
+    },
+    {
+      "timestamp": "2026-10-06T22:11:14.401137-03:00",
+      "medicamentos_em_falta": [],
+      "total_em_falta": 0
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-10-06T13:27:53.389319-03:00",
+  "ultima_execucao_sucesso": "2026-10-06T22:11:16.547445-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-10-06T13:27:53.389476-03:00"
+  "data_atualizacao": "2026-10-06T22:11:16.547601-03:00"
 }
