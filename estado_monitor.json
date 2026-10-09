@@ -2,7 +2,7 @@
   "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML CLADRIBINA 10MG DANAZOL 100MG ISOTRETINOÍNA 10MG LEVETIRACETAM 750MG PRAVASTATINA 40MG RITUXIMABE 50MG50ML SOMATROPINA 4UI TAFAMIDIS 61MG TOXINA BOTULINICA 500UI",
   "hash_ultimo": "9a0cb53ac0c540c31e6541c7d6459188",
   "data_ultimo": "2026-10-08T14:09:01.008963-03:00",
-  "execucoes": 1091,
+  "execucoes": 1092,
   "mudancas": 171,
   "ultima_mudanca": "2026-10-08T14:09:01.008997-03:00",
   "historico_status": [
@@ -280,7 +280,7 @@
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-10-08T14:09:02.898794-03:00",
+  "ultima_execucao_sucesso": "2026-10-08T22:42:35.828315-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-10-08T14:09:02.898922-03:00"
+  "data_atualizacao": "2026-10-08T22:42:35.828427-03:00"
 }
