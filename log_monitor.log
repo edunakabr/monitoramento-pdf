@@ -1,21 +1,3 @@
-2026-09-22 23:58:00,884 |     INFO | Estado salvo com sucesso
-2026-09-22 23:58:00,884 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
-2026-09-23 14:37:57,704 |     INFO | Estado carregado com sucesso. Execução #1060
-2026-09-23 14:37:57,704 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
-2026-09-23 14:37:57,704 |     INFO | Biblioteca PDF: PyPDF2
-2026-09-23 14:37:57,704 |     INFO | Python: 3.11.16 (main, Aug 13 2026, 02:46:14) [GCC 13.3.0]
-2026-09-23 14:37:57,704 |     INFO | Arquivo ID: 1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
-2026-09-23 14:37:57,704 |     INFO | Medicamentos monitorados: DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
-2026-09-23 14:37:57,704 |     INFO | Timezone configurado: America/Sao_Paulo
-2026-09-23 14:37:57,715 |     INFO | === EXECUÇÃO #1061 INICIADA ===
-2026-09-23 14:37:57,715 |     INFO | Tentativa 1 de download...
-2026-09-23 14:37:59,048 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
-2026-09-23 14:37:59,056 |     INFO | Download concluído (41571 bytes) da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
-2026-09-23 14:37:59,164 |     INFO | Texto extraído com PyPDF2 (195 caracteres)
-2026-09-23 14:37:59,165 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Nenhum
-2026-09-23 14:37:59,165 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
-2026-09-23 14:37:59,165 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
-2026-09-23 14:37:59,165 |     INFO | Execução concluída em 1.45s
 2026-09-23 14:37:59,166 |     INFO | Estado salvo com sucesso
 2026-09-23 14:37:59,166 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
 2026-09-24 00:11:45,222 |     INFO | Estado carregado com sucesso. Execução #1061
@@ -1016,3 +998,21 @@
 2026-10-20 00:53:08,170 |     INFO | Execução concluída em 1.57s
 2026-10-20 00:53:08,170 |     INFO | Estado salvo com sucesso
 2026-10-20 00:53:08,171 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
+2026-10-20 14:37:52,052 |     INFO | Estado carregado com sucesso. Execução #1114
+2026-10-20 14:37:52,052 |     INFO | === SISTEMA DE MONITORAMENTO INICIADO ===
+2026-10-20 14:37:52,052 |     INFO | Biblioteca PDF: PyPDF2
+2026-10-20 14:37:52,052 |     INFO | Python: 3.11.17 (main, Oct  1 2026, 14:32:31) [GCC 13.3.0]
+2026-10-20 14:37:52,052 |     INFO | Arquivo ID: 1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
+2026-10-20 14:37:52,052 |     INFO | Medicamentos monitorados: DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
+2026-10-20 14:37:52,052 |     INFO | Timezone configurado: America/Sao_Paulo
+2026-10-20 14:37:52,059 |     INFO | === EXECUÇÃO #1115 INICIADA ===
+2026-10-20 14:37:52,059 |     INFO | Tentativa 1 de download...
+2026-10-20 14:37:53,752 |  WARNING | Conteúdo pode não ser PDF: application/octet-stream da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
+2026-10-20 14:37:53,787 |     INFO | Download concluído (42123 bytes) da URL https://drive.google.com/uc?export=download&id=1-jPRR_PzFgcFBra5zoqRUfh7KWFoSQcY
+2026-10-20 14:37:53,852 |     INFO | Texto extraído com PyPDF2 (222 caracteres)
+2026-10-20 14:37:53,853 |     INFO | Medicamentos EM FALTA (encontrados no PDF): Nenhum
+2026-10-20 14:37:53,853 |     INFO | Medicamentos DISPONÍVEIS (NÃO encontrados no PDF): DONEPEZIL 10MG, MEMANTINA 10MG, GALANTAMINA 24MG
+2026-10-20 14:37:53,853 |     INFO | ℹ️  Nenhuma mudança no PDF ou no status dos medicamentos detectada. Nenhum e-mail enviado.
+2026-10-20 14:37:53,853 |     INFO | Execução concluída em 1.79s
+2026-10-20 14:37:53,854 |     INFO | Estado salvo com sucesso
+2026-10-20 14:37:53,854 |     INFO | Arquivo temporário dados_monitoramento/temp.pdf removido.
