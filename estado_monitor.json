@@ -1,18 +1,11 @@
 {
-  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML CLADRIBINA 10MG DANAZOL 100MG ENTECAVIR 0,5MG ISOTRETINOÍNA 10MG LEVETIRACETAM 750MG PRAVASTATINA 40MG RITUXIMABE 50MG50ML SOMATROPINA 4UI TAFAMIDIS 61MG TRIPTORRELINA 22,5 MG",
-  "hash_ultimo": "131a0f701c0e87ebeb0ade8d581ab03e",
-  "data_ultimo": "2026-10-16T21:07:17.530931-03:00",
-  "execucoes": 1126,
-  "mudancas": 174,
-  "ultima_mudanca": "2026-10-16T21:07:17.530957-03:00",
+  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML CLADRIBINA 10MG ENTECAVIR 0,5MG ISOTRETINOÍNA 10MG LEVETIRACETAM 750MG PRAVASTATINA 40MG SOMATROPINA 4UI TAFAMIDIS 61MG TRIPTORRELINA 22,5 MG",
+  "hash_ultimo": "4d8c6720cff3b1c80d0326a92db7828f",
+  "data_ultimo": "2026-10-26T13:25:56.129015-03:00",
+  "execucoes": 1127,
+  "mudancas": 175,
+  "ultima_mudanca": "2026-10-26T13:25:56.129045-03:00",
   "historico_status": [
-    {
-      "timestamp": "2026-05-08T19:52:35.802170-03:00",
-      "medicamentos_em_falta": [
-        "GALANTAMINA 24MG"
-      ],
-      "total_em_falta": 1
-    },
     {
       "timestamp": "2026-05-12T19:56:35.008585-03:00",
       "medicamentos_em_falta": [
@@ -273,10 +266,15 @@
       "timestamp": "2026-10-16T21:07:17.531002-03:00",
       "medicamentos_em_falta": [],
       "total_em_falta": 0
+    },
+    {
+      "timestamp": "2026-10-26T13:25:56.129126-03:00",
+      "medicamentos_em_falta": [],
+      "total_em_falta": 0
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-10-25T20:45:26.976066-03:00",
+  "ultima_execucao_sucesso": "2026-10-26T13:25:59.158831-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-10-25T20:45:26.976217-03:00"
+  "data_atualizacao": "2026-10-26T13:25:59.158953-03:00"
 }
