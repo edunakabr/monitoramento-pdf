@@ -2,7 +2,7 @@
   "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML CLADRIBINA 10MG ENTECAVIR 0,5MG ISOTRETINOÍNA 10MG LEVETIRACETAM 750MG PRAVASTATINA 40MG SOMATROPINA 4UI TAFAMIDIS 61MG TRIPTORRELINA 22,5 MG",
   "hash_ultimo": "4d8c6720cff3b1c80d0326a92db7828f",
   "data_ultimo": "2026-10-26T13:25:56.129015-03:00",
-  "execucoes": 1129,
+  "execucoes": 1130,
   "mudancas": 175,
   "ultima_mudanca": "2026-10-26T13:25:56.129045-03:00",
   "historico_status": [
@@ -274,7 +274,7 @@
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-10-27T12:41:11.698276-03:00",
+  "ultima_execucao_sucesso": "2026-10-27T21:56:10.083460-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-10-27T12:41:11.698372-03:00"
+  "data_atualizacao": "2026-10-27T21:56:10.083550-03:00"
 }
