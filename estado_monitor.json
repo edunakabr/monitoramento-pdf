@@ -2,7 +2,7 @@
   "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML CLADRIBINA 10MG ENTECAVIR 0,5MG ISOTRETINOÍNA 10MG LEVETIRACETAM 750MG PRAVASTATINA 40MG PROTETOR SOLAR TAFAMIDIS 61MG",
   "hash_ultimo": "0a4406481df3a243d5c70067e0d0f093",
   "data_ultimo": "2026-10-28T13:24:06.960145-03:00",
-  "execucoes": 1140,
+  "execucoes": 1141,
   "mudancas": 176,
   "ultima_mudanca": "2026-10-28T13:24:06.960174-03:00",
   "historico_status": [
@@ -272,7 +272,7 @@
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-11-01T22:11:38.187732-03:00",
+  "ultima_execucao_sucesso": "2026-11-02T16:56:55.922838-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-11-01T22:11:38.187828-03:00"
+  "data_atualizacao": "2026-11-02T16:56:55.922924-03:00"
 }
