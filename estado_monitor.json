@@ -2,7 +2,7 @@
   "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML CLADRIBINA 10MG DEFERASIROX 250 MG ISOTRETINOÍNA 10MG LEVETIRACETAM 500MG PRAVASTATINA 40MG PROTETOR SOLAR SILDENAFILA 25MG TAFAMIDIS 61MG TENOFOVIR 300MG UPADACITINIBE 15MG",
   "hash_ultimo": "8c5796e90a328741b977d06a057d1fcf",
   "data_ultimo": "2026-11-10T22:40:52.842660-03:00",
-  "execucoes": 1158,
+  "execucoes": 1159,
   "mudancas": 179,
   "ultima_mudanca": "2026-11-10T22:40:52.842703-03:00",
   "historico_status": [
@@ -266,7 +266,7 @@
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-11-10T22:40:55.572860-03:00",
+  "ultima_execucao_sucesso": "2026-11-11T14:39:43.495296-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-11-10T22:40:55.572940-03:00"
+  "data_atualizacao": "2026-11-11T14:39:43.495371-03:00"
 }
