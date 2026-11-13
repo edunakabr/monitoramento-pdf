@@ -1,18 +1,11 @@
 {
-  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML CLADRIBINA 10MG DEFERASIROX 250 MG ENTECAVIR 0,5MG ISOTRETINOÍNA 10MG LEVETIRACETAM 500MG PRAVASTATINA 40MG PROTETOR SOLAR SILDENAFILA 25MG TAFAMIDIS 61MG TENOFOVIR 300MG UPADACITINIBE 15MG ZIPRASIDONA 40MG",
-  "hash_ultimo": "02d767e39e39f4943e68eab5d95ffd07",
-  "data_ultimo": "2026-11-12T14:52:48.409299-03:00",
-  "execucoes": 1162,
-  "mudancas": 180,
-  "ultima_mudanca": "2026-11-12T14:52:48.409329-03:00",
+  "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML CLADRIBINA 10MG ENTECAVIR 0,5MG ISOTRETINOÍNA 10MG LEVETIRACETAM 500MG PROTETOR SOLAR SILDENAFILA 25MG TAFAMIDIS 61MG TENOFOVIR 300MG UPADACITINIBE 15MG ZIPRASIDONA 40MG",
+  "hash_ultimo": "c0d90eb20cf748a2302d63c50d512f89",
+  "data_ultimo": "2026-11-13T14:28:29.334308-03:00",
+  "execucoes": 1163,
+  "mudancas": 181,
+  "ultima_mudanca": "2026-11-13T14:28:29.334341-03:00",
   "historico_status": [
-    {
-      "timestamp": "2026-05-20T20:08:47.371514-03:00",
-      "medicamentos_em_falta": [
-        "GALANTAMINA 24MG"
-      ],
-      "total_em_falta": 1
-    },
     {
       "timestamp": "2026-05-21T19:59:34.960901-03:00",
       "medicamentos_em_falta": [
@@ -261,10 +254,15 @@
       "timestamp": "2026-11-12T14:52:48.409383-03:00",
       "medicamentos_em_falta": [],
       "total_em_falta": 0
+    },
+    {
+      "timestamp": "2026-11-13T14:28:29.334431-03:00",
+      "medicamentos_em_falta": [],
+      "total_em_falta": 0
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-11-12T23:20:37.070056-03:00",
+  "ultima_execucao_sucesso": "2026-11-13T14:28:32.460738-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-11-12T23:20:37.070120-03:00"
+  "data_atualizacao": "2026-11-13T14:28:32.460832-03:00"
 }
