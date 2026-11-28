@@ -2,7 +2,7 @@
   "texto_ultimo": "MEDICAMENTOS EM FALTA ALENTUZUMABE 10MGML CLADRIBINA 10MG CODEINA 3MGML SOL. ORAL ENTECAVIR 0,5MG ISOTRETINOÍNA 10MG SILDENAFILA 25MG TENOFOVIR 300MG UPADACITINIBE 15MG ZIPRASIDONA 40MG",
   "hash_ultimo": "909ba575bc8c720e64aa9f5397c646a1",
   "data_ultimo": "2026-11-23T18:52:09.096251-03:00",
-  "execucoes": 1191,
+  "execucoes": 1192,
   "mudancas": 183,
   "ultima_mudanca": "2026-11-23T18:52:09.096282-03:00",
   "historico_status": [
@@ -258,7 +258,7 @@
     }
   ],
   "erros_consecutivos": 0,
-  "ultima_execucao_sucesso": "2026-11-27T16:18:49.029848-03:00",
+  "ultima_execucao_sucesso": "2026-11-28T00:41:39.950250-03:00",
   "medicamentos_em_falta_ultimo": [],
-  "data_atualizacao": "2026-11-27T16:18:49.029969-03:00"
+  "data_atualizacao": "2026-11-28T00:41:39.950342-03:00"
 }
